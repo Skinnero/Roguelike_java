@@ -29,9 +29,9 @@ public class Tiles {
         tileMap.put("walkable", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("skeleton", new Tile(29, 6));
-        tileMap.put("food", new Tile(17, 29));
-//        tileMap.put("skeleton", new Tile(29, 6));
-//        tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("food", new Tile(15, 29));
+        tileMap.put("key", new Tile(16, 23));
+        tileMap.put("sword", new Tile(2, 28));
 
     }
 

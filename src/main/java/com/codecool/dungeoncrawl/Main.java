@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.CellType;
 import com.codecool.dungeoncrawl.logic.ui.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.ui.Tiles;
@@ -10,11 +9,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -23,20 +21,32 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
-    Label healthLabel = new Label();
+    Text healthText = new Text();
+    Text defenseText = new Text();
+    Text attackText = new Text();
+    Text inventoryText = new Text();
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
-        ui.setPadding(new Insets(10));
+        ui.setPadding(new Insets(10, 10, 10, 10));
+        ui.setStyle("-fx-background-color: #482c3c;" +
+                "-fx-font-size: 20px;" +
+                "-fx-font-family: Comic Sans MS;");
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+        ui.add(new Text("Health: "), 0, 1);
+        ui.add(healthText, 1, 1);
+        ui.add(new Text("Defense: "), 0, 2);
+        ui.add(defenseText, 1, 2);
+        ui.add(new Text("Attack: "), 0, 3);
+        ui.add(attackText, 1, 3);
+        ui.add(new Text("Inventory: "), 0, 4);
+        ui.add(inventoryText, 0, 5);
 
         BorderPane borderPane = new BorderPane();
 
@@ -54,34 +64,26 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case UP:
-//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy).getType() == CellType.UNWALKABLE) {
-//                    break;
-//                }
+            case UP, W:
                 map.getPlayer().move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
                 refresh();
                 break;
-            case DOWN:
-//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy).getType() == CellType.UNWALKABLE) {
-//                    break;
-//                }
+            case DOWN, S:
                 map.getPlayer().move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
                 refresh();
                 break;
-            case LEFT:
-//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy).getType() == CellType.UNWALKABLE) {
-//                    break;
-//                }
+            case LEFT, D:
                 map.getPlayer().move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
                 refresh();
                 break;
-            case RIGHT:
-//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy).getType() == CellType.UNWALKABLE) {
-//                    break;
-//                }
+            case RIGHT, A:
                 map.getPlayer().move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
                 refresh();
                 break;
+            case ESCAPE:
+                System.exit(0);
+            case I:
+
         }
     }
 
@@ -100,6 +102,11 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
+        healthText.setText(String.valueOf(map.getPlayer().getHealth()));
+        attackText.setText(String.valueOf(map.getPlayer().getAttack()));
+        defenseText.setText(String.valueOf(map.getPlayer().getDefense()));
+        StringBuilder inventoryTextBuilder = new StringBuilder();
+        map.getPlayer().getEquipment().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName()).append("\n"));
+        inventoryText.setText(String.valueOf(inventoryTextBuilder));
     }
 }

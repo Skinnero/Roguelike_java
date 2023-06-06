@@ -1,4 +1,14 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-public class Key {
+import com.codecool.dungeoncrawl.logic.ui.Cell;
+
+public class Key extends Item{
+    public Key(Cell cell) {
+        super(cell);
+    }
+
+    @Override
+    public String getTileName() {
+        return "key";
+    }
 }

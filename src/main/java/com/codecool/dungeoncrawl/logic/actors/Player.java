@@ -3,11 +3,8 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.ui.Cell;
 import com.codecool.dungeoncrawl.logic.ui.CellType;
-import com.codecool.dungeoncrawl.logic.ui.Inventory;
+import com.codecool.dungeoncrawl.logic.items.Inventory;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Player extends Actor {
@@ -37,6 +34,10 @@ public class Player extends Actor {
         getCell().setActor(null);
         nextCell.setActor(this);
         setCell(nextCell);
+    }
+
+    public Inventory<Item> getEquipment() {
+        return equipment;
     }
 
     private void addItemToInventory(Item item) {

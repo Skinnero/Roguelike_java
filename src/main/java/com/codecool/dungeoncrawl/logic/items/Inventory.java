@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -20,5 +20,9 @@ public class Inventory<T extends Item> {
 
     public Item getItem(int inventoryIndex) {
         return inventory.get(inventoryIndex);
+    }
+
+    public List<T> getInventory() {
+        return inventory;
     }
 }
