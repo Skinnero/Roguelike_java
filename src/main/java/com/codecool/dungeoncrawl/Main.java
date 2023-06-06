@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.ui.Cell;
+import com.codecool.dungeoncrawl.logic.ui.CellType;
+import com.codecool.dungeoncrawl.logic.ui.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.ui.Tiles;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,9 +12,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -39,7 +41,7 @@ public class Main extends Application {
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        borderPane.setLeft(ui);
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
@@ -53,19 +55,31 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
+//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy).getType() == CellType.UNWALKABLE) {
+//                    break;
+//                }
+                map.getPlayer().move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
                 refresh();
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
+//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy).getType() == CellType.UNWALKABLE) {
+//                    break;
+//                }
+                map.getPlayer().move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
                 refresh();
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
+//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy).getType() == CellType.UNWALKABLE) {
+//                    break;
+//                }
+                map.getPlayer().move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
+//                if (map.getPlayer().getCell().getNeighbor(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy).getType() == CellType.UNWALKABLE) {
+//                    break;
+//                }
+                map.getPlayer().move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
                 refresh();
                 break;
         }
@@ -79,6 +93,8 @@ public class Main extends Application {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
+                } else if (cell.getItem() != null) {
+                    Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
                 }

@@ -1,13 +1,58 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.ui.Cell;
+import com.codecool.dungeoncrawl.logic.ui.CellType;
+import com.codecool.dungeoncrawl.logic.ui.Inventory;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Player extends Actor {
+    private final Inventory<Item> equipment = new Inventory<>();
+
     public Player(Cell cell) {
         super(cell);
     }
-
+    @Override
     public String getTileName() {
         return "player";
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        Cell nextCell = getCell().getNeighbor(dx, dy);
+        if (nextCell.getType() == CellType.UNWALKABLE) {
+            return;
+        } else if (!Objects.isNull(nextCell.getActor())) {
+            makeAttack(nextCell);
+            if (!nextCell.getActor().isDead()) {
+                return;
+            }
+        } else if (!Objects.isNull(nextCell.getItem()) && !isInventoryFull()) {
+            pickItem(nextCell);
+        }
+        getCell().setActor(null);
+        nextCell.setActor(this);
+        setCell(nextCell);
+    }
+
+    private void addItemToInventory(Item item) {
+        equipment.addItem(item);
+    }
+
+    private boolean isInventoryFull() {
+        return equipment.isInventoryFull();
+    }
+
+    private void pickItem(Cell cell) {
+        addItemToInventory(cell.getItem());
+        cell.setItem(null);
+    }
+
+    private void makeAttack(Cell cell) {
+        cell.getActor().setHealth(cell.getActor().getHealth() - getAttack());
     }
 }
