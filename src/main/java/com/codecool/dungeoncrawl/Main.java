@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.Movement;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -51,20 +52,37 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        Movement movement = new Movement();
         switch (keyEvent.getCode()) {
             case UP:
+                int[] vector  = new int[] {0, -1};
+                if (!movement.isMovePossible(map, vector)) {
+                    break;
+                }
                 map.getPlayer().move(0, -1);
                 refresh();
                 break;
             case DOWN:
+                vector  = new int[] {0, 1};
+                if (!movement.isMovePossible(map, vector)) {
+                    break;
+                }
                 map.getPlayer().move(0, 1);
                 refresh();
                 break;
             case LEFT:
+                vector  = new int[] {-1, 0};
+                if (!movement.isMovePossible(map, vector)) {
+                    break;
+                }
                 map.getPlayer().move(-1, 0);
                 refresh();
                 break;
             case RIGHT:
+                vector  = new int[] {1, 0};
+                if (!movement.isMovePossible(map, vector)) {
+                    break;
+                }
                 map.getPlayer().move(1,0);
                 refresh();
                 break;
