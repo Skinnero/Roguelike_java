@@ -13,20 +13,18 @@ public enum ObjectChar {
     OGRE('O'),
     MAGE('M');
 
-    private final char[] chars;
+    private final char ch;
 
-    ObjectChar(char... chars) {
-        this.chars = chars;
+    ObjectChar(char ch) {
+        this.ch = ch;
     }
 
-    public static ObjectChar fromChar(char c) {
-        for (ObjectChar ch : values()) {
-            for (char charac : ch.chars) {
-                if (charac == c) {
-                    return ch;
-                }
+    public static ObjectChar fromChar(char ch) {
+        for (ObjectChar type : values()) {
+            if (type.ch == ch) {
+                return type;
             }
         }
-        throw new RuntimeException("Unrecognized character: '" + c + "'");
+        throw new RuntimeException("Unrecognized character: '" + ch + "'");
     }
 }
