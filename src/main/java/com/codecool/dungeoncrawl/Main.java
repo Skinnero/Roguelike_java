@@ -18,9 +18,10 @@ import javafx.stage.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
+    //creating game window
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            20 * Tiles.TILE_WIDTH,
+            15 * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Text healthText = new Text();
     Text defenseText = new Text();
@@ -66,6 +67,7 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
+
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP, W -> {
@@ -146,17 +148,30 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
+
+        int playerX = map.getPlayer().getX();
+        int playerY = map.getPlayer().getY();
+
+        // left boundary of view
+        int startX = Math.max(0, playerX - (int) (canvas.getWidth() / Tiles.TILE_WIDTH / 2));
+        // top boundary of view
+        int startY = Math.max(0, playerY - (int) (canvas.getHeight() / Tiles.TILE_WIDTH / 2));
+        // right boundary of view
+        int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_WIDTH));
+        // bottom boundary of view
+        int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_WIDTH));
+
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
+                    Tiles.drawTile(context, cell.getActor(), x - startX, y - startY);
                 } else if (cell.getItem() != null) {
-                    Tiles.drawTile(context, cell.getItem(), x, y);
+                    Tiles.drawTile(context, cell.getItem(), x - startX, y - startY);
                 } else if (cell.getGameObject() != null) {
-                    Tiles.drawTile(context, cell.getGameObject(), x, y);
+                    Tiles.drawTile(context, cell.getGameObject(), x - startX, y - startY);
                 } else {
-                    Tiles.drawTile(context, cell, x, y);
+                    Tiles.drawTile(context, cell, x - startX, y - startY);
                 }
             }
         }
