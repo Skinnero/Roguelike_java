@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.ui.Cell;
 
 public class Food extends Item {
@@ -7,6 +8,10 @@ public class Food extends Item {
         super(cell);
     }
 
+
+    public void onUse(Player player) {
+        player.setHealth(player.getHealth() + 2);
+    }
     @Override
     public String getTileName() {
         return "food";

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.ui;
 
 import com.codecool.dungeoncrawl.logic.items.Food;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -12,9 +13,11 @@ public class Tiles {
     public static int TILE_WIDTH = 32;
 
     private static final Image tileset = new Image("/tiles.png", 543 * 2, 543 * 2, true, false);
-    private static final Map<String, Tile> tileMap = new HashMap<>();
+    public static final Map<String, Tile> tileMap = new HashMap<>();
+
     public static class Tile {
         public final int x, y, w, h;
+
         Tile(int i, int j) {
             x = i * (TILE_WIDTH + 2);
             y = j * (TILE_WIDTH + 2);
@@ -32,6 +35,8 @@ public class Tiles {
         tileMap.put("food", new Tile(15, 29));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("sword", new Tile(2, 28));
+        tileMap.put("closed_gate", new Tile(3, 4));
+        tileMap.put("open_gate", new Tile(4, 4));
 
     }
 

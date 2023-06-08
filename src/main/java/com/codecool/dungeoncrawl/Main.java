@@ -9,11 +9,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.*;
+
+import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -32,6 +35,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10, 10, 10, 10));
@@ -56,36 +60,56 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyPressed(keyEvent -> {
+            onKeyPressed(keyEvent, primaryStage);
+        });
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
 
-    private void onKeyPressed(KeyEvent keyEvent) {
+    private void onKeyPressed(KeyEvent keyEvent, Stage primaryStage) {
         switch (keyEvent.getCode()) {
-            case UP, W:
+            case UP, W -> {
                 map.getPlayer().move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
                 refresh();
-                break;
-            case DOWN, S:
+            }
+            case DOWN, S -> {
                 map.getPlayer().move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
                 refresh();
-                break;
-            case LEFT, D:
+            }
+            case LEFT, A -> {
                 map.getPlayer().move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
                 refresh();
-                break;
-            case RIGHT, A:
+            }
+            case RIGHT, D -> {
                 map.getPlayer().move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
                 refresh();
-                break;
-            case ESCAPE:
-                System.exit(0);
-            case I:
+            }
+            case ESCAPE -> System.exit(0);
+            case I -> {
+                getModalInventory(primaryStage);
+            }
+
 
         }
     }
+
+    private void getModalInventory(Stage primaryStage) {
+        Stage modalStage = new Stage();
+        modalStage.initOwner(primaryStage);
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.initStyle(StageStyle.UTILITY);
+        modalStage.setTitle("Modal window");
+
+        VBox modalRoot = new VBox();
+        Scene modalScene = new Scene(modalRoot, 200, 150);
+
+        modalStage.setScene(modalScene);
+        modalStage.showAndWait();
+
+    }
+
 
     private void refresh() {
         context.setFill(Color.BLACK);
@@ -97,6 +121,8 @@ public class Main extends Application {
                     Tiles.drawTile(context, cell.getActor(), x, y);
                 } else if (cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
+                } else if (cell.getGameObject() != null) {
+                    Tiles.drawTile(context, cell.getGameObject(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
                 }

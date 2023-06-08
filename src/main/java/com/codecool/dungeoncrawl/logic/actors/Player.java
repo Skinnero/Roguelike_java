@@ -13,6 +13,7 @@ public class Player extends Actor {
     public Player(Cell cell) {
         super(cell);
     }
+
     @Override
     public String getTileName() {
         return "player";
@@ -30,6 +31,8 @@ public class Player extends Actor {
             }
         } else if (!Objects.isNull(nextCell.getItem()) && !isInventoryFull()) {
             pickItem(nextCell);
+        } else if (!Objects.isNull(nextCell.getGameObject()) && nextCell.getGameObject().isInteractive()) {
+            return;
         }
         getCell().setActor(null);
         nextCell.setActor(this);
