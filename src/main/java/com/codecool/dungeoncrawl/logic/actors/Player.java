@@ -29,14 +29,28 @@ public class Player extends Actor {
             if (!nextCell.getActor().isDead()) {
                 return;
             }
-        } else if (!Objects.isNull(nextCell.getItem()) && !isInventoryFull()) {
-            pickItem(nextCell);
-        } else if (!Objects.isNull(nextCell.getGameObject()) && nextCell.getGameObject().isInteractive()) {
+        }
+        else if (!Objects.isNull(nextCell.getGameObject()) && nextCell.getGameObject().isInteractive()) {
             return;
         }
         getCell().setActor(null);
         nextCell.setActor(this);
         setCell(nextCell);
+    }
+    public void pickUpItem() {
+        if (isInventoryFull() || Objects.isNull(getCell().getItem())) {
+            return;
+        }
+        addItemToInventory(getCell().getItem());
+        getCell().getItem().removeItemFromMap();
+    }
+
+    public void useItem(int itemSlot) {
+        if (equipment.getInventory().size() <= itemSlot ) {
+            return;
+        }
+        equipment.getItem(itemSlot).onUse(this);
+        equipment.getInventory().remove(itemSlot);
     }
 
     public Inventory<Item> getEquipment() {
@@ -49,11 +63,6 @@ public class Player extends Actor {
 
     private boolean isInventoryFull() {
         return equipment.isInventoryFull();
-    }
-
-    private void pickItem(Cell cell) {
-        addItemToInventory(cell.getItem());
-        cell.setItem(null);
     }
 
     private void makeAttack(Cell cell) {

@@ -15,7 +15,12 @@ public abstract class Item implements Drawable{
     public void onUse(Player player) {
     }
 
+    public void removeItemFromMap() {
+        this.cell.setItem(null);
+    }
+
     public Cell getCell() {
         return cell;
     }
+
 }

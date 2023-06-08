@@ -13,7 +13,6 @@ public abstract class GameObject implements Drawable {
     }
 
     public void onInteraction() {
-
     }
 
     public Cell getCell() {

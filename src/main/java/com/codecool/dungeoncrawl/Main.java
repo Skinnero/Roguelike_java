@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actorutils.KeyArrowCoordinates;
+import com.codecool.dungeoncrawl.logic.actorutils.KeyBinds;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
@@ -58,73 +60,11 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
-//        scene.setOnKeyPressed(keyEvent -> {
-//            onKeyPressed(keyEvent, primaryStage);
-//        });
-
+        scene.setOnKeyPressed(keyEvent -> {
+            onKeyPressed(keyEvent, map.getPlayer());
+        });
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-    }
-    private void onKeyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-            case UP, W -> {
-                map.getPlayer().move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
-                refresh();
-            }
-            case DOWN, S -> {
-                map.getPlayer().move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
-                refresh();
-            }
-            case LEFT, A -> {
-                map.getPlayer().move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
-                refresh();
-            }
-            case RIGHT, D -> {
-                map.getPlayer().move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
-                refresh();
-            }
-            case ESCAPE -> System.exit(0);
-//            case I -> {
-//                getModalInventory(primaryStage);
-//            }
-        }
-//    private void onKeyPressed(KeyEvent keyEvent) {
-//        Movement movement = new Movement();
-//        switch (keyEvent.getCode()) {
-//            case UP:
-//                int[] vector  = new int[] {KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy};
-//                if (!movement.isMovePossible(map, vector)) {
-//                    break;
-//                }
-//                map.getPlayer().move(0, -1);
-//                refresh();
-//                break;
-//            case DOWN:
-//                vector  = new int[] {0, 1};
-//                if (!movement.isMovePossible(map, vector)) {
-//                    break;
-//                }
-//                map.getPlayer().move(0, 1);
-//                refresh();
-//                break;
-//            case LEFT:
-//                vector  = new int[] {-1, 0};
-//                if (!movement.isMovePossible(map, vector)) {
-//                    break;
-//                }
-//                map.getPlayer().move(-1, 0);
-//                refresh();
-//                break;
-//            case RIGHT:
-//                vector  = new int[] {1, 0};
-//                if (!movement.isMovePossible(map, vector)) {
-//                    break;
-//                }
-//                map.getPlayer().move(1,0);
-//                refresh();
-//            }
-
     }
 
     private void getModalInventory(Stage primaryStage) {
@@ -143,7 +83,7 @@ public class Main extends Application {
     }
 
 
-    private void refresh() {
+    public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -166,5 +106,73 @@ public class Main extends Application {
         StringBuilder inventoryTextBuilder = new StringBuilder();
         map.getPlayer().getEquipment().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName()).append("\n"));
         inventoryText.setText(String.valueOf(inventoryTextBuilder));
+    }
+
+    public void onKeyPressed(KeyEvent keyEvent, Player player) {
+        switch (keyEvent.getCode()) {
+            case UP, W -> {
+                player.move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
+                refresh();
+            }
+            case DOWN, S -> {
+                player.move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
+                refresh();
+            }
+            case LEFT, A -> {
+                player.move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
+                refresh();
+            }
+            case RIGHT, D -> {
+                player.move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
+                refresh();
+            }
+            case G -> {
+                player.pickUpItem();
+                refresh();
+            }
+            case I -> {
+            }
+            case DIGIT1 -> {
+                player.useItem(0);
+                refresh();
+            }
+            case DIGIT2 -> {
+                player.useItem(1);
+                refresh();
+            }
+            case DIGIT3 -> {
+                player.useItem(2);
+                refresh();
+            }
+            case DIGIT4 -> {
+                player.useItem(3);
+                refresh();
+            }
+            case DIGIT5 -> {
+                player.useItem(4);
+                refresh();
+            }
+            case DIGIT6 -> {
+                player.useItem(5);
+                refresh();
+            }
+            case DIGIT7 -> {
+                player.useItem(6);
+                refresh();
+            }
+            case DIGIT8 -> {
+                player.useItem(7);
+                refresh();
+            }
+            case DIGIT9 -> {
+                player.useItem(8);
+                refresh();
+            }
+            case DIGIT0 -> {
+                player.useItem(9);
+                refresh();
+            }
+            case ESCAPE -> System.exit(0);
+        }
     }
 }

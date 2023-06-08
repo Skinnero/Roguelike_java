@@ -1,11 +1,10 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-import com.codecool.dungeoncrawl.logic.items.Item;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory<T extends Item> {
+    // It shouldn't be generic, should be a list<Item> because of it's lack of usage
 
     private final List<T> inventory = new ArrayList<>();
 
