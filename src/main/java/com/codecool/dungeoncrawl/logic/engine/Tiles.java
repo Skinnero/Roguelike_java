@@ -1,8 +1,5 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
-import com.codecool.dungeoncrawl.logic.items.Food;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -37,7 +34,8 @@ public class Tiles {
         tileMap.put("sword", new Tile(2, 28));
         tileMap.put("closed_gate", new Tile(3, 4));
         tileMap.put("open_gate", new Tile(4, 4));
-
+        tileMap.put("ogre", new Tile(30, 6));
+        tileMap.put("mage", new Tile(24, 6));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
 public interface Drawable {
     String getTileName();

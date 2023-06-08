@@ -1,14 +1,16 @@
-package com.codecool.dungeoncrawl.logic;
+package com.codecool.dungeoncrawl.logic.filemanagement;
 
+import com.codecool.dungeoncrawl.logic.actors.Mage;
+import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
 import com.codecool.dungeoncrawl.logic.items.Food;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.CellType;
-import com.codecool.dungeoncrawl.logic.ui.GameMap;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.CellType;
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -40,6 +42,7 @@ public class MapLoader {
                             break;
                         case 's':
                             cell.setType(CellType.WALKABLE);
+//                            cell.setType(CellType.ENEMY);
                             new Skeleton(cell);
                             break;
                         case '@':
@@ -61,6 +64,14 @@ public class MapLoader {
                         case 'g':
                             cell.setType(CellType.WALKABLE);
                             new Gate(cell);
+                            break;
+                        case 'O':
+//                            cell.setType(CellType.ENEMY);
+                            new Ogre(cell);
+                            break;
+                        case 'M':
+//                            cell.setType(CellType.ENEMY);
+                            new Mage(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

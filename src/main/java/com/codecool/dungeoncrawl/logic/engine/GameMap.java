@@ -1,8 +1,6 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.CellType;
 
 public class GameMap {
     private int width;
@@ -41,4 +39,5 @@ public class GameMap {
     public int getHeight() {
         return height;
     }
+
 }

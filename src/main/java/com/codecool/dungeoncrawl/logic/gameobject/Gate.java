@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobject;
 
-import com.codecool.dungeoncrawl.logic.ui.Cell;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
 
 public class Gate extends GameObject {
 

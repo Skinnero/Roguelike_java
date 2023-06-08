@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;

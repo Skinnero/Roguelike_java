@@ -1,9 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.Drawable;
-
-import java.util.Objects;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.Drawable;
 
 public abstract class Actor implements Drawable{
     private Cell cell;

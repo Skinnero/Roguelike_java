@@ -1,9 +1,10 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
 public enum CellType {
     VOID("void"),
     WALKABLE("walkable"),
-    UNWALKABLE("unwalkable");
+    UNWALKABLE("unwalkable"),
+    ENEMY("enemy");
 
     private final String tileName;
 

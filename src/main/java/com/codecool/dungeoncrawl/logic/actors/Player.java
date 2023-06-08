@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.CellType;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 
 import java.util.Objects;

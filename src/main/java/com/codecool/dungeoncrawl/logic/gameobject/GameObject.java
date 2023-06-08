@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobject;
 
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.Drawable;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.Drawable;
 
 public abstract class GameObject implements Drawable {
     private final Cell cell;

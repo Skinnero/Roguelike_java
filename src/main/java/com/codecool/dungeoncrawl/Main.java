@@ -1,22 +1,20 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.ui.Tiles;
+import com.codecool.dungeoncrawl.logic.actorutils.KeyArrowCoordinates;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
+import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
+import com.codecool.dungeoncrawl.logic.engine.Tiles;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.*;
-
-import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -42,7 +40,7 @@ public class Main extends Application {
         ui.setStyle("-fx-background-color: #482c3c;" +
                 "-fx-font-size: 20px;" +
                 "-fx-font-family: Comic Sans MS;");
-
+        // TODO: MOVE TO UI PACKAGE
         ui.add(new Text("Health: "), 0, 1);
         ui.add(healthText, 1, 1);
         ui.add(new Text("Defense: "), 0, 2);
@@ -60,15 +58,15 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
-        scene.setOnKeyPressed(keyEvent -> {
-            onKeyPressed(keyEvent, primaryStage);
-        });
+        scene.setOnKeyPressed(this::onKeyPressed);
+//        scene.setOnKeyPressed(keyEvent -> {
+//            onKeyPressed(keyEvent, primaryStage);
+//        });
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
-
-    private void onKeyPressed(KeyEvent keyEvent, Stage primaryStage) {
+    private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP, W -> {
                 map.getPlayer().move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
@@ -87,12 +85,46 @@ public class Main extends Application {
                 refresh();
             }
             case ESCAPE -> System.exit(0);
-            case I -> {
-                getModalInventory(primaryStage);
-            }
-
-
+//            case I -> {
+//                getModalInventory(primaryStage);
+//            }
         }
+//    private void onKeyPressed(KeyEvent keyEvent) {
+//        Movement movement = new Movement();
+//        switch (keyEvent.getCode()) {
+//            case UP:
+//                int[] vector  = new int[] {KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy};
+//                if (!movement.isMovePossible(map, vector)) {
+//                    break;
+//                }
+//                map.getPlayer().move(0, -1);
+//                refresh();
+//                break;
+//            case DOWN:
+//                vector  = new int[] {0, 1};
+//                if (!movement.isMovePossible(map, vector)) {
+//                    break;
+//                }
+//                map.getPlayer().move(0, 1);
+//                refresh();
+//                break;
+//            case LEFT:
+//                vector  = new int[] {-1, 0};
+//                if (!movement.isMovePossible(map, vector)) {
+//                    break;
+//                }
+//                map.getPlayer().move(-1, 0);
+//                refresh();
+//                break;
+//            case RIGHT:
+//                vector  = new int[] {1, 0};
+//                if (!movement.isMovePossible(map, vector)) {
+//                    break;
+//                }
+//                map.getPlayer().move(1,0);
+//                refresh();
+//            }
+
     }
 
     private void getModalInventory(Stage primaryStage) {
