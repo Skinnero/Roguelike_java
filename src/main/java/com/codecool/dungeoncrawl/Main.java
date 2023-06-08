@@ -161,6 +161,17 @@ public class Main extends Application {
         // bottom boundary of view
         int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_WIDTH));
 
+        createMap(startX, startY, endX, endY);
+
+        healthText.setText(String.valueOf(map.getPlayer().getHealth()));
+        attackText.setText(String.valueOf(map.getPlayer().getAttack()));
+        defenseText.setText(String.valueOf(map.getPlayer().getDefense()));
+        StringBuilder inventoryTextBuilder = new StringBuilder();
+        map.getPlayer().getEquipment().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName()).append("\n"));
+        inventoryText.setText(String.valueOf(inventoryTextBuilder));
+    }
+
+    private void createMap(int startX, int startY, int endX, int endY) {
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
                 Cell cell = map.getCell(x, y);
@@ -175,11 +186,5 @@ public class Main extends Application {
                 }
             }
         }
-        healthText.setText(String.valueOf(map.getPlayer().getHealth()));
-        attackText.setText(String.valueOf(map.getPlayer().getAttack()));
-        defenseText.setText(String.valueOf(map.getPlayer().getDefense()));
-        StringBuilder inventoryTextBuilder = new StringBuilder();
-        map.getPlayer().getEquipment().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName()).append("\n"));
-        inventoryText.setText(String.valueOf(inventoryTextBuilder));
     }
 }
