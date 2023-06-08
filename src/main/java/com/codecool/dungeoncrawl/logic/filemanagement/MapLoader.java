@@ -4,13 +4,13 @@ import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.CellType;
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
 import com.codecool.dungeoncrawl.logic.items.Food;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
-import com.codecool.dungeoncrawl.logic.engine.Cell;
-import com.codecool.dungeoncrawl.logic.engine.CellType;
-import com.codecool.dungeoncrawl.logic.engine.GameMap;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -30,46 +30,46 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
-                    switch (line.charAt(x)) {
-                        case ' ':
+                    switch (ObjectChar.fromChar(line.charAt(x))) {
+                        case VOID:
                             cell.setType(CellType.VOID);
                             break;
-                        case '#':
+                        case WALL:
                             cell.setType(CellType.UNWALKABLE);
                             break;
-                        case '.':
+                        case FLOOR:
                             cell.setType(CellType.WALKABLE);
                             break;
-                        case 's':
+                        case SKELETON:
                             cell.setType(CellType.WALKABLE);
 //                            cell.setType(CellType.ENEMY);
                             new Skeleton(cell);
                             break;
-                        case '@':
+                        case PLAYER:
                             cell.setType(CellType.WALKABLE);
                             map.setPlayer(new Player(cell));
                             break;
-                        case 'a':
+                        case FOOD:
                             cell.setType(CellType.WALKABLE);
                             new Food(cell);
                             break;
-                        case 'k':
+                        case KEY:
                             cell.setType(CellType.WALKABLE);
                             new Key(cell);
                             break;
-                        case 'm':
+                        case SWORD:
                             cell.setType(CellType.WALKABLE);
                             new Sword(cell);
                             break;
-                        case 'g':
+                        case GATE:
                             cell.setType(CellType.WALKABLE);
                             new Gate(cell);
                             break;
-                        case 'O':
+                        case OGRE:
 //                            cell.setType(CellType.ENEMY);
                             new Ogre(cell);
                             break;
-                        case 'M':
+                        case MAGE:
 //                            cell.setType(CellType.ENEMY);
                             new Mage(cell);
                             break;
@@ -81,5 +81,4 @@ public class MapLoader {
         }
         return map;
     }
-
 }
