@@ -3,11 +3,11 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 
-public class Sword extends Item{
-    public Sword(Cell cell) {
+public class Armor extends Item{
+
+    public Armor(Cell cell) {
         super(cell);
     }
-
 
     @Override
     public void onUse(Player player) {
@@ -16,6 +16,6 @@ public class Sword extends Item{
 
     @Override
     public String getTileName() {
-        return "sword";
+        return "armor";
     }
 }

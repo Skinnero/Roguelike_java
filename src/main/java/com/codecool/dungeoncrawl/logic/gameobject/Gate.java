@@ -18,6 +18,7 @@ public class Gate extends GameObject {
     @Override
     public void onInteraction() {
         setTileName("open_gate");
+        setInteractive(false);
     }
 
     @Override

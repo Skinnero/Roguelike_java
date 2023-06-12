@@ -4,13 +4,14 @@ import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.gameobject.Gate;
-import com.codecool.dungeoncrawl.logic.items.Food;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
+import com.codecool.dungeoncrawl.logic.gameobject.Gate;
+import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.Food;
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -30,56 +31,51 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
-                    switch (line.charAt(x)) {
-                        case ' ':
-                            cell.setType(CellType.VOID);
-                            break;
-                        case '#':
-                            cell.setType(CellType.UNWALKABLE);
-                            break;
-                        case '.':
+                    switch (ObjectChar.fromChar(line.charAt(x))) {
+                        case VOID -> cell.setType(CellType.VOID);
+                        case WALL -> cell.setType(CellType.UNWALKABLE);
+                        case FLOOR -> cell.setType(CellType.WALKABLE);
+                        case SKELETON -> {
                             cell.setType(CellType.WALKABLE);
-                            break;
-                        case 's':
-                            cell.setType(CellType.WALKABLE);
-//                            cell.setType(CellType.ENEMY);
                             new Skeleton(cell);
-                            break;
-                        case '@':
+                        }
+                        case PLAYER -> {
                             cell.setType(CellType.WALKABLE);
                             map.setPlayer(new Player(cell));
-                            break;
-                        case 'a':
+                        }
+                        case FOOD -> {
                             cell.setType(CellType.WALKABLE);
                             new Food(cell);
-                            break;
-                        case 'k':
+                        }
+                        case KEY -> {
                             cell.setType(CellType.WALKABLE);
                             new Key(cell);
-                            break;
-                        case 'm':
+                        }
+                        case SWORD -> {
                             cell.setType(CellType.WALKABLE);
                             new Sword(cell);
-                            break;
-                        case 'g':
+                        }
+                        case ARMOR -> {
+                            cell.setType(CellType.WALKABLE);
+                            new Armor(cell);
+                        }
+                        case GATE -> {
                             cell.setType(CellType.WALKABLE);
                             new Gate(cell);
-                            break;
-                        case 'O':
-//                            cell.setType(CellType.ENEMY);
+                        }
+                        case OGRE -> {
+                            cell.setType(CellType.WALKABLE);
                             new Ogre(cell);
-                            break;
-                        case 'M':
-//                            cell.setType(CellType.ENEMY);
+                        }
+                        case MAGE -> {
+                            cell.setType(CellType.WALKABLE);
                             new Mage(cell);
-                            break;
-                        default:
-                            throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
+                        }
+                        default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }
         }
         return map;
     }
-
 }

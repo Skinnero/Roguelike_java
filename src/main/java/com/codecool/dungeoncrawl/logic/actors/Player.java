@@ -5,10 +5,14 @@ import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Player extends Actor {
-    private final Inventory<Item> equipment = new Inventory<>();
+    private final Inventory<Item> inventory = new Inventory<>();
+
+    private Map<String, Item> equipment = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
@@ -46,23 +50,31 @@ public class Player extends Actor {
     }
 
     public void useItem(int itemSlot) {
-        if (equipment.getInventory().size() <= itemSlot ) {
+        if (inventory.getInventory().size() <= itemSlot ) {
             return;
         }
-        equipment.getItem(itemSlot).onUse(this);
-        equipment.getInventory().remove(itemSlot);
+        inventory.getItem(itemSlot).onUse(this);
+        inventory.getInventory().remove(itemSlot);
     }
 
-    public Inventory<Item> getEquipment() {
+    public void addToEquipment(Item item) {
+        equipment.put(item.getClass().getSimpleName(), item);
+    }
+
+    public Map<String, Item> getEquipment() {
         return equipment;
     }
 
+    public Inventory<Item> getInventory() {
+        return inventory;
+    }
+
     private void addItemToInventory(Item item) {
-        equipment.addItem(item);
+        inventory.addItem(item);
     }
 
     private boolean isInventoryFull() {
-        return equipment.isInventoryFull();
+        return inventory.isInventoryFull();
     }
 
     private void makeAttack(Cell cell) {
