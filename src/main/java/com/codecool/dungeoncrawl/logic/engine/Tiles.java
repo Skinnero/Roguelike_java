@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,5 +45,25 @@ public class Tiles {
         Tile tile = tileMap.get(d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+    }
+
+    public static void drawHiddenTile(GraphicsContext context, int x, int y){
+        context.setFill(Color.BLACK);
+        context.fillRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+    }
+
+    public static boolean isVisible(Cell cell, GameMap map, Player player){
+        int playerX = map.getPlayer().getX();
+        int playerY = map.getPlayer().getY();
+        int cellX = cell.getX();
+        int cellY = cell.getY();
+
+        int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
+
+        int fieldOfView = player.getFieldOfView(player, map);
+        boolean inFieldOfView = distance <= fieldOfView;
+
+        boolean visible = cell.isVisible(player) && inFieldOfView;
+        return visible;
     }
 }
