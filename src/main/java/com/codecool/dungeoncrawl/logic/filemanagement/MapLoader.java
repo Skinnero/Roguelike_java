@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
+import com.codecool.dungeoncrawl.logic.gameobject.Chest;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Food;
@@ -17,8 +18,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static GameMap loadMap(String mapFileName) {
+        InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -70,6 +71,10 @@ public class MapLoader {
                         case MAGE -> {
                             cell.setType(CellType.WALKABLE);
                             new Mage(cell);
+                        }
+                        case CHEST -> {
+                            cell.setType(CellType.UNWALKABLE);
+                            new Chest(cell);
                         }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

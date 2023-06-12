@@ -10,6 +10,7 @@ public class Food extends Item {
 
     @Override
     public void onUse(Player player) {
+        player.getInventory().getInventory().remove(this);
         player.setHealth(player.getHealth() + 2);
     }
 

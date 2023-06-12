@@ -1,18 +1,19 @@
 package com.codecool.dungeoncrawl.logic.gameobject;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.Drawable;
 
 public abstract class GameObject implements Drawable {
     private final Cell cell;
-    private boolean interactive;
+    private boolean interactive = true;
 
     public GameObject(Cell cell) {
         this.cell = cell;
         this.cell.setGameObject(this);
     }
 
-    public void onInteraction() {
+    public void onInteraction(Player player) {
     }
 
     public Cell getCell() {

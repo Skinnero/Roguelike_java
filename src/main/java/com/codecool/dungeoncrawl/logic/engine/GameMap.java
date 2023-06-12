@@ -6,7 +6,7 @@ public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
-
+    private int level = 0;
     private Player player;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -28,6 +28,10 @@ public class GameMap {
         this.player = player;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -40,4 +44,7 @@ public class GameMap {
         return height;
     }
 
+    public int getLevel() {
+        return level;
+    }
 }

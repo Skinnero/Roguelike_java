@@ -10,16 +10,6 @@ public class Key extends Item {
     }
 
     @Override
-    public void onUse(Player player) {
-        for (int[] coordinate : Util.OFFSET_COORDINATES) {
-            Cell adjecentCell = player.getCell().getNeighbor(coordinate[0], coordinate[1]);
-            if (adjecentCell.getGameObject() instanceof Gate && adjecentCell.getGameObject().isInteractive()) {
-                adjecentCell.getGameObject().onInteraction();
-            }
-        }
-    }
-
-    @Override
     public String getTileName() {
         return "key";
     }

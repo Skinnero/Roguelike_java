@@ -18,8 +18,8 @@ import javafx.scene.text.Text;
 import javafx.stage.*;
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
-
+    private int mapLevel = 1;
+    GameMap map = MapLoader.loadMap("/map.txt");
     private final int BOARD_WIDTH = 30;
     private final int BOARD_HEIGHT = 20;
     Canvas canvas = new Canvas(
@@ -126,7 +126,8 @@ public class Main extends Application {
             case LEFT, A -> player.move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
             case RIGHT, D -> player.move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
             case G -> player.pickUpItem(); // Grab item from floor
-//            case F -> player.interactWithGameObject(); // Interact with game surrounding
+            case F -> player.interactWithGameObject(); // Interact with game surrounding
+            case E -> map = MapLoader.loadMap("/map" + mapLevel++ +".txt"); // TODO: HOW TO GET TO ANOTHER LEVEL
             case DIGIT1 -> player.useItem(0);
             case DIGIT2 -> player.useItem(1);
             case DIGIT3 -> player.useItem(2);
@@ -156,7 +157,7 @@ public class Main extends Application {
                     } else {
                         Tiles.drawTile(context, cell, x - startX, y - startY);
                     }
-                }else {
+                } else {
                     Tiles.drawHiddenTile(context, x - startX, y - startY);
                 }
             }

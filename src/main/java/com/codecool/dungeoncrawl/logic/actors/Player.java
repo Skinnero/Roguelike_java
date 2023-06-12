@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
+import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
+import com.codecool.dungeoncrawl.logic.gameobject.GameObject;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
@@ -46,14 +48,14 @@ public class Player extends Actor {
         setCell(nextCell);
     }
 
-//    public void interactWithGameObject() {
-//        for (int[] coordinate : Util.OFFSET_COORDINATES) {
-//            Cell adjecentCell = player.getCell().getNeighbor(coordinate[0], coordinate[1]);
-//            if (adjecentCell.getGameObject() instanceof Gate && adjecentCell.getGameObject().isInteractive()) {
-//                adjecentCell.getGameObject().onInteraction();
-//            }
-//        }
-//    }
+    public void interactWithGameObject() {
+        for (int[] coordinate : Util.OFFSET_COORDINATES) {
+            Cell adjecentCell = getCell().getNeighbor(coordinate[0], coordinate[1]);
+            if (adjecentCell.getGameObject() != null && adjecentCell.getGameObject().isInteractive()) {
+                adjecentCell.getGameObject().onInteraction(this);
+            }
+        }
+    }
 
     public void pickUpItem() {
         if (isInventoryFull() || Objects.isNull(getCell().getItem())) {
@@ -63,12 +65,16 @@ public class Player extends Actor {
         getCell().getItem().removeItemFromMap();
     }
 
+//    public GameMap moveToAnotherLevel(int level) {
+//        return MapLoader.loadMap("/map" + level + ".txt");
+//    }
+
     public void useItem(int itemSlot) {
         if (inventory.getInventory().size() <= itemSlot) {
             return;
         }
         inventory.getItem(itemSlot).onUse(this);
-        inventory.getInventory().remove(itemSlot);
+//        inventory.getInventory().remove(itemSlot);
     }
 
     public void addToEquipment(Item item) {
@@ -94,7 +100,6 @@ public class Player extends Actor {
     }
 
     public int getPerception() {
-
         return perception;
     }
 
