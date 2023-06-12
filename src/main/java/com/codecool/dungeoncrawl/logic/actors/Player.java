@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
@@ -9,6 +10,8 @@ import java.util.Objects;
 
 public class Player extends Actor {
     private final Inventory<Item> equipment = new Inventory<>();
+
+    private final int perception = 4;
 
     public Player(Cell cell) {
         super(cell);
@@ -41,6 +44,21 @@ public class Player extends Actor {
 
     public Inventory<Item> getEquipment() {
         return equipment;
+    }
+
+    public int getFieldOfView(Player player, GameMap map) {
+        int baseFieldOfView = 5;
+//        int attributeBonus = player.getPerception() / 2;
+//        int mapSizeBonus = Math.min(map.getWidth(), map.getHeight()) / 10;
+
+        int fieldOfView = baseFieldOfView;
+//                + attributeBonus + mapSizeBonus;
+        return fieldOfView;
+    }
+
+    public int getPerception() {
+
+        return perception;
     }
 
     private void addItemToInventory(Item item) {
