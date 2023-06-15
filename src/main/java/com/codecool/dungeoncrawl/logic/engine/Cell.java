@@ -1,12 +1,15 @@
-package com.codecool.dungeoncrawl.logic.ui;
+package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.gameobject.GameObject;
 
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
     private Item item;
+    private GameObject gameObject;
     private GameMap gameMap;
     private int x, y;
 
@@ -15,6 +18,20 @@ public class Cell implements Drawable {
         this.x = x;
         this.y = y;
         this.type = type;
+    }
+
+    public boolean isVisible(Player player){
+        int playerX = player.getX();
+        int playerY = player.getY();
+        int cellX = this.getX();
+        int cellY = this.getY();
+
+        int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
+
+        int fieldOfView = player.getFieldOfView(player, gameMap);
+        boolean inFieldOfView = distance <= fieldOfView;
+
+        return inFieldOfView;
     }
 
     public CellType getType() {
@@ -28,8 +45,17 @@ public class Cell implements Drawable {
     public void setActor(Actor actor) {
         this.actor = actor;
     }
+
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public void setGameObject(GameObject gameObject) {
+        this.gameObject = gameObject;
+    }
+
+    public GameObject getGameObject() {
+        return gameObject;
     }
 
     public Item getItem() {

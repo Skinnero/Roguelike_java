@@ -1,11 +1,10 @@
-package com.codecool.dungeoncrawl.logic.ui;
-
-import com.codecool.dungeoncrawl.logic.items.Item;
+package com.codecool.dungeoncrawl.logic.items;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory<T extends Item> {
+    // It shouldn't be generic, should be a list<Item> because of it's lack of usage
 
     private final List<T> inventory = new ArrayList<>();
 
@@ -18,7 +17,15 @@ public class Inventory<T extends Item> {
         inventory.add(item);
     }
 
+    public void removeItem(T item) {
+        inventory.remove(item);
+    }
+
     public Item getItem(int inventoryIndex) {
         return inventory.get(inventoryIndex);
+    }
+
+    public List<T> getInventory() {
+        return inventory;
     }
 }

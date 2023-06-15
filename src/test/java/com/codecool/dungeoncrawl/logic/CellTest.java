@@ -1,14 +1,14 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.ui.Cell;
-import com.codecool.dungeoncrawl.logic.ui.CellType;
-import com.codecool.dungeoncrawl.logic.ui.GameMap;
+import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.CellType;
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
-    GameMap map = new GameMap(3, 3, CellType.FLOOR);
+    GameMap map = new GameMap(3, 3, CellType.WALKABLE);
 
     @Test
     void getNeighbor() {
