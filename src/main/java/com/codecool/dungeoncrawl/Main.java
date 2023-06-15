@@ -173,15 +173,23 @@ public class Main extends Application {
 
     private void enemiesTurn() {
         Movement movement = new Movement();
+        try {
             for (Ogre ogre : MapLoader.ogres) {
-                movement.goToPatrolPlace(map, ogre);
+                if (ogre.isDead()) {
+                    MapLoader.ogres.remove(ogre);
+                } else {
+                    movement.goToPatrolPlace(map, ogre);
+                }
             }
-//        try {
-//            for (Mage mage : MapLoader.mages) {
-//                movement.guard(map, mage);
-//            }
-//        } catch (Exception ignored) {
-//        }
+            for (Mage mage : MapLoader.mages) {
+                if (mage.isDead()) {
+                    MapLoader.mages.remove(mage);
+                } else {
+                    movement.guard(map, mage);
+                }
+            }
+        } catch (Exception ignored) {
+        }
     }
 }
 
