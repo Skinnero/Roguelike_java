@@ -5,7 +5,10 @@ import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.Drawable;
 
 public abstract class Item implements Drawable{
-    private final Cell cell;
+    private Cell cell;
+
+    public Item() {
+    }
 
     public Item(Cell cell) {
         this.cell = cell;

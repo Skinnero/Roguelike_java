@@ -41,6 +41,8 @@ public class Tiles {
         tileMap.put("mage", new Tile(24, 6));
         tileMap.put("closed_chest", new Tile(8, 6));
         tileMap.put("open_chest", new Tile(9, 6));
+        tileMap.put("torch", new Tile(4, 15));
+        tileMap.put("water", new Tile(8, 5));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
@@ -49,12 +51,12 @@ public class Tiles {
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
 
-    public static void drawHiddenTile(GraphicsContext context, int x, int y){
+    public static void drawHiddenTile(GraphicsContext context, int x, int y) {
         context.setFill(Color.BLACK);
         context.fillRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
     }
 
-    public static boolean isVisible(Cell cell, GameMap map, Player player){
+    public static boolean isVisible(Cell cell, GameMap map, Player player) {
         int playerX = map.getPlayer().getX();
         int playerY = map.getPlayer().getY();
         int cellX = cell.getX();

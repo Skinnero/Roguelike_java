@@ -6,20 +6,16 @@ import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
 
 public class TraversalObject extends GameObject {
-    private final String tileName;
     private GameMap map;
 
-    private int mapLevel;
-
-    public TraversalObject(Cell cell, String tileName, GameMap map) {
+    public TraversalObject(Cell cell) {
         super(cell);
-        this.tileName = tileName;
-        this.map = map;
+        this.setInteractive(false);
     }
 
     @Override
     public String getTileName() {
-        return tileName;
+        return "water";
     }
 
     @Override

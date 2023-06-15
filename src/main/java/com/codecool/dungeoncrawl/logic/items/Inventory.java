@@ -17,6 +17,10 @@ public class Inventory<T extends Item> {
         inventory.add(item);
     }
 
+    public void removeItem(T item) {
+        inventory.remove(item);
+    }
+
     public Item getItem(int inventoryIndex) {
         return inventory.get(inventoryIndex);
     }

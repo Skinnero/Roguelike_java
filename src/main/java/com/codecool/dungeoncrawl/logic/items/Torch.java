@@ -3,26 +3,28 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 
-public class Armor extends Item {
+public class Torch extends Item {
+
     public static int value = 1;
 
-    public Armor() {
+    public Torch() {
 
     }
-    public Armor(Cell cell) {
+
+    public Torch(Cell cell) {
         super(cell);
     }
 
     @Override
     public void onUse(Player player) {
         player.addToEquipment(this);
-        player.increaseDefense(value);
+        player.increasePerception(value);
         player.removeFromInventory(this);
         value++;
     }
 
     @Override
     public String getTileName() {
-        return "armor";
+        return "torch";
     }
 }

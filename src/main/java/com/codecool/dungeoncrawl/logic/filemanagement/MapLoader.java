@@ -4,21 +4,26 @@ import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actorutils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.gameobject.Chest;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
-import com.codecool.dungeoncrawl.logic.items.Armor;
-import com.codecool.dungeoncrawl.logic.items.Food;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.gameobject.TraversalObject;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapLoader {
+    public static List<Ogre> ogres = new ArrayList<>();
+    public static List<Mage> mages = new ArrayList<>();
+
     public static GameMap loadMap(String mapFileName) {
+        Movement movement = new Movement();
         InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
@@ -66,15 +71,25 @@ public class MapLoader {
                         }
                         case OGRE -> {
                             cell.setType(CellType.WALKABLE);
-                            new Ogre(cell);
+                            Ogre ogre = new Ogre(cell);
+                            movement.setPatrolPlaces(ogre);
+                            ogres.add(ogre);
                         }
                         case MAGE -> {
                             cell.setType(CellType.WALKABLE);
-                            new Mage(cell);
+                            mages.add(new Mage(cell));
+                        }
+                        case TORCH -> {
+                            cell.setType(CellType.WALKABLE);
+                            new Torch(cell);
                         }
                         case CHEST -> {
                             cell.setType(CellType.UNWALKABLE);
                             new Chest(cell);
+                        }
+                        case WATER -> {
+                            cell.setType(CellType.WALKABLE);
+                            new TraversalObject(cell);
                         }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

@@ -13,6 +13,8 @@ public enum ObjectChar {
     GATE('g'),
     OGRE('O'),
     CHEST('c'),
+    TORCH('t'),
+    WATER('w'),
     MAGE('M');
 
     private final char ch;

@@ -3,12 +3,11 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.Drawable;
 
-public abstract class Actor implements Drawable{
+public abstract class Actor implements Drawable {
     private Cell cell;
-    private int health = 10;
+    private int health = 20;
     private int defense = 1;
-
-    private int attack = 2;
+    private int attack = 3;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -19,7 +18,7 @@ public abstract class Actor implements Drawable{
     }
 
     public boolean isDead() {
-        return health == 0;
+        return health <= 0;
     }
 
     public void setCell(Cell cell) {
@@ -29,12 +28,21 @@ public abstract class Actor implements Drawable{
     public void setHealth(int health) {
         this.health = health;
     }
+
     public void setDefense(int defense) {
         this.defense = defense;
     }
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public void increaseAttack(int attackValue) {
+        this.attack += attackValue;
+    }
+
+    public void increaseDefense(int defenseValue) {
+        this.defense += defenseValue;
     }
 
     public int getDefense() {

@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
 import com.codecool.dungeoncrawl.logic.gameobject.GameObject;
 import com.codecool.dungeoncrawl.logic.gameobject.Gate;
+import com.codecool.dungeoncrawl.logic.gameobject.TraversalObject;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
@@ -19,7 +20,7 @@ public class Player extends Actor {
 
     private Map<String, Item> equipment = new HashMap<>();
 
-    private final int perception = 4;
+    private int perception = 4;
 
     public Player(Cell cell) {
         super(cell);
@@ -48,6 +49,21 @@ public class Player extends Actor {
         setCell(nextCell);
     }
 
+    public void addToInventory(Item item) {
+        inventory.addItem(item);
+    }
+
+    public void removeFromInventory(Item item) {
+        inventory.removeItem(item);
+    }
+
+    public void increasePerception(int perceptionValue) {
+        this.perception += perceptionValue;
+    }
+    public void increaseHealth(int healthValue) {
+        setHealth(getHealth() + healthValue);
+    }
+
     public void interactWithGameObject() {
         for (int[] coordinate : Util.OFFSET_COORDINATES) {
             Cell adjecentCell = getCell().getNeighbor(coordinate[0], coordinate[1]);
@@ -74,11 +90,14 @@ public class Player extends Actor {
             return;
         }
         inventory.getItem(itemSlot).onUse(this);
-//        inventory.getInventory().remove(itemSlot);
     }
 
     public void addToEquipment(Item item) {
-        equipment.put(item.getClass().getSimpleName(), item);
+        if (equipment.containsKey(item.getClass().getSimpleName())) {
+            equipment.replace(item.getClass().getSimpleName(), item);
+        } else {
+           equipment.put(item.getClass().getSimpleName(), item);
+        }
     }
 
     public Map<String, Item> getEquipment() {
@@ -90,17 +109,21 @@ public class Player extends Actor {
     }
 
     public int getFieldOfView(Player player, GameMap map) {
-        int baseFieldOfView = 5;
-//        int attributeBonus = player.getPerception() / 2;
+//        int attributeBonus = player.getPerception();
 //        int mapSizeBonus = Math.min(map.getWidth(), map.getHeight()) / 10;
-
-        int fieldOfView = baseFieldOfView;
-//                + attributeBonus + mapSizeBonus;
-        return fieldOfView;
+//        return attributeBonus + mapSizeBonus;
+        return player.getPerception();
     }
 
     public int getPerception() {
         return perception;
+    }
+
+    public GameMap moveToNextLevel(int mapLevel, GameMap map) {
+        if (getCell().getGameObject() instanceof TraversalObject) {
+            return MapLoader.loadMap("/map" + ++mapLevel + ".txt");
+        }
+        return map;
     }
 
     private void addItemToInventory(Item item) {

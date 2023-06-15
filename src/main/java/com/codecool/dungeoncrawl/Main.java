@@ -1,7 +1,10 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.logic.actors.Mage;
+import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actorutils.KeyArrowCoordinates;
+import com.codecool.dungeoncrawl.logic.actorutils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
@@ -68,6 +71,9 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(keyEvent -> {
             onKeyPressed(keyEvent, map.getPlayer());
+            if (map.getPlayer().isDead()) {
+                System.exit(0);
+            }
             refresh();
         });
         primaryStage.setTitle("Dungeon Crawl");
@@ -127,7 +133,7 @@ public class Main extends Application {
             case RIGHT, D -> player.move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
             case G -> player.pickUpItem(); // Grab item from floor
             case F -> player.interactWithGameObject(); // Interact with game surrounding
-            case E -> map = MapLoader.loadMap("/map" + mapLevel++ +".txt"); // TODO: HOW TO GET TO ANOTHER LEVEL
+            case E -> map = player.moveToNextLevel(mapLevel, map);
             case DIGIT1 -> player.useItem(0);
             case DIGIT2 -> player.useItem(1);
             case DIGIT3 -> player.useItem(2);
@@ -140,6 +146,7 @@ public class Main extends Application {
             case DIGIT0 -> player.useItem(9);
             case ESCAPE -> System.exit(0);
         }
+        enemiesTurn();
     }
 
     private void createMap(int startX, int startY, int endX, int endY) {
@@ -162,6 +169,19 @@ public class Main extends Application {
                 }
             }
         }
+    }
+
+    private void enemiesTurn() {
+        Movement movement = new Movement();
+            for (Ogre ogre : MapLoader.ogres) {
+                movement.goToPatrolPlace(map, ogre);
+            }
+//        try {
+//            for (Mage mage : MapLoader.mages) {
+//                movement.guard(map, mage);
+//            }
+//        } catch (Exception ignored) {
+//        }
     }
 }
 

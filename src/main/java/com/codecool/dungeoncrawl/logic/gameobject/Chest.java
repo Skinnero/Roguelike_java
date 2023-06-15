@@ -18,6 +18,7 @@ public class Chest extends GameObject{
     @Override
     public void onInteraction(Player player) {
         setTileName("open_chest");
+        player.addToInventory(new Food());
         setInteractive(false);
     }
 
