@@ -22,7 +22,7 @@ import javafx.stage.*;
 
 public class Main extends Application {
     private int mapLevel = 1;
-    GameMap map = MapLoader.loadMap("/map.txt");
+    GameMap map = MapLoader.loadMap("/map3.txt");
     private final int BOARD_WIDTH = 30;
     private final int BOARD_HEIGHT = 20;
     Canvas canvas = new Canvas(
