@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.actorutils;
+package com.codecool.dungeoncrawl.logic.actors.actorutils;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.actors.Player;

@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.actorutils.Movement;
+import com.codecool.dungeoncrawl.logic.actors.actorutils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;

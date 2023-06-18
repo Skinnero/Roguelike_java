@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.actorutils;
+package com.codecool.dungeoncrawl.logic.actors.actorutils;
 
 public enum KeyArrowCoordinates {
     UP(0, -1),

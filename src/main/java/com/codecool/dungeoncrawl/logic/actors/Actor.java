@@ -14,8 +14,7 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
-    }
+    public abstract void move(int dx, int dy);
 
     public boolean isDead() {
         return health <= 0;
