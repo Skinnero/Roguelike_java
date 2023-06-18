@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Player extends Actor {
     private final Inventory<Item> inventory = new Inventory<>();
 
-    private Map<String, Item> equipment = new HashMap<>();
+    private final Map<String, Item> equipment = new HashMap<>();
 
     private int perception = 4;
 
@@ -121,7 +121,7 @@ public class Player extends Actor {
 
     public GameMap moveToNextLevel(int mapLevel, GameMap map) {
         if (getCell().getGameObject() instanceof TraversalObject) {
-            return MapLoader.loadMap("/map" + ++mapLevel + ".txt");
+            return MapLoader.loadMap("/map" + mapLevel + ".txt");
         }
         return map;
     }

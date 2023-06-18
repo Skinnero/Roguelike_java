@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.actorutils;
+package com.codecool.dungeoncrawl.logic.actors.actorutils;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Mage;
@@ -21,7 +21,7 @@ public class Movement {
     }
 
     public void setPatrolPlaces(Ogre ogre) {
-        //TODO: move to ogre class?
+        //TODO: move to ogre class? / adding to interface for more options
         int positionY = ogre.getY();
         int positionX = ogre.getX();
         int[] firstPlace = new int[]{positionY, positionX - 3};
@@ -36,26 +36,27 @@ public class Movement {
         int[] patrolDestination = ogre.getPatrolDestination();
         if (positionX - patrolDestination[1] == 0) {
             switchPatrol(ogre);
-        } else {
-            int[] vector = new int[]{positionX - patrolDestination[1]};
-            if (vector[0] > 0) {
-                int[] moveVector = new int[]{-1, 0};
-                if (isPlayerThere(map, moveVector, positionX, positionY)) {
-                    attackPlayer(map, ogre);
-                } else if (isMovePossible(map, moveVector, positionX, positionY) || vector[0] == 0) {
-                    ogre.move(-1, 0);
-                } else {
-                    switchPatrol(ogre);
-                }
+            return;
+        }
+        int[] vector = new int[]{positionX - patrolDestination[1]};
+        if (vector[0] > 0) {
+            int[] moveVector = new int[]{-1, 0};
+            if (isPlayerThere(map, moveVector, positionX, positionY)) {
+                attackPlayer(map, ogre);
+            } else if (isMovePossible(map, moveVector, positionX, positionY) || vector[0] == 0) {
+                ogre.move(-1, 0);
             } else {
-                int[] moveVector = new int[]{1, 0};
-                if (isPlayerThere(map, moveVector, positionX, positionY)) {
-                    attackPlayer(map, ogre);
-                } else if (isMovePossible(map, moveVector, positionX, positionY) || vector[0] == 0) {
-                    ogre.move(1, 0);
-                } else {
-                    switchPatrol(ogre);
-                }
+                switchPatrol(ogre);
+            }
+        } else {
+            int[] moveVector = new int[]{1, 0};
+            if (isPlayerThere(map, moveVector, positionX, positionY)) {
+                attackPlayer(map, ogre);
+            } else if (isMovePossible(map, moveVector, positionX, positionY) || vector[0] == 0) {
+                ogre.move(1, 0);
+            } else {
+                switchPatrol(ogre);
+
             }
         }
     }

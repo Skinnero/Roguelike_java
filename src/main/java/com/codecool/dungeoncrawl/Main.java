@@ -3,8 +3,8 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actorutils.KeyArrowCoordinates;
-import com.codecool.dungeoncrawl.logic.actorutils.Movement;
+import com.codecool.dungeoncrawl.logic.actors.actorutils.KeyArrowCoordinates;
+import com.codecool.dungeoncrawl.logic.actors.actorutils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.filemanagement.MapLoader;
@@ -80,20 +80,20 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void getModalInventory(Stage primaryStage) {
-        Stage modalStage = new Stage();
-        modalStage.initOwner(primaryStage);
-        modalStage.initModality(Modality.APPLICATION_MODAL);
-        modalStage.initStyle(StageStyle.UTILITY);
-        modalStage.setTitle("Modal window");
-
-        VBox modalRoot = new VBox();
-        Scene modalScene = new Scene(modalRoot, 200, 150);
-
-        modalStage.setScene(modalScene);
-        modalStage.showAndWait();
-
-    }
+//    private void getModalInventory(Stage primaryStage) {
+//        Stage modalStage = new Stage();
+//        modalStage.initOwner(primaryStage);
+//        modalStage.initModality(Modality.APPLICATION_MODAL);
+//        modalStage.initStyle(StageStyle.UTILITY);
+//        modalStage.setTitle("Modal window");
+//
+//        VBox modalRoot = new VBox();
+//        Scene modalScene = new Scene(modalRoot, 200, 150);
+//
+//        modalStage.setScene(modalScene);
+//        modalStage.showAndWait();
+//
+//    }
 
 
     public void refresh() {
@@ -118,10 +118,12 @@ public class Main extends Application {
         attackText.setText(String.valueOf(map.getPlayer().getAttack()));
         defenseText.setText(String.valueOf(map.getPlayer().getDefense()));
         StringBuilder inventoryTextBuilder = new StringBuilder();
-        map.getPlayer().getInventory().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName()).append("\n"));
+        map.getPlayer().getInventory().getInventory().forEach(item -> inventoryTextBuilder.append(item.getClass().getSimpleName())
+                .append(System.lineSeparator()));
         inventoryText.setText(String.valueOf(inventoryTextBuilder));
         StringBuilder equipmentTextBuilder = new StringBuilder();
-        map.getPlayer().getEquipment().forEach((itemClass, o) -> equipmentTextBuilder.append(o.getClass().getSimpleName()).append("\n"));
+        map.getPlayer().getEquipment().forEach((itemClass, o) -> equipmentTextBuilder.append(o.getClass().getSimpleName())
+                .append(System.lineSeparator()));
         equipmentText.setText(String.valueOf(equipmentTextBuilder));
     }
 
@@ -133,7 +135,7 @@ public class Main extends Application {
             case RIGHT, D -> player.move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
             case G -> player.pickUpItem(); // Grab item from floor
             case F -> player.interactWithGameObject(); // Interact with game surrounding
-            case E -> map = player.moveToNextLevel(mapLevel, map);
+            case E -> map = player.moveToNextLevel(++mapLevel, map);
             case DIGIT1 -> player.useItem(0);
             case DIGIT2 -> player.useItem(1);
             case DIGIT3 -> player.useItem(2);

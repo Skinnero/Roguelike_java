@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.actorutils.Movement;
+import com.codecool.dungeoncrawl.logic.actors.actorutils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.CellType;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class MapLoader {
     public static List<Ogre> ogres = new ArrayList<>();
     public static List<Mage> mages = new ArrayList<>();
-
+    private static final String BOAT = "boat";
     public static GameMap loadMap(String mapFileName) {
         Movement movement = new Movement();
         InputStream is = MapLoader.class.getResourceAsStream(mapFileName);
@@ -88,9 +88,22 @@ public class MapLoader {
                             new Chest(cell);
                         }
                         case WATER -> {
-                            cell.setType(CellType.WALKABLE);
-                            new TraversalObject(cell);
+                            cell.setType(CellType.WATER);
                         }
+                        case BOAT -> {
+                            cell.setType(CellType.WALKABLE);
+                            new TraversalObject(cell, BOAT);
+                        }
+                        case LETTER_D -> cell.setType(CellType.LETTER_D);
+                        case LETTER_O -> cell.setType(CellType.LETTER_O);
+                        case LETTER_N -> cell.setType(CellType.LETTER_N);
+                        case LETTER_T -> cell.setType(CellType.LETTER_T);
+                        case LETTER_G -> cell.setType(CellType.LETTER_G);
+                        case LETTER_H -> cell.setType(CellType.LETTER_H);
+                        case LETTER_E -> cell.setType(CellType.LETTER_E);
+                        case LETTER_R -> cell.setType(CellType.LETTER_R);
+                        case GRASS -> cell.setType(CellType.GRASS);
+
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
