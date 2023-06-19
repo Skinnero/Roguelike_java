@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.Dao;
 
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.Model.PlayerModel;
 
 import java.util.List;
 

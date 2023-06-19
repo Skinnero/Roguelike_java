@@ -8,6 +8,7 @@ public abstract class Actor implements Drawable {
     private int health = 20;
     private int defense = 1;
     private int attack = 3;
+    private String name;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -56,6 +57,14 @@ public abstract class Actor implements Drawable {
         return cell;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getX() {
         return cell.getX();
     }
@@ -68,3 +77,4 @@ public abstract class Actor implements Drawable {
         return attack;
     }
 }
+
