@@ -112,7 +112,7 @@ public class Main extends Application {
         // bottom boundary of view
         int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_WIDTH));
 
-        createMap(startX, startY, endX, endY);
+        createFullMap(startX, startY, endX, endY);
 
         healthText.setText(String.valueOf(map.getPlayer().getHealth()));
         attackText.setText(String.valueOf(map.getPlayer().getAttack()));
@@ -151,25 +151,30 @@ public class Main extends Application {
         enemiesTurn();
     }
 
-    private void createMap(int startX, int startY, int endX, int endY) {
+    private void createFullMap(int startX, int startY, int endX, int endY) {
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
                 Cell cell = map.getCell(x, y);
 
                 if (Tiles.isVisible(cell, map, map.getPlayer())) {
-                    if (cell.getActor() != null) {
-                        Tiles.drawTile(context, cell.getActor(), x - startX, y - startY);
-                    } else if (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell.getItem(), x - startX, y - startY);
-                    } else if (cell.getGameObject() != null) {
-                        Tiles.drawTile(context, cell.getGameObject(), x - startX, y - startY);
-                    } else {
-                        Tiles.drawTile(context, cell, x - startX, y - startY);
-                    }
+                    createVisibleMap(cell, x, y, startX, startY);
                 } else {
                     Tiles.drawHiddenTile(context, x - startX, y - startY);
                 }
+
             }
+        }
+    }
+
+    private void createVisibleMap(Cell cell, int x, int y, int startX, int startY) {
+        if (cell.getActor() != null) {
+            Tiles.drawTile(context, cell.getActor(), x - startX, y - startY);
+        } else if (cell.getItem() != null) {
+            Tiles.drawTile(context, cell.getItem(), x - startX, y - startY);
+        } else if (cell.getGameObject() != null) {
+            Tiles.drawTile(context, cell.getGameObject(), x - startX, y - startY);
+        } else {
+            Tiles.drawTile(context, cell, x - startX, y - startY);
         }
     }
 
@@ -194,4 +199,7 @@ public class Main extends Application {
         }
     }
 }
+
+
+
 
