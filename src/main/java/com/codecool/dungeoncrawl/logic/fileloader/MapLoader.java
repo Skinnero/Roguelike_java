@@ -24,11 +24,12 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     CharOnMap.fromChar(line.charAt(x)).apply(cell);
+                    map.addObjectToList(cell);
                 }
             }
         }
-        map.setPlayer(Player.getInstance());
-        map.getCell(map.getPlayer().getPosition().x(), map.getPlayer().getPosition().y()).setActor(Player.getInstance());
+//        map.setPlayer(Player.getInstance());
+//        map.getCell(map.getPlayer().getPosition().x(), map.getPlayer().getPosition().y()).setActor(Player.getInstance());
         return map;
     }
 }

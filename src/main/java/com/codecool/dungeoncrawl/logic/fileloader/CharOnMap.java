@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.engine.Cell;
 import java.util.function.Consumer;
 
 public enum CharOnMap {
+    PLAYER('@', ActorConsumer::player),
     EMPTY(' ', EnvironmentalObjectConsumer::empty),
     WALL('#', EnvironmentalObjectConsumer::wall),
     FLOOR('.', EnvironmentalObjectConsumer::floor),

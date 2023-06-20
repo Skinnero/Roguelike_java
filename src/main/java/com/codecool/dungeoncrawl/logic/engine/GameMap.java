@@ -1,18 +1,26 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
+import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
     private Player player;
-    private List<Actor> monsters;
+    private List<Actor> monsters = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+    private List<InteractiveObject> interactiveObjects = new ArrayList<>();
 
 
     public GameMap(int width, int height, TileType defaultTileType) {
@@ -21,7 +29,7 @@ public class GameMap {
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                cells[x][y] = new Cell(this, x, y, defaultTileType);
+                cells[x][y] = new Cell(this, Position.of(x, y), defaultTileType);
             }
         }
     }
@@ -30,7 +38,7 @@ public class GameMap {
         Movement movement = player.planMovement(direction);
         Cell nextCell = cells[movement.newPosition().x()][movement.newPosition().y()];
         Cell currentCell = cells[movement.currentPosition().x()][movement.currentPosition().y()];
-        if (nextCell.isWalkable()){
+        if (nextCell.isWalkable()) {
             currentCell.setActor(null);
             nextCell.setActor(player);
             player.setPosition(movement.newPosition());
@@ -45,6 +53,18 @@ public class GameMap {
 //            monster.setPosition();
 //        }
 //    }
+
+    public void addObjectToList(Cell cell) {
+        if (cell.getActor() instanceof ActorPlayer) {
+            this.player = (Player) cell.getActor();
+        } else if (Objects.nonNull(cell.getActor())) {
+            monsters.add(cell.getActor());
+        } else if (Objects.nonNull(cell.getItem())) {
+            items.add(cell.getItem());
+        } else if (Objects.nonNull(cell.getInteractiveObject())) {
+            interactiveObjects.add(cell.getInteractiveObject());
+        }
+    }
 
     public Cell getCell(int x, int y) {
         return cells[x][y];

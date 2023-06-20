@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Inventory;
-import javafx.geometry.Pos;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +14,13 @@ public class Player extends ActorPlayer {
     private int perception = 4;
     private static Player playerInstance;
 
-    public Player() {
-        super(TileId.of(27, 0), Position.of(5, 15));
+    public Player(Position position) {
+        super(TileId.of(27, 0), position);
     }
 
-    public static Player getInstance() {
+    public static Player getInstance(Position position) {
         if (playerInstance == null) {
-            playerInstance = new Player();
+            playerInstance = new Player(position);
         }
         return playerInstance;
     }

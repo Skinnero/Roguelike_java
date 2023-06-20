@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import javafx.geometry.Pos;
 
 import java.util.Objects;
 
@@ -13,12 +14,11 @@ public class Cell {
     private Item item;
     private InteractiveObject interactiveObject;
     private final GameMap gameMap;
-    private int x, y;
+    private final Position position;
 
-    Cell(GameMap gameMap, int x, int y, TileType tileType) {
+    Cell(GameMap gameMap, Position position, TileType tileType) {
         this.gameMap = gameMap;
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.tileType = tileType;
     }
 
@@ -48,11 +48,11 @@ public class Cell {
         return true;
     }
 
-    public boolean isVisible(Player player){
+    public boolean isVisible(Player player) {
         int playerX = player.getPosition().x();
         int playerY = player.getPosition().y();
-        int cellX = this.getX();
-        int cellY = this.getY();
+        int cellX = position.x();
+        int cellY = position.y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
 
@@ -95,14 +95,11 @@ public class Cell {
     }
 
     public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(x + dx, y + dy);
+        return gameMap.getCell(position.x() + dx, position.y() + dy);
     }
 
-    public int getX() {
-        return x;
+    public Position getPosition() {
+        return position;
     }
 
-    public int getY() {
-        return y;
-    }
 }

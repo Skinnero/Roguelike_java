@@ -37,8 +37,8 @@ public class Tiles {
     public static boolean isVisible(Cell cell, GameMap map, Player player) {
         int playerX = map.getPlayer().getPosition().x();
         int playerY = map.getPlayer().getPosition().y();
-        int cellX = cell.getX();
-        int cellY = cell.getY();
+        int cellX = cell.getPosition().x();
+        int cellY = cell.getPosition().y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
 
