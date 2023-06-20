@@ -17,7 +17,7 @@ public class MapLoader {
 
         scanner.nextLine(); // empty line
 
-        GameMap map = new GameMap(width, height, TileType.EMPTY);
+        GameMap map = new GameMap(width, height, TileType.FLOOR);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {
@@ -28,6 +28,7 @@ public class MapLoader {
             }
         }
         map.setPlayer(Player.getInstance());
+        map.getCell(map.getPlayer().getPosition().x(), map.getPlayer().getPosition().y()).setActor(Player.getInstance());
         return map;
     }
 }

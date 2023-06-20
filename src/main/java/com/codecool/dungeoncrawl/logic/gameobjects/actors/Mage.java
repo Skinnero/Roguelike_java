@@ -1,17 +1,18 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
-import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.*;
 
-public class Mage extends Actor {
+public class Mage extends ActorEnemy {
 
-    public Mage(Cell cell) {
-        super(cell);
+    public Mage(Position position) {
+        super(TileId.of(24, 6), position);
         this.setHealth(6);
     }
 
-    @Override
-    public void move(int dx, int dy) {
 
+    @Override
+    public Movement planMovement(GameMap map) {
+        return null;
     }
 
 //    public void move(int dx, int dy) {

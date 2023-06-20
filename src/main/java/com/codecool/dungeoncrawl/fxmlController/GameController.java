@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.KeyArrowCoordinates;
+import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Tiles;
@@ -30,14 +30,13 @@ public class GameController {
 
     @FXML
     protected void showInventory(KeyEvent event) {
-        Player player = map.getPlayer();
         switch (event.getCode()) {
-            case UP, W -> player.move(KeyArrowCoordinates.UP.dx, KeyArrowCoordinates.UP.dy);
-            case DOWN, S -> player.move(KeyArrowCoordinates.DOWN.dx, KeyArrowCoordinates.DOWN.dy);
-            case LEFT, A -> player.move(KeyArrowCoordinates.LEFT.dx, KeyArrowCoordinates.LEFT.dy);
-            case RIGHT, D -> player.move(KeyArrowCoordinates.RIGHT.dx, KeyArrowCoordinates.RIGHT.dy);
-            case G -> player.pickUpItem(); // Grab item from floor
-            case F -> player.interactWithGameObject(); // Interact with game surrounding
+            case UP, W -> map.movePlayer(Direction.UP);
+            case DOWN, S -> map.movePlayer(Direction.DOWN);
+            case LEFT, A -> map.movePlayer(Direction.LEFT);
+            case RIGHT, D -> map.movePlayer(Direction.RIGHT);
+            case G -> map.getPlayer().pickUpItem(); // Grab item from floor
+            case F -> map.getPlayer().interactWithObject(); // Interact with game surrounding
 //            case E -> map = player.moveToNextLevel(++mapLevel, map);
             case ESCAPE -> System.exit(0);
             case I -> {
@@ -60,17 +59,17 @@ public class GameController {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        int playerX = map.getPlayer().getX();
-        int playerY = map.getPlayer().getY();
+        int playerX = map.getPlayer().getPosition().x();
+        int playerY = map.getPlayer().getPosition().y();
 
         // left boundary of view
-        int startX = Math.max(0, playerX - (int) (canvas.getWidth() / Tiles.TILE_WIDTH / 2));
+        int startX = Math.max(0, playerX - (int) (canvas.getWidth() / Tiles.TILE_SIZE / 2));
         // top boundary of view
-        int startY = Math.max(0, playerY - (int) (canvas.getHeight() / Tiles.TILE_WIDTH / 2));
+        int startY = Math.max(0, playerY - (int) (canvas.getHeight() / Tiles.TILE_SIZE / 2));
         // right boundary of view
-        int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_WIDTH));
+        int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_SIZE));
         // bottom boundary of view
-        int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_WIDTH));
+        int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_SIZE));
 
         createMap(startX, startY, endX, endY);
     }
@@ -81,18 +80,9 @@ public class GameController {
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
                 Cell cell = map.getCell(x, y);
-
-                if (Tiles.isVisible(cell, map, map.getPlayer())) {
-                    if (cell.getActor() != null) {
-                        Tiles.drawTile(context, cell, x - startX, y - startY);
-                    } else if (cell.getItem() != null) {
-                        Tiles.drawTile(context, cell, x - startX, y - startY);
-                    } else if (cell.getInteractiveObject() != null) {
-                        Tiles.drawTile(context, cell, x - startX, y - startY);
-                    } else {
-                        Tiles.drawTile(context, cell, x - startX, y - startY);
-                    }
-                } else {
+                TileId tileId = cell.getVisibleObjectId();
+                Tiles.drawTile(context, tileId, x - startX, y - startY);
+                if (!Tiles.isVisible(cell, map, map.getPlayer())) {
                     Tiles.drawHiddenTile(context, x - startX, y - startY);
                 }
             }

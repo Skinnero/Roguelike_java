@@ -22,24 +22,35 @@ public class Cell {
         this.tileType = tileType;
     }
 
+    public TileId getVisibleObjectId() {
+        if (Objects.nonNull(this.getActor())) {
+            return this.getActor().getTileId();
+        }
+        if (Objects.nonNull(this.getItem())) {
+            return this.getItem().getTileId();
+        }
+        if (Objects.nonNull(this.getInteractiveObject())) {
+            return this.interactiveObject.getTileId();
+        }
+        return tileType.getTileId();
+    }
+
     public boolean isWalkable() {
-        if (!Objects.isNull(this.getInteractiveObject()) && this.getInteractiveObject().isInteractive()) {
+        if (!this.tileType.isWalkable()) {
             return false;
         }
-        if (!this.getType().isWalkable()) {
+        if (Objects.nonNull(this.getActor())) {
             return false;
         }
-        if (!Objects.isNull(this.getActor())) {
-            if (!this.getActor().isDead()) {
-                return false;
-            }
+        if (Objects.nonNull(this.getInteractiveObject()) && !this.getInteractiveObject().isWalkable()) {
+            return false;
         }
         return true;
     }
 
     public boolean isVisible(Player player){
-        int playerX = player.getX();
-        int playerY = player.getY();
+        int playerX = player.getPosition().x();
+        int playerY = player.getPosition().y();
         int cellX = this.getX();
         int cellY = this.getY();
 

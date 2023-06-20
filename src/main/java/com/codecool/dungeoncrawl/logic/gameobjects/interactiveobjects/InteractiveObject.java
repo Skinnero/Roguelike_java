@@ -1,25 +1,27 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
+import com.codecool.dungeoncrawl.logic.engine.Renderable;
+import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 
-public abstract class InteractiveObject {
-    private final Cell cell;
-    private boolean interactive = true;
+public abstract class InteractiveObject implements Renderable {
+    private TileId tileId;
 
-    public InteractiveObject(Cell cell) {
-        this.cell = cell;
+    public InteractiveObject(TileId tileId) {
+        this.tileId = tileId;
     }
 
-    public void onInteraction(Player player) {
+    public abstract void interact();
+    public abstract boolean isWalkable();
+
+    @Override
+    public TileId getTileId() {
+        return null;
     }
 
-
-    public boolean isInteractive() {
-        return interactive;
+    protected void setTileId(TileId tileId) {
+        this.tileId = tileId;
     }
 
-    public void setInteractive(boolean interactive) {
-        this.interactive = interactive;
-    }
 }

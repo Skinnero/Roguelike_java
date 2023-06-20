@@ -1,19 +1,16 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
-import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.*;
 
-public class Ogre extends Actor {
+public class Ogre extends ActorEnemy {
     private int[] firstPlace;
     private int[] patrolDestination;
 
-    public Ogre(Cell cell) {
-        super(cell);
+    public Ogre(Position position) {
+        super(TileId.of(30, 6), position);
         this.setHealth(15);
     }
 
-    @Override
-    public void move(int dx, int dy) {
-    }
 
     public void setFirstPlace(int[] firstPlace) {
         this.firstPlace = firstPlace;
@@ -29,6 +26,11 @@ public class Ogre extends Actor {
 
     public int[] getFirstPlace() {
         return firstPlace;
+    }
+
+    @Override
+    public Movement planMovement(GameMap map) {
+        return null;
     }
 
 //    public void move(int dx, int dy) {

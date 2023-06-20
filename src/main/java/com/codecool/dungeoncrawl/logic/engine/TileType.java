@@ -1,48 +1,39 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
-public enum TileType {
-    EMPTY("empty", false),
-    FLOOR("floor", true),
-    WATER("water", false),
-    WALL("wall", false),
-    PLAYER("player", false),
-    SKELETON("skeleton", false),
-    OGRE("ogre", false),
-    FOOD("food", true),
-    TORCH("torch", true),
-    BOAT("boat", true),
-    MAGE("mage", false),
-    GRASS("grass", true),
-    CLOSED_CHEST("closed_chest", false),
-    OPEN_CHEST("open_chest", false),
-    CLOSED_DOOR("closed_door", false),
-    OPEN_DOOR("open_door", true),
-    SWORD("sword", true),
-    KEY("key", true),
-    ARMOR("armor", true),
-    LETTER_D("letter_d", true),
-    LETTER_O("letter_o", true),
-    LETTER_N("letter_n", true),
-    LETTER_T("letter_t", true),
-    LETTER_G("letter_g", true),
-    LETTER_H("letter_h", true),
-    LETTER_E("letter_e", true),
-    LETTER_R("letter_r", true);
+import java.util.function.Supplier;
 
-    private final String tileName;
+/**
+* Tiles.Tile need 2 parameters in which symbolise a tile from tiles.png
+* where first parameter is horizontal and second vertical tile
+*/
+public enum TileType implements Renderable{
+    EMPTY(false, TileId.of(0, 0)),
+    FLOOR(true, TileId.of(2, 0)),
+    WATER(false, TileId.of(8, 5)),
+    WALL(false, TileId.of(10, 17)),
+    GRASS(true, TileId.of(5, 0)),
+    LETTER_D(true, TileId.of(22, 30)),
+    LETTER_O(true, TileId.of(20, 31)),
+    LETTER_N(true, TileId.of(19, 31)),
+    LETTER_T(true, TileId.of(25, 31)),
+    LETTER_G(true, TileId.of(25, 30)),
+    LETTER_H(true, TileId.of(26, 30)),
+    LETTER_E(true, TileId.of(23, 30)),
+    LETTER_R(true, TileId.of(23, 31));
+
     private final boolean walkable;
+    private final TileId tileId;
 
-    TileType(String tileName, boolean walkable) {
-        this.tileName = tileName;
+    TileType(boolean walkable, TileId tileId) {
         this.walkable = walkable;
+        this.tileId = tileId;
     }
 
-    public boolean isWalkable(){
+    public boolean isWalkable() {
         return walkable;
     }
 
-    public String getTileName(){
-        return tileName;
+    public TileId getTileId() {
+        return tileId;
     }
-
 }
