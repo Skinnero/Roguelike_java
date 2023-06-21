@@ -1,13 +1,14 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 
 public class Ogre extends ActorEnemy {
     private int[] firstPlace;
     private int[] patrolDestination;
 
     public Ogre(Position position) {
-        super(TileId.of(30, 6), position);
+        super(ActorTileId.OGRE.getTileId(), position);
         this.setHealth(15);
     }
 
@@ -32,6 +33,12 @@ public class Ogre extends ActorEnemy {
     public Movement planMovement(GameMap map) {
         return null;
     }
+
+    @Override
+    public <T extends Actor> void planAttack(T enemy) {
+
+    }
+
 
 //    public void move(int dx, int dy) {
 //        Cell nextCell = getCell().getNeighbor(dx, dy);

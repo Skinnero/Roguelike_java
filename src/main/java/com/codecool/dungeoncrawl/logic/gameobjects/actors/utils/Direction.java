@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils;
+package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils;
 
 import com.codecool.dungeoncrawl.logic.engine.Position;
 

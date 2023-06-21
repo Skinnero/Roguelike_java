@@ -2,13 +2,20 @@ package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
 import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
-public class Food extends Item {
+public class Food implements Item {
+
+    private final TileId tileId = ItemTileId.FOOD.getTileId();
+
     public static int value = 2;
 
     public Food () {
-        super(TileId.of(15, 29));
+    }
+
+    @Override
+    public TileId getTileId() {
+        return tileId;
     }
 
     @Override

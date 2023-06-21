@@ -1,9 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
 import com.codecool.dungeoncrawl.logic.engine.TileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
-import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
+import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 
 public class Door extends InteractiveObject {
 
@@ -11,7 +9,7 @@ public class Door extends InteractiveObject {
     private boolean isOpen = false;
 
     public Door() {
-        super(TileId.of(3, 4));
+        super(InteractiveObjectTileId.CLOSED_DOOR.getTileId());
     }
 
 
@@ -28,7 +26,7 @@ public class Door extends InteractiveObject {
 //            }
 //        }
         setOpen(true);
-        setTileId(TileId.of(4, 4));
+        setTileId(InteractiveObjectTileId.OPEN_DOOR.getTileId());
     }
 
     @Override

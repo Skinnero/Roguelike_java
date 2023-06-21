@@ -5,9 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Tiles {
     public static int TILE_SIZE = 32;
     private static final Image tileSet = new Image("/tiles.png", 543 * 2, 543 * 2, true, false);

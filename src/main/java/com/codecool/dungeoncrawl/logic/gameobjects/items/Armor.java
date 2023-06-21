@@ -1,13 +1,19 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
 import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.engine.TileType;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
-public class Armor extends Item {
+public class Armor implements Item {
+    private final TileId tileId = ItemTileId.ARMOR.getTileId();
 
     public Armor() {
-        super(TileId.of(0, 23));
+    }
+
+    @Override
+    public TileId getTileId() {
+        return tileId;
     }
 
     @Override

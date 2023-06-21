@@ -1,47 +1,51 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.List;
 
 public class GameController {
-    @FXML
-    private List<ImageView> itemImages;
+
     @FXML
     private Pane inventoryPane;
     @FXML
     private Pane statsPane;
     @FXML
     private Canvas canvas;
+
     private final GameMap map = MapLoader.loadMap("/map.txt");
 
     @FXML
-    protected void showInventory(KeyEvent event) {
+    protected void keyEventController(KeyEvent event) {
         switch (event.getCode()) {
             case UP, W -> map.movePlayer(Direction.UP);
             case DOWN, S -> map.movePlayer(Direction.DOWN);
             case LEFT, A -> map.movePlayer(Direction.LEFT);
             case RIGHT, D -> map.movePlayer(Direction.RIGHT);
-            case G -> map.getPlayer().pickUpItem(map.getPlayerCell()); // Grabs item from floor
-            case F -> map.getPlayer().interactWithObject(); // Interact with game surroundings
+            case G -> map.getPlayer().pickUpItem(map); // Grabs item from floor
+            case F -> map.getPlayer().interactWithObject(map); // Interact with game surroundings
 //            case E -> map = player.moveToNextLevel(++mapLevel, map);
             case ESCAPE -> System.exit(0);
             case I -> {
-                inventoryPane.setVisible(!inventoryPane.isVisible());
+                showInventory(map.getPlayer());
                 return;
             }
             case C -> {
-                statsPane.setVisible(!statsPane.isVisible());
+                showStatistics(map.getPlayer());
                 return;
             }
         }
@@ -49,6 +53,8 @@ public class GameController {
         }
         refresh();
     }
+
+
 
     private void refresh() {
         GraphicsContext context = canvas.getGraphicsContext2D();
@@ -84,5 +90,28 @@ public class GameController {
                 }
             }
         }
+    }
+
+    private void showStatistics(Player player) {
+        statsPane.setVisible(!statsPane.isVisible());
+        Label attackLabel = (Label) statsPane.lookup("#attackValue");
+        attackLabel.setText(Integer.toString(player.getAttack()));
+        Label healthLabel = (Label) statsPane.lookup("#healthValue");
+        healthLabel.setText(Integer.toString(player.getHealth()));
+        Label defenseLabel = (Label) statsPane.lookup("#defenseValue");
+        defenseLabel.setText(Integer.toString(player.getDefense()));
+    }
+    private void showInventory(Player player) {
+//        inventoryPane.setVisible(!inventoryPane.isVisible());
+//        Canvas inventory = (Canvas) inventoryPane.lookup("#inventory");
+//        GraphicsContext graphicsContext = inventory.getGraphicsContext2D();
+//        for (int x = 0; x < 3; x++) {
+//            for (int y = 0; y < 3; y++) {
+//                if (player.getInventory().getInventory().size() >= x + y) {
+//                    Tiles.drawHiddenTile(graphicsContext, x, y);
+//                }
+//                Tiles.drawTile(graphicsContext, player.getInventory().getInventory().get(x + y).getTileId(), x, y);
+//            }
+//        }
     }
 }

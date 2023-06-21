@@ -1,7 +1,5 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
-import java.util.function.Supplier;
-
 /**
 * Tiles.Tile need 2 parameters in which symbolise a tile from tiles.png
 * where first parameter is horizontal and second vertical tile

@@ -2,13 +2,18 @@ package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
 import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
-public class Sword extends Item {
+public class Sword implements Item {
 
+    private final TileId tileId = ItemTileId.SWORD.getTileId();
 
     public Sword() {
-        super(TileId.of(2, 28));
+    }
+
+    @Override
+    public TileId getTileId() {
+        return tileId;
     }
 
     @Override

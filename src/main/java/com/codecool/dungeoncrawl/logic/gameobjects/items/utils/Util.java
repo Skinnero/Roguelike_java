@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.items;
+package com.codecool.dungeoncrawl.logic.gameobjects.items.utils;
 
 import java.util.Arrays;
 import java.util.List;

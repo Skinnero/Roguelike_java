@@ -11,14 +11,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloController {
-    @FXML
-    private Stage stage;
-
 
     @FXML
     protected void startNewGame(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/game-ui.fxml"));
-        stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
+        Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getRoot().requestFocus();
         stage.setScene(scene);

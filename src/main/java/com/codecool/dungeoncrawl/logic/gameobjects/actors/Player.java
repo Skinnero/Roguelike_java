@@ -1,14 +1,13 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
-import com.codecool.dungeoncrawl.logic.gameobjects.GameObjectTileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Inventory;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Player extends ActorPlayer {
     private final Inventory<Item> inventory = new Inventory<>();
@@ -18,7 +17,7 @@ public class Player extends ActorPlayer {
     private static Player playerInstance;
 
     public Player(Position position) {
-        super(GameObjectTileId.PLAYER.getTileId(), position);
+        super(ActorTileId.PLAYER.getTileId(), position);
     }
 
     public static Player getInstance(Position position) {
@@ -47,25 +46,27 @@ public class Player extends ActorPlayer {
     public void increasePerception(int perceptionValue) {
         this.perception += perceptionValue;
     }
+
     public void increaseHealth(int healthValue) {
         setHealth(getHealth() + healthValue);
     }
 
-    public void interactWithObject() {
-//        for (int[] coordinate : Util.OFFSET_COORDINATES) {
-//            Cell adjecentCell = getCell().getNeighbor(coordinate[0], coordinate[1]);
-//            if (adjecentCell.getInteractiveObject() != null && adjecentCell.getInteractiveObject().isInteractive()) {
-//                adjecentCell.getInteractiveObject().onInteraction(this);
-//            }
-//        }
+    public void interactWithObject(GameMap map) {
+        for (Position position : Arrays.stream(Direction.values()).map(Direction::getPosition).toList()) {
+            Cell adjacentCell = map.getPlayerCell().getNeighbor(position.x(), position.y());
+            if (Objects.nonNull(adjacentCell.getInteractiveObject())) {
+                adjacentCell.getInteractiveObject().interact();
+            }
+        }
     }
 
-    public void pickUpItem(Cell cell) {
-        if (isInventoryFull() || Objects.isNull(cell.getItem())) {
+    public void pickUpItem(GameMap map) {
+        if (isInventoryFull() || Objects.isNull(map.getPlayerCell().getItem())) {
             return;
         }
-        addItemToInventory(cell.getItem());
-        cell.setItem(null);
+        addItemToInventory(map.getPlayerCell().getItem());
+        map.removeItemFromGameObjectList(map.getPlayerCell().getItem());
+        map.getPlayerCell().setItem(null);
     }
 
 //    public GameMap moveToAnotherLevel(int level) {
@@ -83,7 +84,7 @@ public class Player extends ActorPlayer {
         if (equipment.containsKey(item.getClass().getSimpleName())) {
             equipment.replace(item.getClass().getSimpleName(), item);
         } else {
-           equipment.put(item.getClass().getSimpleName(), item);
+            equipment.put(item.getClass().getSimpleName(), item);
         }
     }
 
@@ -107,7 +108,6 @@ public class Player extends ActorPlayer {
     }
 
 
-
     private void addItemToInventory(Item item) {
         inventory.addItem(item);
     }
@@ -116,8 +116,13 @@ public class Player extends ActorPlayer {
         return inventory.isInventoryFull();
     }
 
-    private void makeAttack(Cell cell) {
-        cell.getActor().setHealth(cell.getActor().getHealth() - getAttack());
+    private int calculateDamage(int enemyDefense) {
+        return getAttack() - enemyDefense;
     }
 
+    @Override
+    public <T extends Actor> void planAttack(T enemy) {
+        enemy.setHealth(enemy.getHealth() - calculateDamage(enemy.getDefense()));
+
+    }
 }

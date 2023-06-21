@@ -2,22 +2,25 @@ package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class GameMap {
+    @Getter
     private int width;
+    @Getter
     private int height;
     private Cell[][] cells;
+    @Getter @Setter
     private Player player;
     private List<Actor> monsters = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
@@ -39,6 +42,13 @@ public class GameMap {
         Movement movement = player.planMovement(direction);
         Cell nextCell = cells[movement.newPosition().x()][movement.newPosition().y()];
         Cell currentCell = cells[movement.currentPosition().x()][movement.currentPosition().y()];
+        if (Objects.nonNull(nextCell.getActor())) {
+            player.planAttack(nextCell.getActor());
+            if (nextCell.getActor().isDead()) {
+                monsters.remove(nextCell.getActor());
+                nextCell.setActor(null);
+            }
+        }
         if (nextCell.isWalkable()) {
             currentCell.setActor(null);
             nextCell.setActor(player);
@@ -55,7 +65,7 @@ public class GameMap {
 //        }
 //    }
 
-    public void addObjectToList(Cell cell) {
+    public void addToGameObjectList(Cell cell) {
         if (cell.getActor() instanceof ActorPlayer) {
             this.player = (Player) cell.getActor();
         } else if (Objects.nonNull(cell.getActor())) {
@@ -71,24 +81,14 @@ public class GameMap {
         return cells[position.x()][position.y()];
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
     public Cell getPlayerCell() {
         return getCell(player.getPosition());
     }
 
-    public int getWidth() {
-        return width;
+    public <T extends Item> void removeItemFromGameObjectList(T item) {
+        items.remove(item);
     }
 
-    public int getHeight() {
-        return height;
-    }
 
     public void save() {
         GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
