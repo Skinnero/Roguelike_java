@@ -17,7 +17,7 @@ public abstract class InteractiveObject implements Renderable {
 
     @Override
     public TileId getTileId() {
-        return null;
+        return tileId;
     }
 
     protected void setTileId(TileId tileId) {

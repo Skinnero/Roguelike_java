@@ -29,8 +29,6 @@ public class MapLoader {
                 }
             }
         }
-//        map.setPlayer(Player.getInstance());
-//        map.getCell(map.getPlayer().getPosition().x(), map.getPlayer().getPosition().y()).setActor(Player.getInstance());
         return map;
     }
 }

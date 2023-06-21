@@ -10,7 +10,7 @@
 
 <Pane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" onKeyPressed="#showInventory" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecool.dungeoncrawl.fxmlController.GameController">
    <children>
-      <Canvas fx:id="canvas" height="600.0" width="800.0" />
+      <Canvas fx:id="canvas" height="900.0" width="1200.0" />
       <Pane fx:id="inventoryPane" layoutX="300.0" layoutY="190.0" maxHeight="220.0" maxWidth="200.0" minHeight="220.0" minWidth="200.0" onKeyPressed="#showInventory" opacity="0.85" pickOnBounds="false" prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: #482c3c;" visible="false">
          <children>
             <Label layoutX="57.0" text="INVENTORY" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">

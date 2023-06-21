@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.gameobjects.GameObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Inventory;
@@ -17,7 +18,7 @@ public class Player extends ActorPlayer {
     private static Player playerInstance;
 
     public Player(Position position) {
-        super(TileId.of(27, 0), position);
+        super(GameObjectTileId.PLAYER.getTileId(), position);
     }
 
     public static Player getInstance(Position position) {

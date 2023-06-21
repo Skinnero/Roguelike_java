@@ -30,7 +30,7 @@ public class Cell {
             return this.getItem().getTileId();
         }
         if (Objects.nonNull(this.getInteractiveObject())) {
-            return this.interactiveObject.getTileId();
+            return this.getInteractiveObject().getTileId();
         }
         return tileType.getTileId();
     }
