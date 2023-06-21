@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.Dao;
 
 import com.codecool.dungeoncrawl.Model.PlayerModel;
+import lombok.SneakyThrows;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -14,6 +15,7 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
+    @SneakyThrows
     public void add(PlayerModel player) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO player (player_name, hp, x, y) VALUES (?, ?, ?, ?)";
@@ -26,8 +28,6 @@ public class PlayerDaoJdbc implements PlayerDao {
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             player.setId(resultSet.getInt(1));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

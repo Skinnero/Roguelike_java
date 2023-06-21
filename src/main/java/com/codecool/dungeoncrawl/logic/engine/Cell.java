@@ -1,30 +1,57 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
-import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.gameobject.GameObject;
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 
-public class Cell implements Drawable {
-    private CellType type;
+import java.util.Objects;
+
+public class Cell {
+    private TileType tileType;
     private Actor actor;
     private Item item;
-    private GameObject gameObject;
-    private GameMap gameMap;
-    private int x, y;
+    private InteractiveObject interactiveObject;
+    private final GameMap gameMap;
+    private final Position position;
 
-    Cell(GameMap gameMap, int x, int y, CellType type) {
+    Cell(GameMap gameMap, Position position, TileType tileType) {
         this.gameMap = gameMap;
-        this.x = x;
-        this.y = y;
-        this.type = type;
+        this.position = position;
+        this.tileType = tileType;
     }
 
-    public boolean isVisible(Player player){
-        int playerX = player.getX();
-        int playerY = player.getY();
-        int cellX = this.getX();
-        int cellY = this.getY();
+    public TileId getVisibleObjectId() {
+        if (Objects.nonNull(this.getActor())) {
+            return this.getActor().getTileId();
+        }
+        if (Objects.nonNull(this.getItem())) {
+            return this.getItem().getTileId();
+        }
+        if (Objects.nonNull(this.getInteractiveObject())) {
+            return this.interactiveObject.getTileId();
+        }
+        return tileType.getTileId();
+    }
+
+    public boolean isWalkable() {
+        if (!this.tileType.isWalkable()) {
+            return false;
+        }
+        if (Objects.nonNull(this.getActor())) {
+            return false;
+        }
+        if (Objects.nonNull(this.getInteractiveObject()) && !this.getInteractiveObject().isWalkable()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isVisible(Player player) {
+        int playerX = player.getPosition().x();
+        int playerY = player.getPosition().y();
+        int cellX = position.x();
+        int cellY = position.y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
 
@@ -34,12 +61,12 @@ public class Cell implements Drawable {
         return inFieldOfView;
     }
 
-    public CellType getType() {
-        return type;
+    public TileType getType() {
+        return tileType;
     }
 
-    public void setType(CellType type) {
-        this.type = type;
+    public void setType(TileType tileType) {
+        this.tileType = tileType;
     }
 
     public void setActor(Actor actor) {
@@ -50,12 +77,12 @@ public class Cell implements Drawable {
         this.item = item;
     }
 
-    public void setGameObject(GameObject gameObject) {
-        this.gameObject = gameObject;
+    public void setInteractiveObject(InteractiveObject interactiveObject) {
+        this.interactiveObject = interactiveObject;
     }
 
-    public GameObject getGameObject() {
-        return gameObject;
+    public InteractiveObject getInteractiveObject() {
+        return interactiveObject;
     }
 
     public Item getItem() {
@@ -67,19 +94,11 @@ public class Cell implements Drawable {
     }
 
     public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(x + dx, y + dy);
+        return gameMap.getCell(Position.of(position.x() + dx, position.y() + dy));
     }
 
-    @Override
-    public String getTileName() {
-        return type.getTileName();
+    public Position getPosition() {
+        return position;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }

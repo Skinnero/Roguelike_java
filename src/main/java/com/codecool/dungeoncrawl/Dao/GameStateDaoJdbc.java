@@ -3,9 +3,6 @@ package com.codecool.dungeoncrawl.Dao;
 import com.codecool.dungeoncrawl.Model.GameState;
 import com.codecool.dungeoncrawl.Model.PlayerModel;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateDaoJdbc implements GameStateDao {
