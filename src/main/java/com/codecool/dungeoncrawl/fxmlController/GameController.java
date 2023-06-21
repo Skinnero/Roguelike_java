@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorutils.Direction;
-import com.codecool.dungeoncrawl.logic.engine.Cell;
-import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.engine.Tiles;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -35,8 +32,8 @@ public class GameController {
             case DOWN, S -> map.movePlayer(Direction.DOWN);
             case LEFT, A -> map.movePlayer(Direction.LEFT);
             case RIGHT, D -> map.movePlayer(Direction.RIGHT);
-            case G -> map.getPlayer().pickUpItem(); // Grab item from floor
-            case F -> map.getPlayer().interactWithObject(); // Interact with game surrounding
+            case G -> map.getPlayer().pickUpItem(map.getPlayerCell()); // Grabs item from floor
+            case F -> map.getPlayer().interactWithObject(); // Interact with game surroundings
 //            case E -> map = player.moveToNextLevel(++mapLevel, map);
             case ESCAPE -> System.exit(0);
             case I -> {
@@ -79,7 +76,7 @@ public class GameController {
 
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
-                Cell cell = map.getCell(x, y);
+                Cell cell = map.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
                 Tiles.drawTile(context, tileId, x - startX, y - startY);
                 if (!Tiles.isVisible(cell, map, map.getPlayer())) {

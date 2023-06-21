@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.fileloader;
 
+import com.codecool.dungeoncrawl.logic.engine.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
@@ -22,7 +23,7 @@ public class MapLoader {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {
                 if (x < line.length()) {
-                    Cell cell = map.getCell(x, y);
+                    Cell cell = map.getCell(Position.of(x, y));
                     CharOnMap.fromChar(line.charAt(x)).apply(cell);
                     map.addObjectToList(cell);
                 }

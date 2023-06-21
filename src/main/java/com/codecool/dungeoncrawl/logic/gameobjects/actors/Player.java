@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.items.Inventory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Player extends ActorPlayer {
     private final Inventory<Item> inventory = new Inventory<>();
@@ -57,16 +58,17 @@ public class Player extends ActorPlayer {
 //        }
     }
 
-    public void pickUpItem() {
-//        if (isInventoryFull() || Objects.isNull(getCell().getItem())) {
-//            return;
-//        }
-//        addItemToInventory(getCell().getItem());
-//    }
+    public void pickUpItem(Cell cell) {
+        if (isInventoryFull() || Objects.isNull(cell.getItem())) {
+            return;
+        }
+        addItemToInventory(cell.getItem());
+        cell.setItem(null);
+    }
 
 //    public GameMap moveToAnotherLevel(int level) {
 //        return MapLoader.loadMap("/map" + level + ".txt");
-    }
+//    }
 
     public void useItem(int itemSlot) {
         if (inventory.getInventory().size() <= itemSlot) {

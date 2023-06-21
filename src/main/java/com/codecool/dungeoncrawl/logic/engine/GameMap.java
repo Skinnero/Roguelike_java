@@ -66,8 +66,8 @@ public class GameMap {
         }
     }
 
-    public Cell getCell(int x, int y) {
-        return cells[x][y];
+    public Cell getCell(Position position) {
+        return cells[position.x()][position.y()];
     }
 
     public void setPlayer(Player player) {
@@ -76,6 +76,9 @@ public class GameMap {
 
     public Player getPlayer() {
         return player;
+    }
+    public Cell getPlayerCell() {
+        return getCell(player.getPosition());
     }
 
     public int getWidth() {

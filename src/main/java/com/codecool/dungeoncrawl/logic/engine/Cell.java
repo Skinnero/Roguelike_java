@@ -95,7 +95,7 @@ public class Cell {
     }
 
     public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(position.x() + dx, position.y() + dy);
+        return gameMap.getCell(Position.of(position.x() + dx, position.y() + dy));
     }
 
     public Position getPosition() {
