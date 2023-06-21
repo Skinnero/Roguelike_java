@@ -13,6 +13,7 @@ public class Player extends ActorPlayer {
     private final Inventory<Item> inventory = new Inventory<>();
     private final Map<String, Item> equipment = new HashMap<>();
     private int perception = 4;
+    private String name;
     private static Player playerInstance;
 
     public Player(Position position) {

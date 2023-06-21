@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
+import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
@@ -87,6 +88,12 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public void save() {
+        GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
+        gameDatabaseManager.setup();
+
     }
 
 }

@@ -1,39 +1,43 @@
-//package com.codecool.dungeoncrawl.Dao;
-//
-//import com.codecool.dungeoncrawl.logic.actors.Player;
-//import com.codecool.dungeoncrawl.model.PlayerModel;
-//import org.postgresql.ds.PGSimpleDataSource;
-//
-//import javax.sql.DataSource;
-//import java.sql.SQLException;
-//
-//public class GameDatabaseManager {
-//    private PlayerDao playerDao;
-//
-//    public void setup() throws SQLException {
-//        DataSource dataSource = connect();
-//        playerDao = new PlayerDaoJdbc(dataSource);
-//    }
-//
-//    public void savePlayer(Player player) {
-//        PlayerModel model = new PlayerModel(player);
-//        playerDao.add(model);
-//    }
-//
-//    private DataSource connect() throws SQLException {
-//        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-//        String dbName = "test";
-//        String user = "test";
-//        String password = "test";
-//
-//        dataSource.setDatabaseName(dbName);
-//        dataSource.setUser(user);
-//        dataSource.setPassword(password);
-//
-//        System.out.println("Trying to connect");
-//        dataSource.getConnection().close();
-//        System.out.println("Connection ok.");
-//
-//        return dataSource;
-//    }
-//}
+package com.codecool.dungeoncrawl.Dao;
+
+import com.codecool.dungeoncrawl.Model.PlayerModel;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import io.github.cdimascio.dotenv.Dotenv;
+import lombok.SneakyThrows;
+import org.postgresql.ds.PGSimpleDataSource;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+public class GameDatabaseManager {
+    private PlayerDao playerDao;
+    Dotenv dotenv = Dotenv.load();
+    private final String DB_NAME = dotenv.get("DB_NAME");
+    private final String DB_USER = dotenv.get("DB_USER");
+    private final String DB_PASSWORD = dotenv.get("DB_PASSWORD");
+
+    @SneakyThrows
+    public void setup() {
+        DataSource dataSource = connect();
+        playerDao = new PlayerDaoJdbc(dataSource);
+    }
+
+    public void savePlayer(Player player) {
+        PlayerModel model = new PlayerModel(player);
+        playerDao.add(model);
+    }
+
+    private DataSource connect() throws SQLException {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+
+        dataSource.setDatabaseName(DB_NAME);
+        dataSource.setUser(DB_USER);
+        dataSource.setPassword(DB_PASSWORD);
+
+        System.out.println("Trying to connect");
+        dataSource.getConnection().close();
+        System.out.println("Connection ok.");
+
+        return dataSource;
+    }
+}
