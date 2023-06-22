@@ -19,13 +19,13 @@ public class EnemyMovement {
         if (behavior.isPlayerThere(map, moveVector, positionX, positionY)) {
             attack.attackPlayer(map, ogre);
         } else if (enemyMovement.isMovePossible(map, moveVector, positionX, positionY)) {
-            ogre.move(map, moveVector.x(), moveVector.y());
+            ogre.move(map, moveVector);
         } else {
             ogre.switchPatrol();
         }
     }
 
-    public void moveTowardsPlayer(GameMap map, ActorEnemy actor, Position moveVector, Position actorPosition) {
+    public Position moveTowardsPlayer(GameMap map, ActorEnemy actor, Position moveVector, Position actorPosition) {
         Behavior behavior = new Behavior();
         Attack attack = new Attack();
         FieldOfView fieldOfView = new FieldOfView();
@@ -36,7 +36,7 @@ public class EnemyMovement {
         if (behavior.isPlayerThere(map, moveVector, actorPosition.x(), actorPosition.y())) {
             attack.attackPlayer(map, actor);
         } else if (fieldOfView.isPlayerNear(actor, playerPositionX, playerPositionY, fieldOfViewDistance)) {
-            actor.move(map, moveVector.x(), moveVector.y());
+            actor.move(map, moveVector);
         }
     }
 

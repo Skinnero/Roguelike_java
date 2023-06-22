@@ -21,6 +21,7 @@ public class GameMap {
     private int width;
     @Getter
     private int height;
+    @Getter
     private Cell[][] cells;
     @Getter
     @Setter

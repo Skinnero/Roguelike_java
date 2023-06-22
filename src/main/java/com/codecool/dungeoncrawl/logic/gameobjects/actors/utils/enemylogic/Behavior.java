@@ -8,31 +8,32 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 
 public class Behavior {
-    public void goToPatrolPlace(GameMap map, Ogre ogre) {
+    public Position goToPatrolPlace(GameMap map, Ogre ogre) {
         EnemyMovement enemyMovement = new EnemyMovement();
         FieldOfView fieldOfView = new FieldOfView();
         Position ogrePosition = ogre.getPosition();
         Position playerPosition = map.getPlayer().getPosition();
         int positionX = ogrePosition.x();
         int positionY = ogrePosition.y();
-        int[] patrolDestination = ogre.getPatrolDestination();
-        int[] vector = new int[]{positionX - patrolDestination[1]};
+        Position patrolDestination = ogre.getPatrolDestination();
+        int vector = positionX - patrolDestination.y();
 
-        if (positionX - patrolDestination[1] == 0) {
+        if (positionX - patrolDestination.y() == 0) {
             ogre.switchPatrol();
-            return;
         }
         Position moveVector;
         if(fieldOfView.isPlayerNear(ogre, playerPosition.x(), playerPosition.y(), ogre.getFieldOfViewDistance())) {
             moveVector = vectorToPlayer(map, ogre);
             enemyMovement.moveTowardsPlayer(map, ogre, moveVector, ogrePosition);
         }
-        if (vector[0] > 0) {
+        if (vector > 0) {
             moveVector = Direction.LEFT.getPosition();
-            enemyMovement.handlePatrol(map, ogre, moveVector, positionX, positionY);
+            return moveVector;
+//            enemyMovement.handlePatrol(map, ogre, moveVector, positionX, positionY);
         } else {
             moveVector = Direction.RIGHT.getPosition();
-            enemyMovement.handlePatrol(map, ogre, moveVector, positionX, positionY);
+            return moveVector;
+//            enemyMovement.handlePatrol(map, ogre, moveVector, positionX, positionY);
         }
     }
 
@@ -49,17 +50,16 @@ public class Behavior {
         Position playerPosition = map.getPlayer().getPosition();
         Position magePosition = mage.getPosition();
         int fieldOfViewDistance = mage.getFieldOfViewDistance();
-        int playerPositionX = playerPosition.x();
-        int playerPositionY = playerPosition.y();
-        int[] vector = new int[]{playerPositionX - magePosition.x(), playerPositionY - magePosition.y()};
 
-        int dx = Integer.compare(vector[0], 0);
-        int dy = Integer.compare(vector[1], 0);
+        Position vector = Position.of(playerPosition.x() - magePosition.x(), playerPosition.y() - magePosition.y());
+
+        int dx = Integer.compare(vector.x(), 0);
+        int dy = Integer.compare(vector.y(), 0);
         Position moveVector = Position.of(dx, dy);
         if (isPlayerThere(map, moveVector, magePosition.x(), magePosition.y())) {
             attack.attackPlayer(map, mage);
-        } else if (fieldOfView.isPlayerNear(mage, playerPositionX, playerPositionY, fieldOfViewDistance)) {
-            mage.move(map, dx, dy);
+        } else if (fieldOfView.isPlayerNear(mage, playerPosition.x(), playerPosition.y(), fieldOfViewDistance)) {
+            mage.move(map, moveVector);
         }
     }
 
