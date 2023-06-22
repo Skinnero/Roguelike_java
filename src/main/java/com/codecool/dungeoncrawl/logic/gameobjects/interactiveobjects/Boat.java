@@ -17,6 +17,6 @@ public class Boat extends InteractiveObject {
 
     @Override
     public boolean isWalkable() {
-        return false;
+        return true;
     }
 }

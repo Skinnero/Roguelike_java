@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
@@ -20,8 +21,12 @@ public class GameMap {
     @Getter
     private int height;
     private Cell[][] cells;
-    @Getter @Setter
+    @Getter
+    @Setter
     private Player player;
+    @Getter
+    @Setter
+    private int mapLevel = 0;
     private List<Actor> monsters = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
     private List<InteractiveObject> interactiveObjects = new ArrayList<>();
@@ -79,6 +84,10 @@ public class GameMap {
 
     public Cell getCell(Position position) {
         return cells[position.x()][position.y()];
+    }
+
+    public GameMap getAnotherMap() {
+        return MapLoader.loadMap("/map" + ++mapLevel + ".txt");
     }
 
     public Cell getPlayerCell() {

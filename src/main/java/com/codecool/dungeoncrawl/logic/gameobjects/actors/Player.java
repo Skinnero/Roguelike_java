@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
+import com.codecool.dungeoncrawl.fxmlController.ProfessionTileId;
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
@@ -19,7 +21,7 @@ public class Player extends ActorPlayer {
     private static Player playerInstance;
 
     public Player() {
-        super(ActorTileId.PLAYER.getTileId(), null);
+        super(null, null);
     }
 
     public static Player getInstance() {
@@ -63,10 +65,6 @@ public class Player extends ActorPlayer {
         map.getPlayerCell().setItem(null);
     }
 
-//    public GameMap moveToAnotherLevel(int level) {
-//        return MapLoader.loadMap("/map" + level + ".txt");
-//    }
-
     public void useItem(int itemSlot) {
         if (inventory.size() <= itemSlot) {
             return;
@@ -82,11 +80,34 @@ public class Player extends ActorPlayer {
         }
     }
 
-    public int getFieldOfView(Player player, GameMap map) {
+    public void setProfession(ProfessionTileId professionTileId) {
+        switch (professionTileId) {
+            case MAGE -> {
+                setTileId(professionTileId.getTileId());
+                setHealth(15);
+                setDefense(1);
+                setAttack(3);
+            }
+            case WARRIOR -> {
+                setTileId(professionTileId.getTileId());
+                setHealth(25);
+                setDefense(3);
+                setAttack(1);
+            }
+            case HUNTER -> {
+                setTileId(professionTileId.getTileId());
+                setHealth(20);
+                setDefense(2);
+                setAttack(2);
+            }
+        }
+    }
+
+    public int getFieldOfView(GameMap map) {
 //        int attributeBonus = player.getPerception();
 //        int mapSizeBonus = Math.min(map.getWidth(), map.getHeight()) / 10;
 //        return attributeBonus + mapSizeBonus;
-        return player.getPerception();
+        return perception;
     }
 
     public List<Item> getInventory() {

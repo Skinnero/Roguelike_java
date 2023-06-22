@@ -6,7 +6,8 @@ import lombok.Setter;
 
 public abstract class Actor implements Renderable {
     @Getter
-    private final TileId tileId;
+    @Setter
+    private TileId tileId;
     @Getter
     @Setter
     private int health = 20;

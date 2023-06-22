@@ -1,10 +1,8 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
-import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,21 +14,18 @@ import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 public class GameController {
-
+    private final int TILE_SIZE = 60;
+    private final int MAX_ROW = 3;
     @FXML
     private Pane inventoryPane;
     @FXML
     private Pane statsPane;
     @FXML
     private Canvas canvas;
-    private final int TILE_SIZE = 60;
-    private final int MAX_ROW = 3;
 
-    private final GameMap map = MapLoader.loadMap("/map.txt");
+    private GameMap map = MapLoader.loadMap("/tutorial.txt");
 
     @FXML
     protected void handleKeyEvent(KeyEvent keyEvent) {
@@ -49,7 +44,7 @@ public class GameController {
             case RIGHT, D -> map.movePlayer(Direction.RIGHT);
             case G -> pickUpItem(); // Grabs item from floor
             case F -> interactWithEnvironment(); // Interact with game surroundings
-//            case E -> map = player.moveToNextLevel(++mapLevel, map);
+            case E -> map = map.getAnotherMap();
             case ESCAPE -> System.exit(0);
             case DIGIT1 -> useItem(0);
             case DIGIT2 -> useItem(1);
@@ -98,7 +93,7 @@ public class GameController {
                 Cell cell = map.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
                 Tiles.drawTile(context, tileId, x - startingPosition.x(), y - startingPosition.y());
-                if (!Tiles.isVisible(cell, map, map.getPlayer())) {
+                if (!Tiles.isVisible(cell, map)) {
                     Tiles.drawHiddenTile(context, x - startingPosition.x(), y - startingPosition.y());
                 }
             }
@@ -125,6 +120,7 @@ public class GameController {
         }
 
     }
+
     private void pickUpItem() {
         map.getPlayer().pickUpItem(map);
         refreshInventory();

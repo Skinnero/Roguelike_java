@@ -36,17 +36,15 @@ public class Tiles {
         context.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 
-    public static boolean isVisible(Cell cell, GameMap map, Player player) {
-        int playerX = map.getPlayer().getPosition().x();
-        int playerY = map.getPlayer().getPosition().y();
-        int cellX = cell.getPosition().x();
-        int cellY = cell.getPosition().y();
+    public static boolean isVisible(Cell cell, GameMap map) {
+        Position playerPosition = map.getPlayer().getPosition();
+        Position cellPosition = cell.getPosition();
 
-        int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
+        int distance = Math.abs(playerPosition.x() - cellPosition.x()) + Math.abs(playerPosition.y() - cellPosition.y());
 
-        int fieldOfView = player.getFieldOfView(player, map);
+        int fieldOfView = map.getPlayer().getFieldOfView(map);
         boolean inFieldOfView = distance <= fieldOfView;
 
-        return cell.isVisible(player, map) && inFieldOfView;
+        return cell.isVisible(map) && inFieldOfView;
     }
 }

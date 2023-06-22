@@ -52,14 +52,14 @@ public class Cell {
         return true;
     }
 
-    public boolean isVisible(Player player, GameMap gameMap) {
-        int playerX = player.getPosition().x();
-        int playerY = player.getPosition().y();
+    public boolean isVisible(GameMap gameMap) {
+        int playerX = gameMap.getPlayer().getPosition().x();
+        int playerY = gameMap.getPlayer().getPosition().y();
         int cellX = position.x();
         int cellY = position.y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
-        int fieldOfView = player.getFieldOfView(player, gameMap);
+        int fieldOfView = gameMap.getPlayer().getFieldOfView(gameMap);
         return distance <= fieldOfView;
     }
 
