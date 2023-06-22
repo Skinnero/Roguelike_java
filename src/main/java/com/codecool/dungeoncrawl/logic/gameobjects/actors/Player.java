@@ -4,25 +4,27 @@ import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
-import com.codecool.dungeoncrawl.logic.gameobjects.items.Inventory;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Player extends ActorPlayer {
-    private final Inventory<Item> inventory = new Inventory<>();
+    private final List<Item> inventory = new ArrayList<>();
     private final Map<String, Item> equipment = new HashMap<>();
+    @Getter
+    @Setter
     private int perception = 4;
     private String name;
     private static Player playerInstance;
 
-    public Player(Position position) {
-        super(ActorTileId.PLAYER.getTileId(), position);
+    public Player() {
+        super(ActorTileId.PLAYER.getTileId(), null);
     }
 
-    public static Player getInstance(Position position) {
+    public static Player getInstance() {
         if (playerInstance == null) {
-            playerInstance = new Player(position);
+            playerInstance = new Player();
         }
         return playerInstance;
     }
@@ -36,11 +38,11 @@ public class Player extends ActorPlayer {
     }
 
     public void addToInventory(Item item) {
-        inventory.addItem(item);
+        inventory.add(item);
     }
 
     public void removeFromInventory(Item item) {
-        inventory.removeItem(item);
+        inventory.remove(item);
     }
 
     public void increasePerception(int perceptionValue) {
@@ -53,7 +55,7 @@ public class Player extends ActorPlayer {
 
     public void interactWithObject(GameMap map) {
         for (Position position : Arrays.stream(Direction.values()).map(Direction::getPosition).toList()) {
-            Cell adjacentCell = map.getPlayerCell().getNeighbor(position.x(), position.y());
+            Cell adjacentCell = map.getPlayerCell().getNeighbor(position, map);
             if (Objects.nonNull(adjacentCell.getInteractiveObject())) {
                 adjacentCell.getInteractiveObject().interact();
             }
@@ -64,7 +66,7 @@ public class Player extends ActorPlayer {
         if (isInventoryFull() || Objects.isNull(map.getPlayerCell().getItem())) {
             return;
         }
-        addItemToInventory(map.getPlayerCell().getItem());
+        addToInventory(map.getPlayerCell().getItem());
         map.removeItemFromGameObjectList(map.getPlayerCell().getItem());
         map.getPlayerCell().setItem(null);
     }
@@ -74,10 +76,10 @@ public class Player extends ActorPlayer {
 //    }
 
     public void useItem(int itemSlot) {
-        if (inventory.getInventory().size() <= itemSlot) {
-            return;
-        }
-        inventory.getItem(itemSlot).onUse(this);
+//        if (inventory.getInventory().size() <= itemSlot) {
+//            return;
+//        }
+        inventory.get(itemSlot).onUse(this);
     }
 
     public void addToEquipment(Item item) {
@@ -88,14 +90,6 @@ public class Player extends ActorPlayer {
         }
     }
 
-    public Map<String, Item> getEquipment() {
-        return equipment;
-    }
-
-    public Inventory<Item> getInventory() {
-        return inventory;
-    }
-
     public int getFieldOfView(Player player, GameMap map) {
 //        int attributeBonus = player.getPerception();
 //        int mapSizeBonus = Math.min(map.getWidth(), map.getHeight()) / 10;
@@ -103,17 +97,13 @@ public class Player extends ActorPlayer {
         return player.getPerception();
     }
 
-    public int getPerception() {
-        return perception;
+    public List<Item> getInventory() {
+        return new ArrayList<>(inventory);
     }
 
-
-    private void addItemToInventory(Item item) {
-        inventory.addItem(item);
-    }
 
     private boolean isInventoryFull() {
-        return inventory.isInventoryFull();
+        return inventory.size() >= 9;
     }
 
     private int calculateDamage(int enemyDefense) {

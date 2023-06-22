@@ -27,6 +27,7 @@ public class ActorConsumer {
     }
 
     public static void player(Cell cell) {
-        cell.setActor(Player.getInstance(Position.of(cell.getPosition().x(), cell.getPosition().y())));
+        Player.getInstance().setPosition(cell.getPosition());
+        cell.setActor(Player.getInstance());
     }
 }

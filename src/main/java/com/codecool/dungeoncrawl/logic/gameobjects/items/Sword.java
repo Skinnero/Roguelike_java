@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Sword implements Item {
+    private final int value = 1;
 
     private final TileId tileId = ItemTileId.SWORD.getTileId();
 
@@ -20,5 +21,6 @@ public class Sword implements Item {
     public void onUse(Player player) {
         player.addToEquipment(this);
         player.removeFromInventory(this);
+        player.setAttack(player.getAttack() + value);
     }
 }

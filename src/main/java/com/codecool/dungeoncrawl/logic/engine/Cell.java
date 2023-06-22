@@ -4,19 +4,24 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
 public class Cell {
+    @Setter @Getter
     private TileType tileType;
+    @Getter @Setter
     private Actor actor;
+    @Getter @Setter
     private Item item;
+    @Getter @Setter
     private InteractiveObject interactiveObject;
-    private final GameMap gameMap;
+    @Getter
     private final Position position;
 
-    Cell(GameMap gameMap, Position position, TileType tileType) {
-        this.gameMap = gameMap;
+    Cell(Position position, TileType tileType) {
         this.position = position;
         this.tileType = tileType;
     }
@@ -47,58 +52,19 @@ public class Cell {
         return true;
     }
 
-    public boolean isVisible(Player player) {
+    public boolean isVisible(Player player, GameMap gameMap) {
         int playerX = player.getPosition().x();
         int playerY = player.getPosition().y();
         int cellX = position.x();
         int cellY = position.y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
-
         int fieldOfView = player.getFieldOfView(player, gameMap);
-        boolean inFieldOfView = distance <= fieldOfView;
-
-        return inFieldOfView;
+        return distance <= fieldOfView;
     }
 
-    public TileType getType() {
-        return tileType;
-    }
-
-    public void setType(TileType tileType) {
-        this.tileType = tileType;
-    }
-
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public void setInteractiveObject(InteractiveObject interactiveObject) {
-        this.interactiveObject = interactiveObject;
-    }
-
-    public InteractiveObject getInteractiveObject() {
-        return interactiveObject;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public Actor getActor() {
-        return actor;
-    }
-
-    public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(Position.of(position.x() + dx, position.y() + dy));
-    }
-
-    public Position getPosition() {
-        return position;
+    public Cell getNeighbor(Position nextPosition, GameMap gameMap) {
+        return gameMap.getCell(Position.of(position.x() + nextPosition.x(), position.y() + nextPosition.y()));
     }
 
 }

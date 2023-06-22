@@ -25,6 +25,11 @@ public class Tiles {
         context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
+    public static void drawTile(GraphicsContext context, TileId tileId, int x, int y, int tileSize) {
+        Tile tile = new Tile(tileId);
+        context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
+                x * tileSize, y * tileSize, tileSize, tileSize);
+    }
 
     public static void drawHiddenTile(GraphicsContext context, int x, int y) {
         context.setFill(Color.BLACK);
@@ -42,6 +47,6 @@ public class Tiles {
         int fieldOfView = player.getFieldOfView(player, map);
         boolean inFieldOfView = distance <= fieldOfView;
 
-        return cell.isVisible(player) && inFieldOfView;
+        return cell.isVisible(player, map) && inFieldOfView;
     }
 }

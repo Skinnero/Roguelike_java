@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameController {
@@ -26,6 +29,8 @@ public class GameController {
     private Pane statsPane;
     @FXML
     private Canvas canvas;
+    private final int TILE_SIZE = 60;
+    private final int MAX_ROW = 3;
 
     private final GameMap map = MapLoader.loadMap("/map.txt");
 
@@ -55,44 +60,41 @@ public class GameController {
     }
 
 
-
     private void refresh() {
         GraphicsContext context = canvas.getGraphicsContext2D();
-
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        int playerX = map.getPlayer().getPosition().x();
-        int playerY = map.getPlayer().getPosition().y();
+        Position playerPosition = map.getPlayer().getPosition();
 
         // left boundary of view
-        int startX = Math.max(0, playerX - (int) (canvas.getWidth() / Tiles.TILE_SIZE / 2));
+        int startX = Math.max(0, playerPosition.x() - (int) (canvas.getWidth() / Tiles.TILE_SIZE / 2));
         // top boundary of view
-        int startY = Math.max(0, playerY - (int) (canvas.getHeight() / Tiles.TILE_SIZE / 2));
+        int startY = Math.max(0, playerPosition.y() - (int) (canvas.getHeight() / Tiles.TILE_SIZE / 2));
         // right boundary of view
         int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_SIZE));
         // bottom boundary of view
         int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_SIZE));
 
-        createMap(startX, startY, endX, endY);
+        createMap(Position.of(startX, startY), Position.of(endX, endY));
     }
 
-    private void createMap(int startX, int startY, int endX, int endY) {
+    private void createMap(Position startingPosition, Position endingPosition) {
         GraphicsContext context = canvas.getGraphicsContext2D();
 
-        for (int x = startX; x < endX; x++) {
-            for (int y = startY; y < endY; y++) {
+        for (int x = startingPosition.x(); x < endingPosition.x(); x++) {
+            for (int y = startingPosition.y(); y < endingPosition.y(); y++) {
                 Cell cell = map.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
-                Tiles.drawTile(context, tileId, x - startX, y - startY);
+                Tiles.drawTile(context, tileId, x - startingPosition.x(), y - startingPosition.y());
                 if (!Tiles.isVisible(cell, map, map.getPlayer())) {
-                    Tiles.drawHiddenTile(context, x - startX, y - startY);
+                    Tiles.drawHiddenTile(context, x - startingPosition.x(), y - startingPosition.y());
                 }
             }
         }
     }
 
     private void showStatistics(Player player) {
+        int COLUMN = 0;
         statsPane.setVisible(!statsPane.isVisible());
         Label attackLabel = (Label) statsPane.lookup("#attackValue");
         attackLabel.setText(Integer.toString(player.getAttack()));
@@ -100,18 +102,33 @@ public class GameController {
         healthLabel.setText(Integer.toString(player.getHealth()));
         Label defenseLabel = (Label) statsPane.lookup("#defenseValue");
         defenseLabel.setText(Integer.toString(player.getDefense()));
+
+        Canvas stats = (Canvas) statsPane.lookup("#stats");
+        GraphicsContext graphicsContext = stats.getGraphicsContext2D();
+
+        List<TileId> statsTileIds = Arrays.stream(StatisticsTileId.values()).map(StatisticsTileId::getTileId).toList();
+
+        for (int y = 0; y < MAX_ROW; y++) {
+            Tiles.drawTile(graphicsContext, statsTileIds.get(y), COLUMN, y, TILE_SIZE);
+        }
+
     }
+
     private void showInventory(Player player) {
-//        inventoryPane.setVisible(!inventoryPane.isVisible());
-//        Canvas inventory = (Canvas) inventoryPane.lookup("#inventory");
-//        GraphicsContext graphicsContext = inventory.getGraphicsContext2D();
-//        for (int x = 0; x < 3; x++) {
-//            for (int y = 0; y < 3; y++) {
-//                if (player.getInventory().getInventory().size() >= x + y) {
-//                    Tiles.drawHiddenTile(graphicsContext, x, y);
-//                }
-//                Tiles.drawTile(graphicsContext, player.getInventory().getInventory().get(x + y).getTileId(), x, y);
-//            }
-//        }
+        int MAX_COLUMN = 3;
+        inventoryPane.setVisible(!inventoryPane.isVisible());
+        Canvas inventory = (Canvas) inventoryPane.lookup("#inventory");
+        GraphicsContext graphicsContext = inventory.getGraphicsContext2D();
+        int inventoryIndex = 0;
+
+        for (int x = 0; x < MAX_ROW; x++) {
+            for (int y = 0; y < MAX_COLUMN; y++) {
+                if (player.getInventory().size() == inventoryIndex) {
+                    return;
+                }
+                Tiles.drawTile(graphicsContext, player.getInventory().get(inventoryIndex).getTileId(), x, y, TILE_SIZE);
+                inventoryIndex++;
+            }
+        }
     }
 }

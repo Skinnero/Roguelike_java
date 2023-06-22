@@ -8,53 +8,53 @@ public class EnvironmentalObjectConsumer {
     }
 
     public static void empty(Cell cell) {
-        cell.setType(TileType.EMPTY);
+        cell.setTileType(TileType.EMPTY);
     }
 
     public static void floor(Cell cell) {
-        cell.setType(TileType.FLOOR);
+        cell.setTileType(TileType.FLOOR);
     }
 
     public static void wall(Cell cell) {
-        cell.setType(TileType.WALL);
+        cell.setTileType(TileType.WALL);
     }
 
     public static void water(Cell cell) {
-        cell.setType(TileType.WATER);
+        cell.setTileType(TileType.WATER);
     }
 
     public static void grass(Cell cell) {
-        cell.setType(TileType.GRASS);
+        cell.setTileType(TileType.GRASS);
     }
 
     public static void letterD(Cell cell) {
-        cell.setType(TileType.LETTER_D);
+        cell.setTileType(TileType.LETTER_D);
     }
 
     public static void letterO(Cell cell) {
-        cell.setType(TileType.LETTER_O);
+        cell.setTileType(TileType.LETTER_O);
     }
 
     public static void letterN(Cell cell) {
-        cell.setType(TileType.LETTER_N);
+        cell.setTileType(TileType.LETTER_N);
     }
 
     public static void letterT(Cell cell) {
-        cell.setType(TileType.LETTER_T);
+        cell.setTileType(TileType.LETTER_T);
     }
 
     public static void letterG(Cell cell) {
-        cell.setType(TileType.LETTER_G);
+        cell.setTileType(TileType.LETTER_G);
     }
 
     public static void letterH(Cell cell) {
-        cell.setType(TileType.LETTER_H);
+        cell.setTileType(TileType.LETTER_H);
     }
 
     public static void letterE(Cell cell) {
-        cell.setType(TileType.LETTER_E);
+        cell.setTileType(TileType.LETTER_E);
     }
     public static void letterR(Cell cell) {
-        cell.setType(TileType.LETTER_R);
+        cell.setTileType(TileType.LETTER_R);
     }
 }

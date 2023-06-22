@@ -1,12 +1,23 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import lombok.Getter;
+import lombok.Setter;
 
 public abstract class Actor implements Renderable {
+    @Getter
     private final TileId tileId;
+    @Getter
+    @Setter
     private int health = 20;
+    @Getter
+    @Setter
     private int defense = 1;
+    @Getter
+    @Setter
     private int attack = 3;
+    @Getter
+    @Setter
     private Position position;
 
     public Actor(TileId tileId, Position position) {
@@ -18,41 +29,6 @@ public abstract class Actor implements Renderable {
 
     public boolean isDead() {
         return health <= 0;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-    public TileId getTileId() {
-        return tileId;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getAttack() {
-        return attack;
     }
 
 }
