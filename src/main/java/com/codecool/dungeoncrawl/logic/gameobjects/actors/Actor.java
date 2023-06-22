@@ -20,6 +20,9 @@ public abstract class Actor implements Renderable {
     @Getter
     @Setter
     private Position position;
+    @Getter
+    @Setter
+    private int fieldOfViewDistance = 7;
 
     public Actor(TileId tileId, Position position) {
         this.tileId = tileId;

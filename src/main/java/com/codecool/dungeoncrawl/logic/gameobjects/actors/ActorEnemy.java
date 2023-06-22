@@ -1,9 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
-import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.engine.Movement;
-import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.engine.*;
 
 public abstract class ActorEnemy extends Actor{
     public ActorEnemy(TileId tileId, Position position) {
@@ -12,4 +9,12 @@ public abstract class ActorEnemy extends Actor{
 
     public abstract Movement planMovement(GameMap map);
 
+    public void move(GameMap map, int dx, int dy) {
+        Cell nextCell = map.getCell(Position.of(dx, dy));
+        if (!nextCell.isWalkable()) {
+            return;
+        }
+//        map.getCell(Position.of(dx,dy)).setActor(null);
+//        nextCell.setActor(this);
+    }
 }

@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.engine;
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
@@ -61,9 +62,9 @@ public class GameMap {
         }
     }
 
-//    public void moveActors() {
-//        for (Actor monster: monsters) {
-//            Movement movement = monster.move(cells);
+//    public void moveActorEnemy() {
+//        for (ActorEnemy monster: monsters) {
+//            Movement movement = monster.planMovement(this);
 //            cells[movement.currentPosition().x()][movement.currentPosition().y()].setActor(null);
 //            cells[movement.newPosition().x()][movement.newPosition().y()].setActor(monster);
 //            monster.setPosition();

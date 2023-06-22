@@ -2,31 +2,22 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic.Behavior;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Ogre extends ActorEnemy {
+    @Setter
+    @Getter
     private int[] firstPlace;
+    @Setter
+    @Getter
     private int[] patrolDestination;
 
     public Ogre(Position position) {
         super(ActorTileId.OGRE.getTileId(), position);
         this.setHealth(15);
-    }
-
-
-    public void setFirstPlace(int[] firstPlace) {
-        this.firstPlace = firstPlace;
-    }
-
-    public void setPatrolDestination(int[] patrolDestination) {
-        this.patrolDestination = patrolDestination;
-    }
-
-    public int[] getPatrolDestination() {
-        return patrolDestination;
-    }
-
-    public int[] getFirstPlace() {
-        return firstPlace;
+        this.setFieldOfViewDistance(2);
     }
 
     @Override
@@ -36,19 +27,22 @@ public class Ogre extends ActorEnemy {
 
     @Override
     public <T extends Actor> void planAttack(T enemy) {
-
     }
 
+    public void setPatrolPlaces() {
+        Position ogrePosition = getPosition();
+        int positionY = ogrePosition.y();
+        int positionX = ogrePosition.x();
+        int[] firstPlace = new int[]{positionY, positionX - 3};
+        int[] patrolDestination = new int[]{positionY, positionX + 3};
+        setFirstPlace(firstPlace);
+        setPatrolDestination(patrolDestination);
+    }
 
-//    public void move(int dx, int dy) {
-//        Cell nextCell = getCell().getNeighbor(dx, dy);
-//        if (nextCell.getType() == CellType.UNWALKABLE) {
-//            return;
-//        } else if (!Objects.isNull(nextCell.getGameObject()) && nextCell.getGameObject().isInteractive()) {
-//            return;
-//        }
-//        getCell().setActor(null);
-//        nextCell.setActor(this);
-//        setCell(nextCell);
-//    }
+    public void switchPatrol() {
+        int[] patrolDestination = getPatrolDestination();
+        int[] firstPlace = getFirstPlace();
+        setPatrolDestination(firstPlace);
+        setFirstPlace(patrolDestination);
+    }
 }
