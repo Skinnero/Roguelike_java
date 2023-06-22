@@ -45,14 +45,6 @@ public class Player extends ActorPlayer {
         inventory.remove(item);
     }
 
-    public void increasePerception(int perceptionValue) {
-        this.perception += perceptionValue;
-    }
-
-    public void increaseHealth(int healthValue) {
-        setHealth(getHealth() + healthValue);
-    }
-
     public void interactWithObject(GameMap map) {
         for (Position position : Arrays.stream(Direction.values()).map(Direction::getPosition).toList()) {
             Cell adjacentCell = map.getPlayerCell().getNeighbor(position, map);
@@ -76,9 +68,9 @@ public class Player extends ActorPlayer {
 //    }
 
     public void useItem(int itemSlot) {
-//        if (inventory.getInventory().size() <= itemSlot) {
-//            return;
-//        }
+        if (inventory.size() <= itemSlot) {
+            return;
+        }
         inventory.get(itemSlot).onUse(this);
     }
 
@@ -100,7 +92,6 @@ public class Player extends ActorPlayer {
     public List<Item> getInventory() {
         return new ArrayList<>(inventory);
     }
-
 
     private boolean isInventoryFull() {
         return inventory.size() >= 9;

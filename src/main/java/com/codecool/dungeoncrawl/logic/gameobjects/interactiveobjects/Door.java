@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
+import lombok.Setter;
 
 public class Door extends InteractiveObject {
 

@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Armor implements Item {
+    private final int value = 1;
     private final TileId tileId = ItemTileId.ARMOR.getTileId();
 
     public Armor() {
@@ -20,6 +21,7 @@ public class Armor implements Item {
     public void onUse(Player player) {
         player.addToEquipment(this);
         player.removeFromInventory(this);
+        player.setDefense(player.getDefense() + value);
     }
 
 }

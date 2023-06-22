@@ -8,7 +8,7 @@ public class Food implements Item {
 
     private final TileId tileId = ItemTileId.FOOD.getTileId();
 
-    public static int value = 2;
+    public final int value = 2;
 
     public Food () {
     }
@@ -20,7 +20,7 @@ public class Food implements Item {
 
     @Override
     public void onUse(Player player) {
-        player.increaseHealth(value);
         player.removeFromInventory(this);
+        player.setHealth(player.getHealth() + value);
     }
 }
