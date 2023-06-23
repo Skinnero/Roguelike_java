@@ -2,8 +2,6 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.fxmlController.ProfessionTileId;
 import com.codecool.dungeoncrawl.logic.engine.*;
-import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import lombok.Getter;

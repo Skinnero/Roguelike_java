@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Ogre;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
-import com.codecool.dungeoncrawl.logic.engine.TileType;
 
 public class ActorConsumer {
 

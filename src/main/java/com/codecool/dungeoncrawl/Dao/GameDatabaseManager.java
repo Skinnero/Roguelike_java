@@ -27,6 +27,7 @@ public class GameDatabaseManager {
         playerDao.add(model);
     }
 
+    @SneakyThrows
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 

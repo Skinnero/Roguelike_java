@@ -47,5 +47,4 @@ public class Ogre extends ActorEnemy {
         setFirstPlace(patrolDestinationHolder);
     }
 
-
 }

@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
-import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Position;

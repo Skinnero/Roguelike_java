@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 
 public class Boat extends InteractiveObject {

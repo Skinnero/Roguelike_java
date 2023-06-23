@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
@@ -99,7 +98,6 @@ public class GameMap {
     public <T extends Item> void removeItemFromGameObjectList(T item) {
         items.remove(item);
     }
-
 
     public void save() {
         GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();

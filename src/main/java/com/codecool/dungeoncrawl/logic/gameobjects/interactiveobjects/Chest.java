@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.Util;

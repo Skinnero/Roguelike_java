@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.logic.engine.TileId;
 import com.codecool.dungeoncrawl.logic.engine.Tiles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
 public class HelloController {
 
     @FXML

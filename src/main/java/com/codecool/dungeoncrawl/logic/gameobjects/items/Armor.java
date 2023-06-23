@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
 import com.codecool.dungeoncrawl.logic.engine.TileId;
-import com.codecool.dungeoncrawl.logic.engine.TileType;
+
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
@@ -15,6 +15,7 @@ public class Armor implements Item {
     @Override
     public TileId getTileId() {
         return tileId;
+
     }
 
     @Override

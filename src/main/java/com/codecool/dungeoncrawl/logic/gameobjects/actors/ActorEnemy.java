@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
 
+
 public abstract class ActorEnemy extends Actor{
     public ActorEnemy(TileId tileId, Position position) {
         super(tileId, position);

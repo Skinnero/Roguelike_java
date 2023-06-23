@@ -82,7 +82,6 @@ public class GameController {
         int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_SIZE));
         // bottom boundary of view
         int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_SIZE));
-
         createMap(Position.of(startX, startY), Position.of(endX, endY));
         refreshInterface();
     }

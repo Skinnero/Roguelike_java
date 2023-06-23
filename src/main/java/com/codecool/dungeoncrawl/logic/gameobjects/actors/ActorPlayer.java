@@ -16,7 +16,6 @@ public abstract class ActorPlayer extends Actor {
         super(tileId, position);
     }
 
-
     public abstract Movement planMovement(Direction direction);
 
 }

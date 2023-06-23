@@ -4,11 +4,8 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
-import lombok.Setter;
 
 public class Door extends InteractiveObject {
-
-
     private boolean isOpen = false;
     private boolean isLocked = true;
 
@@ -45,7 +42,6 @@ public class Door extends InteractiveObject {
     public boolean isWalkable() {
         return isOpen;
     }
-
     public void setOpen(boolean open) {
         isOpen = open;
     }
