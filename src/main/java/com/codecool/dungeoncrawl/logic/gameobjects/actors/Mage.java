@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic.Behavior;
 
 public class Mage extends ActorEnemy {
 
@@ -13,7 +14,13 @@ public class Mage extends ActorEnemy {
 
     @Override
     public Movement planMovement(GameMap map) {
-        return null;
+        Behavior behavior = new Behavior();
+        Position newPosition = behavior.guard(map, this);
+        if (isPlayerAttackable(map, getPosition())) {
+            attackPlayer();
+            return Movement.of(getPosition(), getPosition());
+        }
+        return Movement.of(getPosition(), newPosition);
     }
 
     @Override

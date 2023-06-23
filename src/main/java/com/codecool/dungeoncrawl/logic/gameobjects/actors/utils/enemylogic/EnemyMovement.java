@@ -7,37 +7,37 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Ogre;
 
 public class EnemyMovement {
-    public boolean isMovePossible(GameMap map, Position vector, int positionX, int positionY) {
-        Cell cell = map.getCell(Position.of(positionX + vector.x(), positionY + vector.y()));
+    public boolean isMovePossible(GameMap map, Position vector, Position actorPosition) {
+        Cell cell = map.getCell(Position.of(actorPosition.x() + vector.x(), actorPosition.y() + vector.y()));
         return cell.isWalkable();
     }
 
-    public void handlePatrol(GameMap map, Ogre ogre, Position moveVector, int positionX, int positionY) {
+    public Position handlePatrol(GameMap map, Ogre ogre, Position movementVector) {
         EnemyMovement enemyMovement = new EnemyMovement();
         Behavior behavior = new Behavior();
-        Attack attack = new Attack();
-        if (behavior.isPlayerThere(map, moveVector, positionX, positionY)) {
-            attack.attackPlayer(map, ogre);
-        } else if (enemyMovement.isMovePossible(map, moveVector, positionX, positionY)) {
-            ogre.move(map, moveVector);
-        } else {
-            ogre.switchPatrol();
+        if (behavior.isPlayerThere(map, movementVector, ogre.getPosition())) {
+            return ogre.getPosition();
         }
+        if (enemyMovement.isMovePossible(map, movementVector, ogre.getPosition())) {
+            return Position.of(ogre.getPosition().x() + movementVector.x(), ogre.getPosition().y() + movementVector.y());
+        }
+        ogre.switchPatrol();
+        return ogre.getPosition();
     }
 
-    public Position moveTowardsPlayer(GameMap map, ActorEnemy actor, Position moveVector, Position actorPosition) {
+    public Position moveTowardsPlayer(GameMap map, ActorEnemy actorEnemy, Position moveVector) {
         Behavior behavior = new Behavior();
-        Attack attack = new Attack();
         FieldOfView fieldOfView = new FieldOfView();
         Position playerPosition = map.getPlayer().getPosition();
-        int playerPositionX = playerPosition.x();
-        int playerPositionY = playerPosition.y();
-        int fieldOfViewDistance = actor.getFieldOfViewDistance();
-        if (behavior.isPlayerThere(map, moveVector, actorPosition.x(), actorPosition.y())) {
-            attack.attackPlayer(map, actor);
-        } else if (fieldOfView.isPlayerNear(actor, playerPositionX, playerPositionY, fieldOfViewDistance)) {
-            actor.move(map, moveVector);
+
+        int fieldOfViewDistance = actorEnemy.getFieldOfViewDistance();
+        if (behavior.isPlayerThere(map, moveVector, actorEnemy.getPosition())) {
+            return actorEnemy.getPosition();
         }
+        if (fieldOfView.isPlayerNear(actorEnemy, playerPosition, fieldOfViewDistance)) {
+            return Position.of(actorEnemy.getPosition().x() + moveVector.x(), actorEnemy.getPosition().y() + moveVector.y());
+        }
+        return actorEnemy.getPosition();
     }
 
 }

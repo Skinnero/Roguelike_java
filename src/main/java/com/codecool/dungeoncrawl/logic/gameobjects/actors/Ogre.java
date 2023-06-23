@@ -25,7 +25,7 @@ public class Ogre extends ActorEnemy {
     public Movement planMovement(GameMap map) {
         Behavior behavior = new Behavior();
         Position newPosition = behavior.goToPatrolPlace(map, this);
-        if (isPlayerAttackable(map, getPosition(), 1)) {
+        if (isPlayerAttackable(map, getPosition())) {
             attackPlayer();
             return Movement.of(getPosition(), getPosition());
         }
@@ -37,15 +37,15 @@ public class Ogre extends ActorEnemy {
     }
 
     public void setPatrolPlaces() {
-        setFirstPlace(Position.of(getPosition().y(), getPosition().x() -3));
-        setPatrolDestination(Position.of(getPosition().y(), getPosition().x() + 3));
+        setFirstPlace(Position.of(getPosition().x() - 3, getPosition().y()));
+        setPatrolDestination(Position.of(getPosition().x() + 3, getPosition().y()));
     }
 
     public void switchPatrol() {
+        Position patrolDestinationHolder = patrolDestination;
         setPatrolDestination(firstPlace);
-        setFirstPlace(patrolDestination);
+        setFirstPlace(patrolDestinationHolder);
     }
-
 
 
 }

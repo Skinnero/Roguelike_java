@@ -29,7 +29,7 @@ public class GameMap {
     @Getter
     @Setter
     private int mapLevel = 0;
-    private List<Actor> monsters = new ArrayList<>();
+    private List<ActorEnemy> monsters = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
     private List<InteractiveObject> interactiveObjects = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class GameMap {
         if (Objects.nonNull(nextCell.getActor())) {
             player.planAttack(nextCell.getActor());
             if (nextCell.getActor().isDead()) {
-                monsters.remove(nextCell.getActor());
+                monsters.remove((ActorEnemy) nextCell.getActor());
                 nextCell.setActor(null);
             }
         }
@@ -63,20 +63,20 @@ public class GameMap {
         }
     }
 
-//    public void moveActorEnemy() {
-//        for (ActorEnemy monster: monsters) {
-//            Movement movement = monster.planMovement(this);
-//            cells[movement.currentPosition().x()][movement.currentPosition().y()].setActor(null);
-//            cells[movement.newPosition().x()][movement.newPosition().y()].setActor(monster);
-//            monster.setPosition();
-//        }
-//    }
+    public void moveActorEnemy() {
+        for (ActorEnemy monster : monsters) {
+            Movement movement = monster.planMovement(this);
+            cells[movement.currentPosition().x()][movement.currentPosition().y()].setActor(null);
+            cells[movement.newPosition().x()][movement.newPosition().y()].setActor(monster);
+            monster.setPosition(movement.newPosition());
+        }
+    }
 
     public void addToGameObjectList(Cell cell) {
         if (cell.getActor() instanceof ActorPlayer) {
             this.player = (Player) cell.getActor();
         } else if (Objects.nonNull(cell.getActor())) {
-            monsters.add(cell.getActor());
+            monsters.add((ActorEnemy) cell.getActor());
         } else if (Objects.nonNull(cell.getItem())) {
             items.add(cell.getItem());
         } else if (Objects.nonNull(cell.getInteractiveObject())) {

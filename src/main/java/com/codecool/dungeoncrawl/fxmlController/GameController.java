@@ -56,6 +56,7 @@ public class GameController {
             case DIGIT8 -> useItem(7);
             case DIGIT9 -> useItem(8);
         }
+        map.moveActorEnemy();
         refresh();
     }
 
@@ -83,6 +84,7 @@ public class GameController {
         int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_SIZE));
 
         createMap(Position.of(startX, startY), Position.of(endX, endY));
+        refreshInterface();
     }
 
     private void createMap(Position startingPosition, Position endingPosition) {
@@ -93,52 +95,36 @@ public class GameController {
                 Cell cell = map.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
                 Tiles.drawTile(context, tileId, x - startingPosition.x(), y - startingPosition.y());
-                if (!Tiles.isVisible(cell, map)) {
-                    Tiles.drawHiddenTile(context, x - startingPosition.x(), y - startingPosition.y());
-                }
+//                if (!Tiles.isVisible(cell, map)) {
+//                    Tiles.drawHiddenTile(context, x - startingPosition.x(), y - startingPosition.y());
+//                }
             }
         }
     }
 
     private void showStatistics() {
-        int COLUMN = 0;
         statsPane.setVisible(!statsPane.isVisible());
-        Label attackLabel = (Label) statsPane.lookup("#attackValue");
-        attackLabel.setText(Integer.toString(map.getPlayer().getAttack()));
-        Label healthLabel = (Label) statsPane.lookup("#healthValue");
-        healthLabel.setText(Integer.toString(map.getPlayer().getHealth()));
-        Label defenseLabel = (Label) statsPane.lookup("#defenseValue");
-        defenseLabel.setText(Integer.toString(map.getPlayer().getDefense()));
-
-        Canvas stats = (Canvas) statsPane.lookup("#stats");
-        GraphicsContext graphicsContext = stats.getGraphicsContext2D();
-
-        List<TileId> statsTileIds = Arrays.stream(StatisticsTileId.values()).map(StatisticsTileId::getTileId).toList();
-
-        for (int y = 0; y < MAX_ROW; y++) {
-            Tiles.drawTile(graphicsContext, statsTileIds.get(y), COLUMN, y, TILE_SIZE);
-        }
-
+        refreshInterface();
     }
 
     private void pickUpItem() {
         map.getPlayer().pickUpItem(map);
-        refreshInventory();
+        refreshInterface();
     }
 
     private void interactWithEnvironment() {
         map.getPlayer().interactWithObject(map);
-        refreshInventory();
+        refreshInterface();
     }
 
     private void showInventory() {
         inventoryPane.setVisible(!inventoryPane.isVisible());
-        refreshInventory();
+        refreshInterface();
     }
 
     private void useItem(int inventorySlot) {
         map.getPlayer().useItem(inventorySlot);
-        refreshInventory();
+        refreshInterface();
     }
 
     private void refreshInventory() {
@@ -156,6 +142,30 @@ public class GameController {
                 inventoryIndex++;
             }
         }
+    }
+
+    private void refreshStatistics() {
+        int COLUMN = 0;
+        Label attackLabel = (Label) statsPane.lookup("#attackValue");
+        attackLabel.setText(Integer.toString(map.getPlayer().getAttack()));
+        Label healthLabel = (Label) statsPane.lookup("#healthValue");
+        healthLabel.setText(Integer.toString(map.getPlayer().getHealth()));
+        Label defenseLabel = (Label) statsPane.lookup("#defenseValue");
+        defenseLabel.setText(Integer.toString(map.getPlayer().getDefense()));
+
+        Canvas stats = (Canvas) statsPane.lookup("#stats");
+        GraphicsContext graphicsContext = stats.getGraphicsContext2D();
+
+        List<TileId> statsTileIds = Arrays.stream(StatisticsTileId.values()).map(StatisticsTileId::getTileId).toList();
+
+        for (int y = 0; y < MAX_ROW; y++) {
+            Tiles.drawTile(graphicsContext, statsTileIds.get(y), COLUMN, y, TILE_SIZE);
+        }
+    }
+
+    private void refreshInterface() {
+        refreshInventory();
+        refreshStatistics();
     }
 
 }

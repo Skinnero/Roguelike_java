@@ -9,20 +9,13 @@ public abstract class ActorEnemy extends Actor{
 
     public abstract Movement planMovement(GameMap map);
 
-//    public void move(GameMap map, Position position) {
-//        Cell nextCell = map.getCell(position);
-//        if (!nextCell.isWalkable()) {
-//            return;
-//        }
-////        map.getCell(Position.of(dx,dy)).setActor(null);
-////        nextCell.setActor(this);
-//    }
-
-    public boolean isPlayerAttackable(GameMap gameMap, Position position, int radius) {
-        int min_x = Integer.max(0, position.x() - radius);
-        int max_x = Integer.max(gameMap.getCells()[0].length - 1, position.x() + radius);
-        int min_y = Integer.max(0, position.y() - radius);
-        int max_y = Integer.max(gameMap.getCells().length - 1, position.y() + radius);
+    //TODO: ATTACKING PLAYER IS STILL SOMEWHAT BUGGED
+    public boolean isPlayerAttackable(GameMap gameMap, Position position) {
+        int RADIUS = 1;
+        int min_x = Integer.max(0, position.x() - RADIUS);
+        int max_x = Integer.min(gameMap.getCells()[0].length - 1, position.x() + RADIUS);
+        int min_y = Integer.max(0, position.y() - RADIUS);
+        int max_y = Integer.min(gameMap.getCells().length - 1, position.y() + RADIUS);
 
         for (int i = min_x; i <= max_x ; i++) {
             for (int j = min_y; j <= max_y ; j++) {
