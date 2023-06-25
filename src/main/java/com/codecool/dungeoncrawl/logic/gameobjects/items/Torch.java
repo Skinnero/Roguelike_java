@@ -22,8 +22,9 @@ public class Torch implements Item {
     @Override
     public void onUse(Player player) {
         player.setPerception(player.getPerception() + value);
-        player.addToEquipment(this);
+//        player.addToEquipment(this);
         player.removeFromInventory(this);
+        addMessageToLog();
     }
 
 }

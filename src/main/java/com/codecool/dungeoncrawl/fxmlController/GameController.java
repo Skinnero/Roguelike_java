@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
@@ -23,8 +25,13 @@ public class GameController {
     @FXML
     private Pane statsPane;
     @FXML
-    private Canvas canvas;
-
+    private Canvas mainCanvas;
+    @FXML
+    private ScrollPane messageLogStashPane;
+    @FXML
+    private VBox messageLogStash;
+    @FXML
+    private VBox messageLog;
     private GameMap map = MapLoader.loadMap("/tutorial.txt");
 
     @FXML
@@ -55,6 +62,9 @@ public class GameController {
             case DIGIT7 -> useItem(6);
             case DIGIT8 -> useItem(7);
             case DIGIT9 -> useItem(8);
+            default -> {
+                return;
+            }
         }
         map.moveActorEnemy();
         refresh();
@@ -63,31 +73,32 @@ public class GameController {
     private void playerInterfaceController(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case I -> showInventory();
+            case Q -> showMessageLog();
             case C -> showStatistics();
         }
     }
 
 
     private void refresh() {
-        GraphicsContext context = canvas.getGraphicsContext2D();
+        GraphicsContext context = mainCanvas.getGraphicsContext2D();
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
         Position playerPosition = map.getPlayer().getPosition();
 
         // left boundary of view
-        int startX = Math.max(0, playerPosition.x() - (int) (canvas.getWidth() / Tiles.TILE_SIZE / 2));
+        int startX = Math.max(0, playerPosition.x() - (int) (mainCanvas.getWidth() / Tiles.TILE_SIZE / 2));
         // top boundary of view
-        int startY = Math.max(0, playerPosition.y() - (int) (canvas.getHeight() / Tiles.TILE_SIZE / 2));
+        int startY = Math.max(0, playerPosition.y() - (int) (mainCanvas.getHeight() / Tiles.TILE_SIZE / 2));
         // right boundary of view
-        int endX = Math.min(map.getWidth(), startX + (int) (canvas.getWidth() / Tiles.TILE_SIZE));
+        int endX = Math.min(map.getWidth(), startX + (int) (mainCanvas.getWidth() / Tiles.TILE_SIZE));
         // bottom boundary of view
-        int endY = Math.min(map.getHeight(), startY + (int) (canvas.getHeight() / Tiles.TILE_SIZE));
+        int endY = Math.min(map.getHeight(), startY + (int) (mainCanvas.getHeight() / Tiles.TILE_SIZE));
         createMap(Position.of(startX, startY), Position.of(endX, endY));
         refreshInterface();
     }
 
     private void createMap(Position startingPosition, Position endingPosition) {
-        GraphicsContext context = canvas.getGraphicsContext2D();
+        GraphicsContext context = mainCanvas.getGraphicsContext2D();
 
         for (int x = startingPosition.x(); x < endingPosition.x(); x++) {
             for (int y = startingPosition.y(); y < endingPosition.y(); y++) {
@@ -104,6 +115,16 @@ public class GameController {
     private void showStatistics() {
         statsPane.setVisible(!statsPane.isVisible());
         refreshInterface();
+    }
+
+    private void showMessageLog() {
+        messageLogStashPane.setDisable(!messageLogStashPane.isDisable());
+        messageLogStashPane.setVisible(!messageLogStashPane.isVisible());
+        refreshInterface();
+    }
+
+    private void refreshMessageLog() {
+
     }
 
     private void pickUpItem() {
@@ -135,7 +156,7 @@ public class GameController {
             for (int y = 0; y < MAX_COLUMN; y++) {
                 if (map.getPlayer().getInventory().size() == inventoryIndex) {
                     Tiles.drawTile(graphicsContext, TileType.EMPTY.getTileId(), x, y, TILE_SIZE);
-                    continue;
+                    return;
                 }
                 Tiles.drawTile(graphicsContext, map.getPlayer().getInventory().get(inventoryIndex).getTileId(), x, y, TILE_SIZE);
                 inventoryIndex++;
@@ -165,6 +186,7 @@ public class GameController {
     private void refreshInterface() {
         refreshInventory();
         refreshStatistics();
+        refreshMessageLog();
     }
 
 }

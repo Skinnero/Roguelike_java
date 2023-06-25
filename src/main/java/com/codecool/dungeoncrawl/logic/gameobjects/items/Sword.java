@@ -19,8 +19,9 @@ public class Sword implements Item {
 
     @Override
     public void onUse(Player player) {
-        player.addToEquipment(this);
+//        player.addToEquipment(this);
         player.removeFromInventory(this);
         player.setAttack(player.getAttack() + value);
+        addMessageToLog();
     }
 }
