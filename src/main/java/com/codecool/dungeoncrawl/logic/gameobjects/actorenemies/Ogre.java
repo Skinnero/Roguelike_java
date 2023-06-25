@@ -1,6 +1,8 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors;
+package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic.Behavior;
 import lombok.Getter;

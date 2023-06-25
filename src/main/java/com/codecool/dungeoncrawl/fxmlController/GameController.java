@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.fxmlController;
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
+import com.codecool.dungeoncrawl.logic.ui.GameMessage;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,8 +14,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class GameController {
@@ -27,12 +31,13 @@ public class GameController {
     @FXML
     private Canvas mainCanvas;
     @FXML
-    private ScrollPane messageLogStashPane;
+    private ScrollPane messageLogStashScrollPane;
     @FXML
     private VBox messageLogStash;
     @FXML
     private VBox messageLog;
     private GameMap map = MapLoader.loadMap("/tutorial.txt");
+    private GameMessage gameMessage = GameMessage.getInstance();
 
     @FXML
     protected void handleKeyEvent(KeyEvent keyEvent) {
@@ -118,14 +123,10 @@ public class GameController {
     }
 
     private void showMessageLog() {
-        messageLogStashPane.setDisable(!messageLogStashPane.isDisable());
-        messageLogStashPane.setVisible(!messageLogStashPane.isVisible());
+        messageLogStashScrollPane.setVisible(!messageLogStashScrollPane.isVisible());
         refreshInterface();
     }
 
-    private void refreshMessageLog() {
-
-    }
 
     private void pickUpItem() {
         map.getPlayer().pickUpItem(map);
@@ -145,6 +146,30 @@ public class GameController {
     private void useItem(int inventorySlot) {
         map.getPlayer().useItem(inventorySlot);
         refreshInterface();
+    }
+
+    private void refreshMessageLogStash() {
+        messageLogStash.getChildren().clear();
+        for (int i = gameMessage.getLogStash().size() - 1; i >= 0; i--) {
+            addMessageToVBox(messageLogStash, i);
+        }
+    }
+
+    private void refreshMessageLog() {
+        int SIZE_OF_MESSAGES_IN_LOG = 5;
+        messageLog.getChildren().clear();
+        for (int i = gameMessage.getLogStash().size() - 1; i >= 0; i--) {
+            if (messageLog.getChildren().size() <= SIZE_OF_MESSAGES_IN_LOG) {
+                addMessageToVBox(messageLog, i);
+            }
+        }
+    }
+
+    private void addMessageToVBox(VBox vBox, int messageIndex) {
+        Text text = new Text(gameMessage.getLogStash().get(messageIndex));
+        text.setFont(Font.font("System", 20));
+        text.setFill(Color.rgb(255, 255, 255));
+        vBox.getChildren().add(text);
     }
 
     private void refreshInventory() {
@@ -187,6 +212,7 @@ public class GameController {
         refreshInventory();
         refreshStatistics();
         refreshMessageLog();
+        refreshMessageLogStash();
     }
 
 }

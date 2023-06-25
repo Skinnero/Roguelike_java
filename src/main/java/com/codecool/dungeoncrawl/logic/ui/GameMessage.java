@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GameMessage {
 
-    private List<String> logStash = new ArrayList<>();
+    private final List<String> logStash = new ArrayList<>();
 
     private static GameMessage single_instance = null;
 

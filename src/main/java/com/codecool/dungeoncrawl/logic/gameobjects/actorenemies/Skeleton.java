@@ -1,8 +1,10 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors;
+package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Movement;
 import com.codecool.dungeoncrawl.logic.engine.Position;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 
 public class Skeleton extends ActorEnemy {

@@ -1,9 +1,11 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors;
+package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 
 
-public abstract class ActorEnemy extends Actor{
+public abstract class ActorEnemy extends Actor {
     public ActorEnemy(TileId tileId, Position position) {
         super(tileId, position);
     }

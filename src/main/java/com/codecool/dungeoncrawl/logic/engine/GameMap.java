@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;

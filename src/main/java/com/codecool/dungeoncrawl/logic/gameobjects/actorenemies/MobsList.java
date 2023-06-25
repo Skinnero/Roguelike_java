@@ -1,8 +1,6 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors;
+package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
 
-import com.codecool.dungeoncrawl.logic.engine.Position;
-import lombok.Getter;
-import lombok.Setter;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
 
 import java.util.ArrayList;
 import java.util.List;

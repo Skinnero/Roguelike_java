@@ -2,11 +2,10 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorEnemy;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Mage;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Ogre;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Mage;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Ogre;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
-import javafx.geometry.Pos;
 
 public class Behavior {
     public Position goToPatrolPlace(GameMap map, Ogre ogre) {

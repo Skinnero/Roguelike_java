@@ -105,11 +105,11 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Pane>
-        <ScrollPane fx:id="messageLogStashScrollPane" disable="true" layoutX="200.0" layoutY="200.0" maxHeight="200.0" maxWidth="400.0" minHeight="200.0" minWidth="400.0" opacity="0.9" prefHeight="200.0" prefWidth="400.0" visible="false">
+        <ScrollPane fx:id="messageLogStashScrollPane" layoutX="200.0" layoutY="200.0" minHeight="200.0" minWidth="400.0" opacity="0.8" prefHeight="200.0" prefWidth="400.0" style="-fx-background-color: #482c3c;" visible="false">
             <content>
-                <VBox fx:id="messageLogStash" maxHeight="200.0" maxWidth="385.0" minHeight="200.0" minWidth="385.0" prefHeight="200.0" prefWidth="385.0" />
+                <VBox fx:id="messageLogStash" minHeight="200.0" minWidth="385.0" style="-fx-background-color: #482c3c;" />
             </content>
         </ScrollPane>
-        <VBox fx:id="messageLog" alignment="BOTTOM_RIGHT" focusTraversable="true" layoutX="500.0" layoutY="450.0" maxHeight="150.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" opacity="0.9" prefHeight="150.0" prefWidth="300.0" />
+        <VBox fx:id="messageLog" alignment="TOP_RIGHT" focusTraversable="true" layoutX="486.0" layoutY="461.0" maxHeight="125.0" maxWidth="300.0" minHeight="75.0" minWidth="300.0" prefHeight="125.0" prefWidth="300.0" />
     </children>
 </Pane>

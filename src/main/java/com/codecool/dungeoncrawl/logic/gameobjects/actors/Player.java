@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.ui.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,6 @@ import java.util.*;
 
 public class Player extends ActorPlayer {
     private final List<Item> inventory = new ArrayList<>();
-//    private final Map<String, Item> equipment = new HashMap<>();
     @Getter
     @Setter
     private int perception = 4;
@@ -59,8 +59,8 @@ public class Player extends ActorPlayer {
         if (isInventoryFull() || Objects.isNull(map.getPlayerCell().getItem())) {
             return;
         }
-//        GameMessage gameMessages = GameMessage.getInstance();
-//        gameMessages.addToLogStash(map.getPlayerCell().getItem().getClass().getSimpleName());
+        GameMessage gameMessages = GameMessage.getInstance();
+        gameMessages.addToLogStash(GameMessageSnippet.PICK_ITEM.getMessage() + map.getPlayerCell().getItem().getClass().getSimpleName());
         addToInventory(map.getPlayerCell().getItem());
         map.removeItemFromGameObjectList(map.getPlayerCell().getItem());
         map.getPlayerCell().setItem(null);
@@ -72,14 +72,6 @@ public class Player extends ActorPlayer {
         }
         inventory.get(itemSlot).onUse(this);
     }
-
-//    public void addToEquipment(Item item) {
-//        if (equipment.containsKey(item.getClass().getSimpleName())) {
-//            equipment.replace(item.getClass().getSimpleName(), item);
-//        } else {
-//            equipment.put(item.getClass().getSimpleName(), item);
-//        }
-//    }
 
     public void setProfession(ProfessionTileId professionTileId) {
         switch (professionTileId) {

@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.logic.fileloader;
 
 import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Mage;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Ogre;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Mage;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Ogre;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Skeleton;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 
 public class ActorConsumer {
