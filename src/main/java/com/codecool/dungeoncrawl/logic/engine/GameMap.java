@@ -8,6 +8,9 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import com.codecool.dungeoncrawl.logic.ui.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.TileType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,9 +31,9 @@ public class GameMap {
     @Getter
     @Setter
     private int mapLevel = 0;
-    private List<ActorEnemy> monsters = new ArrayList<>();
-    private List<Item> items = new ArrayList<>();
-    private List<InteractiveObject> interactiveObjects = new ArrayList<>();
+    private final List<ActorEnemy> monsters = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
+    private final List<InteractiveObject> interactiveObjects = new ArrayList<>();
 
 
     public GameMap(int width, int height, TileType defaultTileType) {
@@ -45,9 +48,11 @@ public class GameMap {
     }
 
     public void movePlayer(Direction direction) {
+        GameMessage gameMessage = GameMessage.getInstance();
         Movement movement = player.planMovement(direction);
         Cell nextCell = cells[movement.newPosition().x()][movement.newPosition().y()];
         Cell currentCell = cells[movement.currentPosition().x()][movement.currentPosition().y()];
+
         if (Objects.nonNull(nextCell.getActor())) {
             player.planAttack(nextCell.getActor());
             if (nextCell.getActor().isDead()) {
@@ -59,6 +64,8 @@ public class GameMap {
             currentCell.setActor(null);
             nextCell.setActor(player);
             player.setPosition(movement.newPosition());
+        } else {
+            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_MOVE_INTO_UNWALKABLE_TILE.getMessage());
         }
     }
 

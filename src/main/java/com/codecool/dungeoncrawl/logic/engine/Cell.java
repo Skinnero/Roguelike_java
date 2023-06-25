@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.logic.engine;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.TileType;
 import lombok.Getter;
 import lombok.Setter;
 

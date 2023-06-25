@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.ui.TileId;
 import lombok.Getter;
 
 public enum StatisticsTileId {

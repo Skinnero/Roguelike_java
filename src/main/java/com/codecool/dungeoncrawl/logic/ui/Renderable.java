@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.engine;
+package com.codecool.dungeoncrawl.logic.ui;
 
 public interface Renderable {
     TileId getTileId();

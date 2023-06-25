@@ -1,10 +1,10 @@
-package com.codecool.dungeoncrawl.logic.engine;
+package com.codecool.dungeoncrawl.logic.ui;
 
 /**
 * Tiles.Tile need 2 parameters in which symbolise a tile from tiles.png
 * where first parameter is horizontal and second vertical tile
 */
-public enum TileType implements Renderable{
+public enum TileType implements Renderable {
     EMPTY(false, TileId.of(0, 0)),
     FLOOR(true, TileId.of(2, 0)),
     WATER(false, TileId.of(8, 5)),

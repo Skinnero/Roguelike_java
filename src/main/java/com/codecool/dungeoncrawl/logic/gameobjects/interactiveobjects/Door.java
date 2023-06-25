@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
+import com.codecool.dungeoncrawl.logic.ui.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 
 public class Door extends InteractiveObject {
     private boolean isOpen = false;
@@ -16,6 +18,7 @@ public class Door extends InteractiveObject {
 
     @Override
     public void interact() {
+        GameMessage gameMessage = GameMessage.getInstance();
         if (isLocked) {
             searchPlayerInventoryForKey();
             return;
@@ -23,12 +26,16 @@ public class Door extends InteractiveObject {
         if (isOpen) {
             setOpen(false);
             setTileId(InteractiveObjectTileId.CLOSED_DOOR.getTileId());
+            gameMessage.addToLogStash(GameMessageSnippet.CLOSE_DOOR.getMessage() + this.getClass().getSimpleName());
         } else {
             setOpen(true);
             setTileId(InteractiveObjectTileId.OPEN_DOOR.getTileId());
+            gameMessage.addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
+
         }
     }
     public void searchPlayerInventoryForKey() {
+        GameMessage gameMessage = GameMessage.getInstance();
         for (Item item : Player.getInstance().getInventory()) {
             if (item instanceof Key) {
                 Player.getInstance().removeFromInventory(item);
@@ -36,6 +43,7 @@ public class Door extends InteractiveObject {
                 return;
             }
         }
+        gameMessage.addToLogStash(GameMessageSnippet.CANT_OPEN_DOOR.getMessage());
     }
 
     @Override

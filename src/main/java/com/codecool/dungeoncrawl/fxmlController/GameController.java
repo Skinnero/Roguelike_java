@@ -4,6 +4,9 @@ import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
 import com.codecool.dungeoncrawl.logic.ui.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.TileType;
+import com.codecool.dungeoncrawl.logic.ui.Tiles;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class GameController {

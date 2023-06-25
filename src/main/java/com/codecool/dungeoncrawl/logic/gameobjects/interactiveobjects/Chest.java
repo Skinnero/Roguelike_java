@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.Util;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.*;
+import com.codecool.dungeoncrawl.logic.ui.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 
 import java.util.Random;
 
@@ -14,8 +16,13 @@ public class Chest extends InteractiveObject {
 
     @Override
     public void interact() {
+        if (getTileId() == InteractiveObjectTileId.OPEN_CHEST.getTileId()) {
+            return;
+        }
         setTileId(InteractiveObjectTileId.OPEN_CHEST.getTileId());
         Player.getInstance().addToInventory((generateRandomItem()));
+        GameMessage gameMessage = GameMessage.getInstance();
+        gameMessage.addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
     }
 
     @Override

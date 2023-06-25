@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.logic.engine.Tiles;
+import com.codecool.dungeoncrawl.logic.ui.Tiles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

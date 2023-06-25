@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
-import com.codecool.dungeoncrawl.logic.engine.Renderable;
-import com.codecool.dungeoncrawl.logic.engine.TileId;
+import com.codecool.dungeoncrawl.logic.ui.Renderable;
+import com.codecool.dungeoncrawl.logic.ui.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.ui.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;

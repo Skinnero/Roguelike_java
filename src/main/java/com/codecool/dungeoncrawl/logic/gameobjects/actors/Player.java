@@ -17,17 +17,17 @@ public class Player extends ActorPlayer {
     @Setter
     private int perception = 4;
     private String name;
-    private static Player playerInstance;
+    private static Player single_instance;
 
     public Player() {
         super(null, null);
     }
 
     public static Player getInstance() {
-        if (playerInstance == null) {
-            playerInstance = new Player();
+        if (Objects.isNull(single_instance)) {
+            single_instance = new Player();
         }
-        return playerInstance;
+        return single_instance;
     }
 
     public Movement planMovement(Direction direction) {
@@ -47,19 +47,23 @@ public class Player extends ActorPlayer {
     }
 
     public void interactWithObject(GameMap map) {
+        GameMessage gameMessages = GameMessage.getInstance();
         for (Position position : Arrays.stream(Direction.values()).map(Direction::getPosition).toList()) {
             Cell adjacentCell = map.getPlayerCell().getNeighbor(position, map);
             if (Objects.nonNull(adjacentCell.getInteractiveObject())) {
                 adjacentCell.getInteractiveObject().interact();
+                return;
             }
         }
+        gameMessages.addToLogStash(GameMessageSnippet.PLAYER_INTERACT_WITH_NOTHING.getMessage());
     }
 
     public void pickUpItem(GameMap map) {
+        GameMessage gameMessages = GameMessage.getInstance();
         if (isInventoryFull() || Objects.isNull(map.getPlayerCell().getItem())) {
+            gameMessages.addToLogStash(GameMessageSnippet.PLAYER_PICK_NOTHING.getMessage());
             return;
         }
-        GameMessage gameMessages = GameMessage.getInstance();
         gameMessages.addToLogStash(GameMessageSnippet.PICK_ITEM.getMessage() + map.getPlayerCell().getItem().getClass().getSimpleName());
         addToInventory(map.getPlayerCell().getItem());
         map.removeItemFromGameObjectList(map.getPlayerCell().getItem());
@@ -118,5 +122,8 @@ public class Player extends ActorPlayer {
     @Override
     public <T extends Actor> void planAttack(T enemy) {
         enemy.setHealth(enemy.getHealth() - calculateDamage(enemy.getDefense()));
+        GameMessage gameMessage = GameMessage.getInstance();
+        gameMessage.addToLogStash(GameMessageSnippet.PLAYER_DAMAGE_DONE.getMessage() + getAttack());
+        gameMessage.addToLogStash(GameMessageSnippet.MONSTER_DAMAGE_TAKEN.getMessage() + calculateDamage(enemy.getDefense()));
     }
 }

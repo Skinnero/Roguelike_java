@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameMessage {
 
@@ -14,7 +15,7 @@ public class GameMessage {
     }
 
     public static GameMessage getInstance() {
-        if (single_instance == null) {
+        if (Objects.isNull(single_instance)) {
             single_instance = new GameMessage();
         }
         return single_instance;
@@ -27,5 +28,5 @@ public class GameMessage {
     public List<String> getLogStash() {
         return new ArrayList<>(logStash);
     }
-
+    
 }
