@@ -10,6 +10,8 @@ import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 public class Door extends InteractiveObject {
     private boolean isOpen = false;
     private boolean isLocked = true;
+    private final GameMessage gameMessage = GameMessage.getInstance();
+
 
     public Door() {
         super(InteractiveObjectTileId.CLOSED_DOOR.getTileId());
@@ -18,7 +20,6 @@ public class Door extends InteractiveObject {
 
     @Override
     public void interact() {
-        GameMessage gameMessage = GameMessage.getInstance();
         if (isLocked) {
             searchPlayerInventoryForKey();
             return;
@@ -35,7 +36,6 @@ public class Door extends InteractiveObject {
         }
     }
     public void searchPlayerInventoryForKey() {
-        GameMessage gameMessage = GameMessage.getInstance();
         for (Item item : Player.getInstance().getInventory()) {
             if (item instanceof Key) {
                 Player.getInstance().removeFromInventory(item);

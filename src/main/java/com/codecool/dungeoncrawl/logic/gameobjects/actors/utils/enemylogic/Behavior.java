@@ -2,9 +2,9 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Mage;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Ogre;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.Mage;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.Ogre;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 
 public class Behavior {

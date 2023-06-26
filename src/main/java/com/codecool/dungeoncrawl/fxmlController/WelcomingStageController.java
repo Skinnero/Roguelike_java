@@ -11,7 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import java.io.IOException;
-public class HelloController {
+public class WelcomingStageController {
 
     @FXML
     protected void startNewGame(ActionEvent event) throws IOException {

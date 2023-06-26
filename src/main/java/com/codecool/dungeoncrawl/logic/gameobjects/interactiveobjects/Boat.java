@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.ui.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 
 public class Boat extends InteractiveObject {
+    private final GameMessage gameMessage = GameMessage.getInstance();
 
     public Boat() {
         super(InteractiveObjectTileId.BOAT.getTileId());
@@ -13,7 +14,6 @@ public class Boat extends InteractiveObject {
 
     @Override
     public void interact() {
-        GameMessage gameMessage = GameMessage.getInstance();
         gameMessage.addToLogStash(GameMessageSnippet.TRAVEL_WITH_BOAT.getMessage() + this.getClass().getSimpleName());
     }
 

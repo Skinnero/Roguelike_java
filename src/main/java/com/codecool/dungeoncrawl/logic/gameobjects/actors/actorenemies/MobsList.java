@@ -1,6 +1,4 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
-
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies;
 
 import java.util.ArrayList;
 import java.util.List;

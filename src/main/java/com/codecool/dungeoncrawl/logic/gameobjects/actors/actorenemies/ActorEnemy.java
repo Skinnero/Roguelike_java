@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actorenemies;
+package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
@@ -9,6 +9,7 @@ import com.codecool.dungeoncrawl.logic.ui.TileId;
 
 
 public abstract class ActorEnemy extends Actor {
+    GameMessage gameMessage = GameMessage.getInstance();
     public ActorEnemy(TileId tileId, Position position) {
         super(tileId, position);
     }
@@ -35,7 +36,6 @@ public abstract class ActorEnemy extends Actor {
 
     public void attackPlayer() {
         Player player = Player.getInstance();
-        GameMessage gameMessage = GameMessage.getInstance();
         player.setHealth(player.getHealth() - Math.max(getAttack() - player.getDefense(), 0));
 
         gameMessage.addToLogStash(GameMessageSnippet.MONSTER_DAMAGE_DONE.getMessage() + getAttack());

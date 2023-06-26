@@ -8,31 +8,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.image.SampleModel;
 import java.io.IOException;
 
-public class PreStartController {
+public class CharacterChoosingController {
 
     @FXML
     protected void startGame(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/game-ui.fxml"));
         Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
-        TextField textField = (TextField) stage.getScene().lookup("#name");
-        Player.getInstance().setName(textField.getText());
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+
         setNameOnDisplay(scene);
+        setPlayerName(stage);
+        setStageToWindows(fxmlLoader.getController(), scene);
+
         scene.getRoot().requestFocus();
         stage.setScene(scene);
         stage.show();
-
-        GameController controller = fxmlLoader.getController();
-        controller.setGameWindow(stage);
-        controller.refresh();
     }
     @FXML
     public void selectProfession(MouseEvent mouseEvent) {
@@ -44,8 +40,19 @@ public class PreStartController {
         }
     }
 
+    private void setPlayerName(Stage stage) {
+        TextField textField = (TextField) stage.getScene().lookup("#name");
+        Player.getInstance().setName(textField.getText());
+    }
+
     private void setNameOnDisplay(Scene scene) {
         Label label = (Label) scene.lookup("#name");
         label.setText(Player.getInstance().getName());
+    }
+    private void setStageToWindows(GameController gameController, Scene scene) {
+        gameController.setGameWindow(new GameWindow(scene));
+        gameController.setGuiWindow(new GUIWindow(scene));
+        gameController.getGuiWindow().setGameMap(gameController.getGameMap());
+        gameController.getGameWindow().refresh(gameController.getGameMap());
     }
 }

@@ -3,8 +3,8 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.Ogre;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.Ogre;
 
 public class EnemyMovement {
     public boolean isMovePossible(GameMap map, Position vector, Position actorPosition) {

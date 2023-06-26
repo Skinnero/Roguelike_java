@@ -10,6 +10,9 @@ import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
 import java.util.Random;
 
 public class Chest extends InteractiveObject {
+
+    private final GameMessage gameMessage = GameMessage.getInstance();
+
     public Chest() {
         super(InteractiveObjectTileId.CLOSED_CHEST.getTileId());
     }
@@ -21,7 +24,6 @@ public class Chest extends InteractiveObject {
         }
         setTileId(InteractiveObjectTileId.OPEN_CHEST.getTileId());
         Player.getInstance().addToInventory((generateRandomItem()));
-        GameMessage gameMessage = GameMessage.getInstance();
         gameMessage.addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
     }
 

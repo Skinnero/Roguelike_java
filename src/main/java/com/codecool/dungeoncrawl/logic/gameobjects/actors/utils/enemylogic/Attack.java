@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 
 public class Attack {
     // TODO: I CREATED A METHOD INSIDE AN ActorEnemy CLASS JUST TO MAKE IT EASIER FOR ME TO FIX

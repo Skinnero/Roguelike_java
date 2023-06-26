@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic;
 
 import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 
 public class FieldOfView {
     public boolean isPlayerNear(ActorEnemy actor, Position playerPosition, int fieldOfViewDistance) {

@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.Dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
-import com.codecool.dungeoncrawl.logic.gameobjects.actorenemies.ActorEnemy;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
@@ -34,7 +34,7 @@ public class GameMap {
     private final List<ActorEnemy> monsters = new ArrayList<>();
     private final List<Item> items = new ArrayList<>();
     private final List<InteractiveObject> interactiveObjects = new ArrayList<>();
-
+    private final GameMessage gameMessage = GameMessage.getInstance();
 
     public GameMap(int width, int height, TileType defaultTileType) {
         this.width = width;
@@ -48,7 +48,6 @@ public class GameMap {
     }
 
     public void movePlayer(Direction direction) {
-        GameMessage gameMessage = GameMessage.getInstance();
         Movement movement = player.planMovement(direction);
         Cell nextCell = cells[movement.newPosition().x()][movement.newPosition().y()];
         Cell currentCell = cells[movement.currentPosition().x()][movement.currentPosition().y()];
@@ -64,9 +63,10 @@ public class GameMap {
             currentCell.setActor(null);
             nextCell.setActor(player);
             player.setPosition(movement.newPosition());
-        } else {
-            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_MOVE_INTO_UNWALKABLE_TILE.getMessage());
+            return;
         }
+        gameMessage.addToLogStash(GameMessageSnippet.PLAYER_MOVE_INTO_UNWALKABLE_TILE.getMessage());
+
     }
 
     public void moveActorEnemy() {
