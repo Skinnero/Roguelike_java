@@ -16,6 +16,9 @@ public class Player extends ActorPlayer {
     @Getter
     @Setter
     private int perception = 4;
+    private int experience = 0;
+    @Getter
+    @Setter
     private String name;
     private static Player single_instance;
 

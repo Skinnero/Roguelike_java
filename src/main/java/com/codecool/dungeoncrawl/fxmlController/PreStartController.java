@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.awt.image.SampleModel;
 import java.io.IOException;
 
 public class PreStartController {
@@ -28,6 +29,10 @@ public class PreStartController {
         scene.getRoot().requestFocus();
         stage.setScene(scene);
         stage.show();
+
+        GameController controller = fxmlLoader.getController();
+        controller.setGameWindow(stage);
+        controller.refresh();
     }
     @FXML
     public void selectProfession(MouseEvent mouseEvent) {

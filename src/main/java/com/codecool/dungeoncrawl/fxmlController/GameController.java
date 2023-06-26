@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,17 +41,20 @@ public class GameController {
     private VBox messageLog;
     private GameMap map = MapLoader.loadMap("/tutorial.txt");
     private GameMessage gameMessage = GameMessage.getInstance();
+    @Setter
+    private GameWindow gameWindow;
+
 
     @FXML
     protected void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.S) {
             return;
         }
-        playerMovementController(keyEvent);
-        playerInterfaceController(keyEvent);
+        handleNonBlockingEvents(keyEvent);
+        handleBlockingEvents(keyEvent);
     }
 
-    private void playerMovementController(KeyEvent keyEvent) {
+    private void handleNonBlockingEvents(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP, W -> map.movePlayer(Direction.UP);
             case DOWN, S -> map.movePlayer(Direction.DOWN);
@@ -77,7 +81,7 @@ public class GameController {
         refresh();
     }
 
-    private void playerInterfaceController(KeyEvent keyEvent) {
+    private void handleBlockingEvents(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case I -> showInventory();
             case Q -> showMessageLog();
@@ -86,7 +90,7 @@ public class GameController {
     }
 
 
-    private void refresh() {
+    public void refresh() {
         GraphicsContext context = mainCanvas.getGraphicsContext2D();
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
