@@ -2,14 +2,16 @@ package com.codecool.dungeoncrawl.logic.ui;
 
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.engine.Position;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Tiles {
+    private static final String FILE_WITH_TILES = "/tiles.png";
+    private static final Image tileSet = new Image(FILE_WITH_TILES, 543 * 2, 543 * 2, true, false);
     public static int TILE_SIZE = 32;
-    private static final Image tileSet = new Image("/tiles.png", 543 * 2, 543 * 2, true, false);
 
     public static class Tile {
         public final int x, y, w, h;
@@ -22,20 +24,20 @@ public class Tiles {
         }
     }
 
-    public static void drawTile(GraphicsContext context, TileId tileId, int x, int y) {
+    public static void drawTile(GraphicsContext context, TileId tileId, Position position) {
         Tile tile = new Tile(tileId);
         context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                position.x() * TILE_SIZE, position.y() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
-    public static void drawTile(GraphicsContext context, TileId tileId, int x, int y, int tileSize) {
+    public static void drawTile(GraphicsContext context, TileId tileId, Position position, int tileSize) {
         Tile tile = new Tile(tileId);
         context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
-                x * tileSize, y * tileSize, tileSize, tileSize);
+                position.x() * tileSize, position.y() * tileSize, tileSize, tileSize);
     }
 
-    public static void drawHiddenTile(GraphicsContext context, int x, int y) {
+    public static void drawHiddenTile(GraphicsContext context, Position position) {
         context.setFill(Color.BLACK);
-        context.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        context.fillRect(position.x() * TILE_SIZE, position.y() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 
     public static boolean isVisible(Cell cell, GameMap map) {

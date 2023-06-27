@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils;
 
-import com.codecool.dungeoncrawl.logic.engine.Position;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 
 public enum Direction {
     UP(Position.of(0, -1)),

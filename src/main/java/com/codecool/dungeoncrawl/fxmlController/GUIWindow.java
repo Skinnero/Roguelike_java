@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
+import com.codecool.dungeoncrawl.fxmlController.util.StatisticsTileId;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.ui.GameMessage;
-import com.codecool.dungeoncrawl.logic.ui.TileId;
-import com.codecool.dungeoncrawl.logic.ui.TileType;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileType;
 import com.codecool.dungeoncrawl.logic.ui.Tiles;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -15,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.util.Arrays;
@@ -65,10 +66,11 @@ public class GUIWindow {
         for (int x = 0; x < MAX_ROW; x++) {
             for (int y = 0; y < MAX_COLUMN; y++) {
                 if (gameMap.getPlayer().getInventory().size() == inventoryIndex) {
-                    Tiles.drawTile(graphicsContext, TileType.EMPTY.getTileId(), x, y, TILE_SIZE);
+                    Tiles.drawTile(graphicsContext, TileType.EMPTY.getTileId(), Position.of(x, y), TILE_SIZE);
                     return;
                 }
-                Tiles.drawTile(graphicsContext, gameMap.getPlayer().getInventory().get(inventoryIndex).getTileId(), x, y, TILE_SIZE);
+                Tiles.drawTile(graphicsContext, gameMap.getPlayer().getInventory().get(inventoryIndex).getTileId(),
+                        Position.of(x, y), TILE_SIZE);
                 inventoryIndex++;
             }
         }
@@ -89,7 +91,7 @@ public class GUIWindow {
         List<TileId> statsTileIds = Arrays.stream(StatisticsTileId.values()).map(StatisticsTileId::getTileId).toList();
 
         for (int y = 0; y < MAX_ROW; y++) {
-            Tiles.drawTile(graphicsContext, statsTileIds.get(y), COLUMN, y, TILE_SIZE);
+            Tiles.drawTile(graphicsContext, statsTileIds.get(y), Position.of(COLUMN, y), TILE_SIZE);
         }
     }
 

@@ -2,20 +2,14 @@ package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.engine.Movement;
-import com.codecool.dungeoncrawl.logic.engine.Position;
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.engine.utils.Movement;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import com.codecool.dungeoncrawl.logic.ui.Tiles;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import lombok.Setter;
 
 public class GameWindow {
     private final Canvas mainCanvas;
@@ -47,9 +41,11 @@ public class GameWindow {
             for (int y = movement.currentPosition().y(); y < movement.newPosition().y(); y++) {
                 Cell cell = gameMap.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
-                Tiles.drawTile(context, tileId, x - movement.currentPosition().x(), y - movement.currentPosition().y());
+                Tiles.drawTile(context, tileId,
+                        Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
                 if (!Tiles.isVisible(cell, gameMap)) {
-                    Tiles.drawHiddenTile(context, x - movement.currentPosition().x(), y - movement.currentPosition().y());
+                    Tiles.drawHiddenTile(context,
+                            Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
                 }
             }
         }

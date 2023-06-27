@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils;
 
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import lombok.Getter;
 
 public enum InteractiveObjectTileId {

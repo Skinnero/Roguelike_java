@@ -2,9 +2,8 @@ package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
-import com.codecool.dungeoncrawl.logic.fileloader.MapLoader;
+import com.codecool.dungeoncrawl.fileloader.MapLoader;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Getter;
@@ -31,10 +30,10 @@ public class GameController {
 
     private void handleNonBlockingEvents(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case UP, W -> gameMap.movePlayer(Direction.UP);
-            case DOWN, S -> gameMap.movePlayer(Direction.DOWN);
-            case LEFT, A -> gameMap.movePlayer(Direction.LEFT);
-            case RIGHT, D -> gameMap.movePlayer(Direction.RIGHT);
+            case UP, W -> gameMap.handleMoveActorPlayer(Direction.UP);
+            case DOWN, S -> gameMap.handleMoveActorPlayer(Direction.DOWN);
+            case LEFT, A -> gameMap.handleMoveActorPlayer(Direction.LEFT);
+            case RIGHT, D -> gameMap.handleMoveActorPlayer(Direction.RIGHT);
             case G -> pickUpItem(); // Grabs item from floor
             case F -> interactWithEnvironment(); // Interact with game surroundings
             case E -> gameMap = gameMap.getAnotherMap();
@@ -52,7 +51,7 @@ public class GameController {
                 return;
             }
         }
-        gameMap.moveActorEnemy();
+        gameMap.handleMoveActorEnemy();
         gameWindow.refresh(gameMap);
         guiWindow.refreshInterface();
     }

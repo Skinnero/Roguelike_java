@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.engine.utils.Movement;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.enemylogic.Behavior;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylogic.Behavior;
 
 public class Mage extends ActorEnemy {
 

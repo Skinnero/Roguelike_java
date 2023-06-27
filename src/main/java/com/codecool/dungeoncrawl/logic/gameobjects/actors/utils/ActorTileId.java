@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.utils;
 
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
 public enum ActorTileId {
     PLAYER(TileId.of(27, 0)),

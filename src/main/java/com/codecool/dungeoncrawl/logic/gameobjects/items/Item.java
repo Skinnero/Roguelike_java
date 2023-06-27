@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
 import com.codecool.dungeoncrawl.logic.ui.Renderable;
-import com.codecool.dungeoncrawl.logic.ui.TileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.ui.GameMessage;
-import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 
 public interface Item extends Renderable {
     @Override

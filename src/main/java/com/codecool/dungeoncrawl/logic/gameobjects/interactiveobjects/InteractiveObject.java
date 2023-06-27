@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
 import com.codecool.dungeoncrawl.logic.ui.Renderable;
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
 public abstract class InteractiveObject implements Renderable {
     private TileId tileId;

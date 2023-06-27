@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
-import com.codecool.dungeoncrawl.logic.engine.Movement;
-import com.codecool.dungeoncrawl.logic.engine.Position;
+import com.codecool.dungeoncrawl.logic.engine.utils.Movement;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 

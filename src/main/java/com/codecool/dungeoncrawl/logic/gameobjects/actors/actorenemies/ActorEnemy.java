@@ -1,11 +1,13 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies;
 
 import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.engine.utils.Movement;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
-import com.codecool.dungeoncrawl.logic.ui.GameMessage;
-import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
 
 public abstract class ActorEnemy extends Actor {

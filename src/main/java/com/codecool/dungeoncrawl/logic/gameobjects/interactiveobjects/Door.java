@@ -1,11 +1,11 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
-import com.codecool.dungeoncrawl.logic.ui.GameMessage;
-import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 
 public class Door extends InteractiveObject {
     private boolean isOpen = false;

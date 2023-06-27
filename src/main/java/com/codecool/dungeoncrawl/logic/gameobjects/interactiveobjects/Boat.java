@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
-import com.codecool.dungeoncrawl.logic.ui.GameMessage;
-import com.codecool.dungeoncrawl.logic.ui.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 
 public class Boat extends InteractiveObject {
     private final GameMessage gameMessage = GameMessage.getInstance();

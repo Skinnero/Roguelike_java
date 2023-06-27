@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Armor implements Item {

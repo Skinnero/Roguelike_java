@@ -1,7 +1,8 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.utils.ProfessionTileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

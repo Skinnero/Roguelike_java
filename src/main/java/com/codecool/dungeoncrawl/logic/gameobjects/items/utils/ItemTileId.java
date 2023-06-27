@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items.utils;
 
-import com.codecool.dungeoncrawl.logic.ui.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
 public enum ItemTileId {
     ARMOR(TileId.of(0, 23)),
