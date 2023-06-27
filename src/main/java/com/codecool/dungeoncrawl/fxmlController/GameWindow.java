@@ -41,12 +41,19 @@ public class GameWindow {
             for (int y = movement.currentPosition().y(); y < movement.newPosition().y(); y++) {
                 Cell cell = gameMap.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
-                Tiles.drawTile(context, tileId,
-                        Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
-                if (!Tiles.isVisible(cell, gameMap)) {
-                    Tiles.drawHiddenTile(context,
+                if (Tiles.isVisible(cell, gameMap)) {
+                    Tiles.drawTile(context, tileId,
                             Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
+                    cell.setVisited(true);
+                    continue;
                 }
+                if (cell.isVisited()) {
+                    Tiles.drawVisitedTile(context, cell.getTileType().getTileId(),
+                            Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
+                    continue;
+                }
+                Tiles.drawHiddenTile(context,
+                        Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));
             }
         }
     }

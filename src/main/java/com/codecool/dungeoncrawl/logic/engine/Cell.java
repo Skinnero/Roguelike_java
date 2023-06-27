@@ -12,13 +12,20 @@ import lombok.Setter;
 import java.util.Objects;
 
 public class Cell {
-    @Setter @Getter
+    @Setter
+    @Getter
+    private boolean visited = false;
+    @Setter
+    @Getter
     private TileType tileType;
-    @Getter @Setter
+    @Getter
+    @Setter
     private Actor actor;
-    @Getter @Setter
+    @Getter
+    @Setter
     private Item item;
-    @Getter @Setter
+    @Getter
+    @Setter
     private InteractiveObject interactiveObject;
     @Getter
     private final Position position;

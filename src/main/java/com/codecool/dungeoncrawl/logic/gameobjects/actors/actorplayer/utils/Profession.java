@@ -27,6 +27,6 @@ public enum Profession {
                 return profession;
             }
         }
-        return HUNTER;
+        return HUNTER; // Basic profession if none was chosen by user
     }
 }

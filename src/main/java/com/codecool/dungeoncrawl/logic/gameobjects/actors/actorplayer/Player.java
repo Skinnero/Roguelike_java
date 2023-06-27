@@ -16,10 +16,13 @@ import lombok.Setter;
 import java.util.*;
 
 public class Player extends ActorPlayer {
-    public int MAX_HEALTH;
+    @Getter
+    @Setter
+    private int maxHealth;
     private final List<Item> inventory = new ArrayList<>();
     private final GameMessage gameMessages = GameMessage.getInstance();
     private int experience = 0;
+    private int experienceNeeded = 10;
     @Getter
     @Setter
     private String name;

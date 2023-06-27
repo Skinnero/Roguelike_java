@@ -20,7 +20,7 @@ public class Food implements Item {
 
     @Override
     public void onUse(Player player) {
-        if (player.getHealth() <= player.MAX_HEALTH - value) {
+        if (player.getHealth() <= player.getMaxHealth() - value) {
             player.removeFromInventory(this);
             player.setHealth(player.getHealth() + value);
             addMessageToLog();
