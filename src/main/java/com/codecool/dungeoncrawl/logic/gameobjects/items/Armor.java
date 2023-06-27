@@ -20,7 +20,6 @@ public class Armor implements Item {
 
     @Override
     public void onUse(Player player) {
-//        player.addToEquipment(this);
         player.removeFromInventory(this);
         player.setDefense(player.getDefense() + value);
         addMessageToLog();

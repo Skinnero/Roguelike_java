@@ -22,7 +22,6 @@ public class Torch implements Item {
     @Override
     public void onUse(Player player) {
         player.setFieldOfViewDistance(player.getFieldOfViewDistance() + value);
-//        player.addToEquipment(this);
         player.removeFromInventory(this);
         addMessageToLog();
     }
