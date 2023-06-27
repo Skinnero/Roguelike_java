@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnem
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.ActorPlayer;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
+import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.Boat;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
@@ -90,7 +91,10 @@ public class GameMap {
     }
 
     public GameMap getAnotherMap() {
-        return MapLoader.loadMap("/map" + ++mapLevel + ".txt");
+        if (getCell(player.getPosition()).getInteractiveObject() instanceof Boat) {
+            return MapLoader.loadMap("/map" + ++mapLevel + ".txt");
+        }
+        return this;
     }
 
     public Cell getPlayerCell() {
@@ -110,6 +114,7 @@ public class GameMap {
     private void attackEnemy(Cell cell) {
         player.planAttack(cell.getActor());
         if (cell.getActor().isDead()) {
+            player.gainExperience(((ActorEnemy) cell.getActor()).getExperienceYield());
             monsters.remove((ActorEnemy) cell.getActor());
             cell.setActor(null);
         }

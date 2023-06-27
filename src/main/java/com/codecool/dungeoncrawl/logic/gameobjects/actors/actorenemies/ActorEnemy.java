@@ -8,10 +8,15 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import lombok.Getter;
+import lombok.Setter;
 
 
 public abstract class ActorEnemy extends Actor {
     GameMessage gameMessage = GameMessage.getInstance();
+    @Getter
+    @Setter
+    private int experienceYield = 2;
     public ActorEnemy(TileId tileId, Position position) {
         super(tileId, position);
     }

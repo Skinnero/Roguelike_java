@@ -24,7 +24,6 @@ import java.util.List;
 
 public class GUIWindow {
     private final int TILE_SIZE = 60;
-    private final int MAX_ROW = 3;
     private final GameMessage gameMessage = GameMessage.getInstance();
     private final Pane inventoryPane;
     private final Pane statsPane;
@@ -60,6 +59,7 @@ public class GUIWindow {
 
     private void refreshInventory() {
         int MAX_COLUMN = 3;
+        int MAX_ROW = 3;
         int inventoryIndex = 0;
         Canvas inventory = (Canvas) inventoryPane.lookup("#inventory");
         GraphicsContext graphicsContext = inventory.getGraphicsContext2D();
@@ -78,12 +78,15 @@ public class GUIWindow {
 
     private void refreshStatistics() {
         int COLUMN = 0;
+        int MAX_ROW = 4;
         Label attackLabel = (Label) statsPane.lookup("#attackValue");
         attackLabel.setText(Integer.toString(gameMap.getPlayer().getAttack()));
         Label healthLabel = (Label) statsPane.lookup("#healthValue");
-        healthLabel.setText(Integer.toString(gameMap.getPlayer().getHealth()));
+        healthLabel.setText(gameMap.getPlayer().getHealth() + "/" + gameMap.getPlayer().getMaxHealth());
         Label defenseLabel = (Label) statsPane.lookup("#defenseValue");
         defenseLabel.setText(Integer.toString(gameMap.getPlayer().getDefense()));
+        Label experienceLabel = (Label) statsPane.lookup("#experienceValue");
+        experienceLabel.setText(gameMap.getPlayer().getExperience() + "/" + gameMap.getPlayer().getMaxExperience());
 
         Canvas stats = (Canvas) statsPane.lookup("#stats");
         GraphicsContext graphicsContext = stats.getGraphicsContext2D();

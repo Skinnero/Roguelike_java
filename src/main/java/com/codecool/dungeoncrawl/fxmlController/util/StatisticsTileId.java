@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum StatisticsTileId {
     HEALTH(TileId.of(26, 22)),
     ATTACK(TileId.of(2, 28)),
-    DEFENSE(TileId.of(5, 26));
+    DEFENSE(TileId.of(5, 26)),
+    EXPERIENCE(TileId.of(23, 4));
 
     @Getter
     private final TileId tileId;

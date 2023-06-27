@@ -4,10 +4,16 @@ import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.fileloader.MapLoader;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
+
+import java.awt.*;
 
 public class GameController {
     @Getter
@@ -18,9 +24,12 @@ public class GameController {
     @Setter
     @Getter
     private GUIWindow guiWindow;
+    @FXML
+    private Pane deathPane;
 
     @FXML
     protected void handleKeyEvent(KeyEvent keyEvent) {
+        handlePlayerDeath();
         if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.S) {
             return;
         }
@@ -74,5 +83,15 @@ public class GameController {
 
     private void useItem(int inventorySlot) {
         gameMap.getPlayer().useItem(inventorySlot);
+    }
+
+    @SneakyThrows
+    private void handlePlayerDeath(){
+//        if (gameMap.getPlayer().isDead()) {
+//            deathPane.setVisible(true);
+//            deathPane.getChildren().add(new Text("You Died!"));
+//            Thread.sleep(5000);
+//            System.exit(0);
+//        }
     }
 }

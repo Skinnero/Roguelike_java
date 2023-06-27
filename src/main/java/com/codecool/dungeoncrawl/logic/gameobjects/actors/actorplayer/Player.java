@@ -20,9 +20,10 @@ public class Player extends ActorPlayer {
     @Setter
     private int maxHealth;
     private final List<Item> inventory = new ArrayList<>();
-    private final GameMessage gameMessages = GameMessage.getInstance();
+    @Getter
     private int experience = 0;
-    private int experienceNeeded = 10;
+    @Getter
+    private int maxExperience = 10;
     @Getter
     @Setter
     private String name;
@@ -66,7 +67,7 @@ public class Player extends ActorPlayer {
                 return;
             }
         }
-        gameMessages.addToLogStash(GameMessageSnippet.PLAYER_INTERACT_WITH_NOTHING.getMessage());
+        gameMessage.addToLogStash(GameMessageSnippet.PLAYER_INTERACT_WITH_NOTHING.getMessage());
     }
 
     public void pickUpItem(GameMap map) {
@@ -114,5 +115,16 @@ public class Player extends ActorPlayer {
         enemy.setHealth(enemy.getHealth() - calculateDamage(enemy.getDefense()));
         gameMessage.addToLogStash(GameMessageSnippet.PLAYER_DAMAGE_DONE.getMessage() + getAttack());
         gameMessage.addToLogStash(GameMessageSnippet.MONSTER_DAMAGE_TAKEN.getMessage() + calculateDamage(enemy.getDefense()));
+    }
+
+    public void gainExperience(int experienceFromEnemies) {
+        experience += experienceFromEnemies;
+        if (experience >= maxExperience) {
+            experience -= maxExperience;
+            maxExperience += 10;
+            maxHealth += 5;
+            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_LEVEL_UP.getMessage());
+            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_HEALTH_UP.getMessage());
+        }
     }
 }
