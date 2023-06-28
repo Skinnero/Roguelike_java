@@ -12,7 +12,6 @@ public class Behavior {
         EnemyMovement enemyMovement = new EnemyMovement();
         FieldOfView fieldOfView = new FieldOfView();
         Position ogrePosition = ogre.getPosition();
-        Position playerPosition = map.getPlayer().getPosition();
         Position patrolDestination = ogre.getPatrolDestination();
         int vector = ogrePosition.x() - patrolDestination.x();
 
@@ -20,7 +19,7 @@ public class Behavior {
             ogre.switchPatrol();
         }
         Position moveVector;
-        if (fieldOfView.isPlayerNear(ogre, playerPosition, ogre.getFieldOfViewDistance())) {
+        if (fieldOfView.isPlayerNear(map, ogre)) {
             moveVector = vectorToPlayer(map, ogre);
             return enemyMovement.moveTowardsPlayer(map, ogre, moveVector);
         }
@@ -38,12 +37,10 @@ public class Behavior {
                 enemyPosition.y() + vector.y() == playerPosition.y();
     }
 
-    public Position guard(GameMap map, Mage mage) {
+    public Position guard(GameMap map, ActorEnemy actorEnemy) {
         FieldOfView fieldOfView = new FieldOfView();
         Position playerPosition = map.getPlayer().getPosition();
-        Position magePosition = mage.getPosition();
-        int fieldOfViewDistance = mage.getFieldOfViewDistance();
-
+        Position magePosition = actorEnemy.getPosition();
         Position vector = Position.of(playerPosition.x() - magePosition.x(), playerPosition.y() - magePosition.y());
 
         int dx = Integer.compare(vector.x(), 0);
@@ -51,8 +48,8 @@ public class Behavior {
         Position moveVector = Position.of(dx, dy);
         if (isPlayerThere(map, moveVector, magePosition)) {
             return magePosition;
-        } else if (fieldOfView.isPlayerNear(mage, playerPosition, fieldOfViewDistance)) {
-            return Position.of(mage.getPosition().x() + moveVector.x(), mage.getPosition().y() + moveVector.y());
+        } else if (fieldOfView.isPlayerNear(map, actorEnemy)) {
+            return Position.of(actorEnemy.getPosition().x() + moveVector.x(), actorEnemy.getPosition().y() + moveVector.y());
         }
         return magePosition;
     }

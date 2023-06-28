@@ -34,7 +34,7 @@ public class EnemyMovement {
         if (behavior.isPlayerThere(map, moveVector, actorEnemy.getPosition())) {
             return actorEnemy.getPosition();
         }
-        if (fieldOfView.isPlayerNear(actorEnemy, playerPosition, fieldOfViewDistance)) {
+        if (fieldOfView.isPlayerNear(map, actorEnemy)) {
             return Position.of(actorEnemy.getPosition().x() + moveVector.x(), actorEnemy.getPosition().y() + moveVector.y());
         }
         return actorEnemy.getPosition();

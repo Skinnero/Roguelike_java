@@ -29,7 +29,11 @@ public enum CharOnMap {
     LETTER_H('h', EnvironmentalObjectConsumer::letterH),
     LETTER_E('e', EnvironmentalObjectConsumer::letterE),
     LETTER_R('r', EnvironmentalObjectConsumer::letterR),
-    MAGE('M', ActorConsumer::mage);
+    MAGE('M', ActorConsumer::mage),
+    ARCHER('A', ActorConsumer::archer),
+    ARCHMAGE('Q', ActorConsumer::archMage),
+    PALLADIN('P', ActorConsumer::paladin),
+    WARRIOR('W', ActorConsumer::warrior);
 
     private final char charOnMapTxt;
     private final Consumer<Cell> strategy;
