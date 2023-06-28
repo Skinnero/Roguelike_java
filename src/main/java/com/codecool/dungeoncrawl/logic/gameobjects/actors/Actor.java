@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
-import com.codecool.dungeoncrawl.logic.engine.*;
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.ui.Renderable;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import lombok.Getter;
 import lombok.Setter;
 

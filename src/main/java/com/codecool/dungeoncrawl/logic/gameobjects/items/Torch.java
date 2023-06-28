@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Torch implements Item {
@@ -21,9 +21,9 @@ public class Torch implements Item {
 
     @Override
     public void onUse(Player player) {
-        player.setPerception(player.getPerception() + value);
-        player.addToEquipment(this);
+        player.setFieldOfViewDistance(player.getFieldOfViewDistance() + value);
         player.removeFromInventory(this);
+        addMessageToLog();
     }
 
 }

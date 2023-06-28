@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Food implements Item {
@@ -20,7 +20,10 @@ public class Food implements Item {
 
     @Override
     public void onUse(Player player) {
-        player.removeFromInventory(this);
-        player.setHealth(player.getHealth() + value);
+        if (player.getHealth() <= player.getMaxHealth() - value) {
+            player.removeFromInventory(this);
+            player.setHealth(player.getHealth() + value);
+            addMessageToLog();
+        }
     }
 }

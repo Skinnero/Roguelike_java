@@ -1,21 +1,31 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileType;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
 
 public class Cell {
-    @Setter @Getter
+    @Setter
+    @Getter
+    private boolean visited = false;
+    @Setter
+    @Getter
     private TileType tileType;
-    @Getter @Setter
+    @Getter
+    @Setter
     private Actor actor;
-    @Getter @Setter
+    @Getter
+    @Setter
     private Item item;
-    @Getter @Setter
+    @Getter
+    @Setter
     private InteractiveObject interactiveObject;
     @Getter
     private final Position position;

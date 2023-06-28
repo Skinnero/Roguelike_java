@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
-import com.codecool.dungeoncrawl.logic.engine.TileId;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Player;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
 
 public class Sword implements Item {
@@ -19,8 +19,8 @@ public class Sword implements Item {
 
     @Override
     public void onUse(Player player) {
-        player.addToEquipment(this);
         player.removeFromInventory(this);
         player.setAttack(player.getAttack() + value);
+        addMessageToLog();
     }
 }
