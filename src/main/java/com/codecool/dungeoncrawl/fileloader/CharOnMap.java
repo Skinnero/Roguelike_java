@@ -32,8 +32,8 @@ public enum CharOnMap {
     MAGE('M', ActorConsumer::mage),
     ARCHER('A', ActorConsumer::archer),
     ARCHMAGE('Q', ActorConsumer::archMage),
-    PALLADIN('P', ActorConsumer::paladin),
-    WARRIOR('W', ActorConsumer::warrior);
+    PALADIN('P', ActorConsumer::paladin),
+    WARRIOR('w', ActorConsumer::warrior);
 
     private final char charOnMapTxt;
     private final Consumer<Cell> strategy;

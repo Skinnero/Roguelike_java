@@ -16,7 +16,7 @@ public class FieldOfView {
         List<Cell> visibleCells = fieldOfView(map, actor);
         for (Cell cell : visibleCells) {
             if (cell.getActor() instanceof Player) {
-                return  true;
+                return true;
             }
         }
         return false;
@@ -42,11 +42,8 @@ public class FieldOfView {
             y = x * linerFunctionFactor;
             Position cellPosition = Position.of(actorPosition.x() + (int) Math.floor(x),
                     actorPosition.y() + (int) Math.floor(y));
-            if (true) {//x % 1 > 0.03 && y % 1 > 0.03) {
-                addCellToList(visibleCells,map.getCell(cellPosition));
-            }
+            addCellToList(visibleCells, map.getCell(cellPosition));
             if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
-                addCellToList(visibleCells,map.getCell(cellPosition));
                 break;
             }
         }
@@ -57,11 +54,8 @@ public class FieldOfView {
             y = x * linerFunctionFactor;
             Position cellPosition = Position.of(actorPosition.x() + (int) Math.floor(x),
                     actorPosition.y() + (int) Math.floor(y));
-            if (true) {//x % 1 > 0.03 && y % 1 > 0.03) {
-                addCellToList(visibleCells,map.getCell(cellPosition));
-            }
+            addCellToList(visibleCells, map.getCell(cellPosition));
             if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
-                addCellToList(visibleCells,map.getCell(cellPosition));
                 break;
             }
         }

@@ -10,7 +10,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 public class ArchMage extends ActorEnemy{
 
     public ArchMage(Position position) {
-        super(ActorTileId.MAGE.getTileId(), position);
+        super(ActorTileId.ARCHMAGE.getTileId(), position);
         this.setHealth(10);
         this.setAttack(4);
         this.setDefense(2);

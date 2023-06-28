@@ -40,12 +40,12 @@ public class GameWindow {
 
     private void createMap(Movement movement, GameMap gameMap) {
         GraphicsContext context = mainCanvas.getGraphicsContext2D();
+        FieldOfView fieldOfView = new FieldOfView();
+        List<Cell> visibleCells = fieldOfView.fieldOfView(gameMap, gameMap.getPlayer());
         for (int x = movement.currentPosition().x(); x < movement.newPosition().x(); x++) {
             for (int y = movement.currentPosition().y(); y < movement.newPosition().y(); y++) {
                 Cell cell = gameMap.getCell(Position.of(x, y));
                 TileId tileId = cell.getVisibleObjectId();
-                FieldOfView fieldOfView = new FieldOfView();
-                List<Cell> visibleCells = fieldOfView.fieldOfView(gameMap, gameMap.getPlayer());
                 if (visibleCells.contains(cell)) {
                     Tiles.drawTile(context, tileId,
                             Position.of(x - movement.currentPosition().x(), y - movement.currentPosition().y()));

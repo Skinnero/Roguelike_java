@@ -10,7 +10,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 public class Warrior extends ActorEnemy {
 
     public Warrior(Position position) {
-        super(ActorTileId.MAGE.getTileId(), position);
+        super(ActorTileId.WARRIOR.getTileId(), position);
         this.setHealth(11);
         this.setFieldOfViewDistance(4);
     }

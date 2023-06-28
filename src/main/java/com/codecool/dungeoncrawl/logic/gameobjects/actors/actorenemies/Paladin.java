@@ -10,7 +10,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 public class Paladin extends ActorEnemy {
 
     public Paladin(Position position) {
-        super(ActorTileId.MAGE.getTileId(), position);
+        super(ActorTileId.PALADIN.getTileId(), position);
         this.setHealth(16);
         this.setFieldOfViewDistance(7);
     }

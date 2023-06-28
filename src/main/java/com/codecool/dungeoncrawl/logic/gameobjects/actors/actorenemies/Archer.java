@@ -10,7 +10,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 public class Archer extends ActorEnemy {
 
     public Archer(Position position) {
-        super(ActorTileId.MAGE.getTileId(), position);
+        super(ActorTileId.ARCHER.getTileId(), position);
         this.setAttack(4);
         this.setHealth(4);
         this.setFieldOfViewDistance(4);

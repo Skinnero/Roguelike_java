@@ -49,15 +49,15 @@ public class Tiles {
 
     }
 
-    public static boolean isVisible(Cell cell, GameMap map) {
-        Position playerPosition = map.getPlayer().getPosition();
-        Position cellPosition = cell.getPosition();
-
-        int distance = Math.abs(playerPosition.x() - cellPosition.x()) + Math.abs(playerPosition.y() - cellPosition.y());
-
-        int fieldOfView = map.getPlayer().getFieldOfView(map);
-        boolean inFieldOfView = distance <= fieldOfView;
-
-        return cell.isVisible(map) && inFieldOfView;
-    }
+//    public static boolean isVisible(Cell cell, GameMap map) {
+//        Position playerPosition = map.getPlayer().getPosition();
+//        Position cellPosition = cell.getPosition();
+//
+//        int distance = Math.abs(playerPosition.x() - cellPosition.x()) + Math.abs(playerPosition.y() - cellPosition.y());
+//
+//        int fieldOfView = map.getPlayer().getFieldOfView(map);
+//        boolean inFieldOfView = distance <= fieldOfView;
+//
+//        return cell.isVisible(map) && inFieldOfView;
+//    }
 }
