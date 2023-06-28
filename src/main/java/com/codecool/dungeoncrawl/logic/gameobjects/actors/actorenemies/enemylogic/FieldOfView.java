@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylog
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileType;
@@ -21,7 +22,7 @@ public class FieldOfView {
         return false;
     }
 
-    public List<Cell> fieldOfView(GameMap map, ActorEnemy actor) {
+    public List<Cell> fieldOfView(GameMap map, Actor actor) {
         List<Cell> visibleCells = new ArrayList<>();
         for (int i = 1; i < 180; i++) {
             double linerFunctionFactor = calculateLinearFunctionFactor(i);
@@ -31,7 +32,7 @@ public class FieldOfView {
         return visibleCells;
     }
 
-    public List<Cell> calculateLineOfView(GameMap map, ActorEnemy actor, double linerFunctionFactor, List<Cell> visibleCells) {
+    public List<Cell> calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells) {
         Position actorPosition = actor.getPosition();
         double x = 0;
         double y;
