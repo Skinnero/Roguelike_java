@@ -1,50 +1,56 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
-public class GameState extends BaseModel {
-    private Date savedAt;
+public class GameState implements BaseModel {
+    @Getter
+    @Setter
+    private Timestamp savedAt;
+    @Setter
+    @Getter
     private String currentMap;
-    private List<String> discoveredMaps = new ArrayList<>();
+    @Setter
+    @Getter
     private PlayerModel player;
 
-    public GameState(String currentMap, Date savedAt, PlayerModel player) {
+    @Setter
+    @Getter
+    private List<MonsterModel> monsters;
+
+    @Setter
+    @Getter
+    private List<ItemModel> items;
+
+    @Setter
+    @Getter
+    private List<InteractiveObjectModel> interactiveObjects;
+    private static GameState singleInstance = null;
+
+    public GameState() {
+        this.currentMap = null;
+        this.savedAt = null;
+        this.player = null;
+    }
+
+    public GameState(String currentMap) {
         this.currentMap = currentMap;
-        this.savedAt = savedAt;
-        this.player = player;
     }
 
-    public Date getSavedAt() {
-        return savedAt;
+    public static GameState getInstance() {
+        if (singleInstance == null) {
+            singleInstance = new GameState();
+        }
+        return singleInstance;
     }
 
-    public void setSavedAt(Date savedAt) {
-        this.savedAt = savedAt;
-    }
-
-    public String getCurrentMap() {
-        return currentMap;
-    }
-
-    public void setCurrentMap(String currentMap) {
-        this.currentMap = currentMap;
-    }
-
-    public List<String> getDiscoveredMaps() {
-        return discoveredMaps;
-    }
-
-    public void addDiscoveredMap(String map) {
-        this.discoveredMaps.add(map);
-    }
-
-    public PlayerModel getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(PlayerModel player) {
-        this.player = player;
+    @Override
+    public Position getPosition() {
+        return null;
     }
 }

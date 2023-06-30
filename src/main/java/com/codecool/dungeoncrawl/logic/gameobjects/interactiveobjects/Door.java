@@ -1,20 +1,24 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Key;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
+import lombok.Setter;
 
 public class Door extends InteractiveObject {
+    @Setter
     private boolean isOpen = false;
+    @Setter
     private boolean isLocked = true;
     private final GameMessage gameMessage = GameMessage.getInstance();
 
 
-    public Door() {
-        super(InteractiveObjectTileId.CLOSED_DOOR.getTileId());
+    public Door(Position position) {
+        super(InteractiveObjectTileId.CLOSED_DOOR.getTileId(), position);
     }
 
 
@@ -49,9 +53,6 @@ public class Door extends InteractiveObject {
     @Override
     public boolean isWalkable() {
         return isOpen;
-    }
-    public void setOpen(boolean open) {
-        isOpen = open;
     }
 
 }

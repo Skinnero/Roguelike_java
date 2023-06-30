@@ -1,11 +1,13 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.Util;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.*;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
+import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 
 import java.util.Random;
 
@@ -13,8 +15,12 @@ public class Chest extends InteractiveObject {
 
     private final GameMessage gameMessage = GameMessage.getInstance();
 
-    public Chest() {
-        super(InteractiveObjectTileId.CLOSED_CHEST.getTileId());
+    public Chest(Position position) {
+        super(InteractiveObjectTileId.CLOSED_CHEST.getTileId(), position);
+    }
+
+    public void setOpen() {
+        setTileId(InteractiveObjectTileId.OPEN_CHEST.getTileId());
     }
 
     @Override

@@ -1,16 +1,23 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.items;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.utils.ItemTileId;
+import lombok.Getter;
 
 public class Food implements Item {
-
-    private final TileId tileId = ItemTileId.FOOD.getTileId();
-
     public final int value = 2;
+    private final TileId tileId = ItemTileId.FOOD.getTileId();
+    @Getter
+    private Position position;
 
-    public Food () {
+    public Food() {
+
+    }
+
+    public Food(Position position) {
+        this.position = position;
     }
 
     @Override

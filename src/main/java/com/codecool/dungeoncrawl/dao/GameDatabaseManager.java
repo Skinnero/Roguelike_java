@@ -1,16 +1,24 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
+import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
+import com.codecool.dungeoncrawl.model.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.SneakyThrows;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
-    private PlayerDao playerDao;
+    private PlayerDaoJdbc playerDao;
+    private GameStateDaoJdbc gameStateDao;
+    private MonsterDaoJdbc monsterDao;
+    private ItemDaoJdbc itemDao;
+    private InteractiveObjectDaoJdbc interactiveObjectDao;
+
     Dotenv dotenv = Dotenv.load();
     private final String DB_NAME = dotenv.get("DB_NAME");
     private final String DB_USER = dotenv.get("DB_USER");
@@ -20,6 +28,10 @@ public class GameDatabaseManager {
     public void setup() {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
+        gameStateDao = new GameStateDaoJdbc(dataSource);
+        monsterDao = new MonsterDaoJdbc(dataSource);
+        itemDao = new ItemDaoJdbc(dataSource);
+        interactiveObjectDao = new InteractiveObjectDaoJdbc(dataSource);
     }
 
     public void savePlayer(Player player) {
@@ -27,8 +39,61 @@ public class GameDatabaseManager {
         playerDao.add(model);
     }
 
+    public void saveGameState() {
+        GameState model = GameState.getInstance();
+        model.getPlayer().setId(playerDao.getRecentPlayerId());
+        gameStateDao.add(model);
+    }
+
+    public void saveMonsters(List<Actor> monsters) {
+        for (Actor monsterActor : monsters) {
+            MonsterModel model = new MonsterModel(monsterActor);
+            monsterDao.add(model, playerDao.getRecentPlayerId());
+        }
+    }
+
+    public void saveObjects(List<InteractiveObject> objects) {
+        for (InteractiveObject object : objects) {
+            InteractiveObjectModel model = new InteractiveObjectModel(object);
+            interactiveObjectDao.add(model, playerDao.getRecentPlayerId());
+        }
+    }
+
+    public void saveItems(List<Item> items) {
+        for (Item item : items) {
+            ItemModel model = new ItemModel(item);
+            itemDao.add(model, playerDao.getRecentPlayerId());
+        }
+    }
+
+
+    public GameState load(int playerId) {
+
+        PlayerModel player = playerDao.get(playerId);
+        List<MonsterModel> monsterModels = monsterDao.get(playerId);
+        List<ItemModel> itemModels = itemDao.get(playerId);
+        List<InteractiveObjectModel> objects = interactiveObjectDao.get(playerId);
+
+        GameState gameState = gameStateDao.get(playerId);
+        System.out.println("game state loaded");
+
+        gameState.setPlayer(player);
+        System.out.println("player loaded");
+
+        gameState.setMonsters(monsterModels);
+        System.out.println("monsters loaded");
+
+        gameState.setItems(itemModels);
+        System.out.println("items loaded");
+
+        gameState.setInteractiveObjects(objects);
+        System.out.println("objects loaded");
+
+        return gameState;
+    }
+
     @SneakyThrows
-    private DataSource connect() throws SQLException {
+    private DataSource connect() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         dataSource.setDatabaseName(DB_NAME);

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.utils.InteractiveObjectTileId;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
 import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
@@ -7,8 +8,8 @@ import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 public class Boat extends InteractiveObject {
     private final GameMessage gameMessage = GameMessage.getInstance();
 
-    public Boat() {
-        super(InteractiveObjectTileId.BOAT.getTileId());
+    public Boat(Position position) {
+        super(InteractiveObjectTileId.BOAT.getTileId(), position);
     }
 
 

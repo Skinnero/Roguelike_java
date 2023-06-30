@@ -1,56 +1,42 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import lombok.Getter;
+import lombok.Setter;
 
-public class PlayerModel extends BaseModel {
+public class PlayerModel implements BaseModel {
+    @Getter
+    @Setter
     private String playerName;
+    @Getter
+    @Setter
     private int health;
-    private int x;
-    private int y;
+    @Getter
+    @Setter
+    private int positionX;
+    @Getter
+    @Setter
+    private int positionY;
+    @Getter
+    @Setter
+    private int id;
 
-    public PlayerModel(String playerName, int x, int y) {
+    public PlayerModel(String playerName, int health, int positionX, int positionY) {
         this.playerName = playerName;
-        this.x = x;
-        this.y = y;
+        this.health = health;
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     public PlayerModel(Player player) {
         this.playerName = player.getName();
-        this.x = player.getPosition().x();
-        this.y = player.getPosition().y();
+        this.positionX = player.getPosition().x();
+        this.positionY = player.getPosition().y();
         this.health = player.getHealth();
-
     }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    @Override
+    public Position getPosition() {
+        return Position.of(positionX, positionY);
     }
 }
