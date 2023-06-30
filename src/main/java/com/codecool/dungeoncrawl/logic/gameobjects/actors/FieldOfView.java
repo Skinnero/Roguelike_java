@@ -25,32 +25,21 @@ public class FieldOfView {
         List<Cell> visibleCells = new ArrayList<>();
         for (int i = 1; i < 180; i++) {
             double linerFunctionFactor = calculateLinearFunctionFactor(i);
-            calculateLineOfView(map, actor, linerFunctionFactor, visibleCells);
+            double step = calculateStep(linerFunctionFactor);
+            calculateLineOfView(map, actor, linerFunctionFactor, visibleCells, step, true);
+            calculateLineOfView(map, actor, linerFunctionFactor, visibleCells, step, false);
 
         }
         return visibleCells;
     }
 
-    public void calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells) {
+    public void calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells, double step, boolean positiveValue) {
         Position actorPosition = actor.getPosition();
         double x = 0;
         double y;
-        double step = calculateStep(linerFunctionFactor);
         double lookingDistanceSquare;
         do {
-            x = x + step;
-            y = x * linerFunctionFactor;
-            Position cellPosition = Position.of(actorPosition.x() + (int) x, actorPosition.y() + (int) y);
-            addCellToList(visibleCells, map.getCell(cellPosition));
-            if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
-                break;
-            }
-            lookingDistanceSquare = Math.pow(x, 2) + Math.pow(y, 2);
-        }
-        while (Math.sqrt(Math.floor(lookingDistanceSquare)) <= actor.getFieldOfViewDistance());
-        x = 0;
-        do {
-            x = x - step;
+            x = positiveValue ? x + step : x - step;
             y = x * linerFunctionFactor;
             Position cellPosition = Position.of(actorPosition.x() + (int) x, actorPosition.y() + (int) y);
             addCellToList(visibleCells, map.getCell(cellPosition));
