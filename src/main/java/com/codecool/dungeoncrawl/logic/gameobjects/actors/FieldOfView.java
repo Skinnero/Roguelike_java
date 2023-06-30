@@ -1,9 +1,8 @@
-package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylogic;
+package com.codecool.dungeoncrawl.logic.gameobjects.actors;
 
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileType;
@@ -26,41 +25,41 @@ public class FieldOfView {
         List<Cell> visibleCells = new ArrayList<>();
         for (int i = 1; i < 180; i++) {
             double linerFunctionFactor = calculateLinearFunctionFactor(i);
-            visibleCells = calculateLineOfView(map, actor, linerFunctionFactor, visibleCells);
+            calculateLineOfView(map, actor, linerFunctionFactor, visibleCells);
 
         }
         return visibleCells;
     }
 
-    public List<Cell> calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells) {
+    public void calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells) {
         Position actorPosition = actor.getPosition();
         double x = 0;
         double y;
         double step = calculateStep(linerFunctionFactor);
+        double lookingDistanceSquare;
         do {
             x = x + step;
             y = x * linerFunctionFactor;
-            Position cellPosition = Position.of(actorPosition.x() + (int) Math.floor(x),
-                    actorPosition.y() + (int) Math.floor(y));
+            Position cellPosition = Position.of(actorPosition.x() + (int) x, actorPosition.y() + (int) y);
             addCellToList(visibleCells, map.getCell(cellPosition));
             if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
                 break;
             }
+            lookingDistanceSquare = Math.pow(x, 2) + Math.pow(y, 2);
         }
-        while (Math.abs(x) <= actor.getFieldOfViewDistance() && Math.abs(y) <= actor.getFieldOfViewDistance());
+        while (Math.sqrt(Math.floor(lookingDistanceSquare)) <= actor.getFieldOfViewDistance());
         x = 0;
         do {
             x = x - step;
             y = x * linerFunctionFactor;
-            Position cellPosition = Position.of(actorPosition.x() + (int) Math.floor(x),
-                    actorPosition.y() + (int) Math.floor(y));
+            Position cellPosition = Position.of(actorPosition.x() + (int) x, actorPosition.y() + (int) y);
             addCellToList(visibleCells, map.getCell(cellPosition));
             if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
                 break;
             }
+            lookingDistanceSquare = Math.pow(x, 2) + Math.pow(y, 2);
         }
-        while (x >= -actor.getFieldOfViewDistance() && y >= -actor.getFieldOfViewDistance());
-        return visibleCells;
+        while (Math.sqrt(Math.floor(lookingDistanceSquare)) <= actor.getFieldOfViewDistance());
     }
 
     public void addCellToList(List<Cell> visibleCells, Cell newCell) {

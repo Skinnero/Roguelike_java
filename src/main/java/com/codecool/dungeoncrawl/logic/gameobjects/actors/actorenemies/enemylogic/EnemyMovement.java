@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylog
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.FieldOfView;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.Ogre;
 

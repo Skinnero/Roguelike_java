@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.utils.Movement;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylogic.FieldOfView;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.FieldOfView;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import com.codecool.dungeoncrawl.logic.ui.Tiles;
 import javafx.scene.Scene;
