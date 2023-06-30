@@ -63,7 +63,11 @@ public class WelcomingStageController {
         players.forEach(player -> {
             Text text = new Text("(" + players.indexOf(player) + ") " + player);
             text.setFont(Font.font("Arial", FontWeight.BOLD, 50));
-            text.setStyle("-fx-fill: black;");
+            text.setStyle("-fx-fill: black;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-style: solid;" +
+                    "-fx-background-color: black");
+//            text.setOnMouseClicked();
             text.translateXProperty().bind(scene.widthProperty().divide(4));
             vBox.getChildren().add(text);
         });

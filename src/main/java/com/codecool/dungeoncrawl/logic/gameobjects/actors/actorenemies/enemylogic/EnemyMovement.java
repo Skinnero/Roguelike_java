@@ -29,13 +29,11 @@ public class EnemyMovement {
     public Position moveTowardsPlayer(GameMap map, ActorEnemy actorEnemy, Position moveVector) {
         Behavior behavior = new Behavior();
         FieldOfView fieldOfView = new FieldOfView();
-        Position playerPosition = map.getPlayer().getPosition();
 
-        int fieldOfViewDistance = actorEnemy.getFieldOfViewDistance();
         if (behavior.isPlayerThere(map, moveVector, actorEnemy.getPosition())) {
             return actorEnemy.getPosition();
         }
-        if (fieldOfView.isPlayerNear(map, actorEnemy)) {
+        if (fieldOfView.isPlayerNear(map, actorEnemy) && isMovePossible(map, moveVector, actorEnemy.getPosition())) {
             return Position.of(actorEnemy.getPosition().x() + moveVector.x(), actorEnemy.getPosition().y() + moveVector.y());
         }
         return actorEnemy.getPosition();

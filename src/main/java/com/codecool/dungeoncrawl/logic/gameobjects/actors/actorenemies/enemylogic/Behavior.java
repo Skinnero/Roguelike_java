@@ -39,23 +39,22 @@ public class Behavior {
 
     public Position guard(GameMap map, ActorEnemy actorEnemy) {
         FieldOfView fieldOfView = new FieldOfView();
-        Position playerPosition = map.getPlayer().getPosition();
-        Position magePosition = actorEnemy.getPosition();
-        Position vector = Position.of(playerPosition.x() - magePosition.x(), playerPosition.y() - magePosition.y());
+        Position actorPosition = actorEnemy.getPosition();
+        EnemyMovement enemyMovement = new EnemyMovement();
+        Position vector = vectorToPlayer(map, actorEnemy);
 
         int dx = Integer.compare(vector.x(), 0);
         int dy = Integer.compare(vector.y(), 0);
         Position moveVector = Position.of(dx, dy);
-        if (isPlayerThere(map, moveVector, magePosition)) {
-            return magePosition;
-        } else if (fieldOfView.isPlayerNear(map, actorEnemy)) {
-            return Position.of(actorEnemy.getPosition().x() + moveVector.x(), actorEnemy.getPosition().y() + moveVector.y());
+        if (isPlayerThere(map, moveVector, actorPosition)) {
+            return actorPosition;
+        } else if (fieldOfView.isPlayerNear(map, actorEnemy) && enemyMovement.isMovePossible(map, moveVector, actorPosition)) {
+            return enemyMovement.moveTowardsPlayer(map, actorEnemy, moveVector);
         }
-        return magePosition;
+        return actorPosition;
     }
 
     public Position vectorToPlayer(GameMap map, ActorEnemy actor) {
-        // TODO: actorEnemies moves through object that are not walkable, they shouldn't
         Position playerPosition = map.getPlayer().getPosition();
         Position position = actor.getPosition();
 

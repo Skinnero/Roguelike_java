@@ -22,8 +22,10 @@ public class FieldOfView {
     }
 
     public List<Cell> fieldOfView(GameMap map, Actor actor) {
+        int MAX_DEGREE = 180;
+        int MIN_DEGREE = 1;
         List<Cell> visibleCells = new ArrayList<>();
-        for (int i = 1; i < 180; i++) {
+        for (int i = MIN_DEGREE; i < MAX_DEGREE; i++) {
             double linerFunctionFactor = calculateLinearFunctionFactor(i);
             double step = calculateStep(linerFunctionFactor);
             calculateLineOfView(map, actor, linerFunctionFactor, visibleCells, step, true);
@@ -34,14 +36,12 @@ public class FieldOfView {
     }
 
     public void calculateLineOfView(GameMap map, Actor actor, double linerFunctionFactor, List<Cell> visibleCells, double step, boolean positiveValue) {
-        Position actorPosition = actor.getPosition();
         double x = 0;
-        double y;
         double lookingDistanceSquare;
         do {
             x = positiveValue ? x + step : x - step;
-            y = x * linerFunctionFactor;
-            Position cellPosition = Position.of(actorPosition.x() + (int) x, actorPosition.y() + (int) y);
+            double y = x * linerFunctionFactor;
+            Position cellPosition = Position.of(actor.getPosition().x() + (int) x, actor.getPosition().y() + (int) y);
             addCellToList(visibleCells, map.getCell(cellPosition));
             if (map.getCell(cellPosition).getTileType() == TileType.WALL) {
                 break;
