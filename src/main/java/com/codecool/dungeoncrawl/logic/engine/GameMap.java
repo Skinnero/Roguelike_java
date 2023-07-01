@@ -34,10 +34,14 @@ public class GameMap {
     @Getter
     @Setter
     private int mapLevel = 0;
+    @Setter
+    @Getter
+    private String mapFileName;
     private final List<ActorEnemy> monsters = new ArrayList<>();
     private final List<Item> items = new ArrayList<>();
     private final List<InteractiveObject> interactiveObjects = new ArrayList<>();
     private final GameMessage gameMessage = GameMessage.getInstance();
+    private final GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
 
     public GameMap(int width, int height, TileType defaultTileType) {
         this.width = width;
@@ -106,9 +110,17 @@ public class GameMap {
     }
 
     public void save() {
-        GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
         gameDatabaseManager.setup();
-
+        gameDatabaseManager.savePlayer(player);
+        System.out.println("player saved");
+        gameDatabaseManager.saveGameState(mapFileName);
+        System.out.println("state saved");
+        gameDatabaseManager.saveMonsters(monsters);
+        System.out.println("monsters saved");
+        gameDatabaseManager.saveItems(items);
+        System.out.println("items saved");
+        gameDatabaseManager.saveObjects(interactiveObjects);
+        System.out.println("interactiveObjects saved");
     }
 
     private void attackEnemy(Cell cell) {

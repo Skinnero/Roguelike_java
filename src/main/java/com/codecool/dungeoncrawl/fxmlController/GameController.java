@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.fxmlController;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.fileloader.MapLoader;
@@ -31,6 +32,7 @@ public class GameController {
     protected void handleKeyEvent(KeyEvent keyEvent) {
         handlePlayerDeath();
         if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.S) {
+            saveGame();
             return;
         }
         handleNonBlockingEvents(keyEvent);
@@ -83,6 +85,10 @@ public class GameController {
 
     private void useItem(int inventorySlot) {
         gameMap.getPlayer().useItem(inventorySlot);
+    }
+
+    private void saveGame() {
+        gameMap.save();
     }
 
     @SneakyThrows

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameState implements BaseModel {
@@ -18,15 +17,12 @@ public class GameState implements BaseModel {
     @Setter
     @Getter
     private PlayerModel player;
-
     @Setter
     @Getter
     private List<MonsterModel> monsters;
-
     @Setter
     @Getter
     private List<ItemModel> items;
-
     @Setter
     @Getter
     private List<InteractiveObjectModel> interactiveObjects;

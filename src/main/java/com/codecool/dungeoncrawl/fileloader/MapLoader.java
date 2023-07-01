@@ -25,6 +25,7 @@ public class MapLoader {
         scanner.nextLine(); // empty line
 
         GameMap map = new GameMap(width, height, TileType.FLOOR);
+        map.setMapFileName(mapFileName);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {

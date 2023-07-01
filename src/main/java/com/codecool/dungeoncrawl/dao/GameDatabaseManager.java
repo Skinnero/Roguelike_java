@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.ActorEnemy;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.InteractiveObject;
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
@@ -10,6 +11,7 @@ import lombok.SneakyThrows;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class GameDatabaseManager {
@@ -18,6 +20,7 @@ public class GameDatabaseManager {
     private MonsterDaoJdbc monsterDao;
     private ItemDaoJdbc itemDao;
     private InteractiveObjectDaoJdbc interactiveObjectDao;
+    private final GameState gameState = GameState.getInstance();
 
     Dotenv dotenv = Dotenv.load();
     private final String DB_NAME = dotenv.get("DB_NAME");
@@ -36,16 +39,18 @@ public class GameDatabaseManager {
 
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
+        gameState.setPlayer(model);
         playerDao.add(model);
     }
 
-    public void saveGameState() {
-        GameState model = GameState.getInstance();
-        model.getPlayer().setId(playerDao.getRecentPlayerId());
-        gameStateDao.add(model);
+    public void saveGameState(String mapFileName) {
+        gameState.setCurrentMap(mapFileName);
+        gameState.getPlayer().setId(playerDao.getRecentPlayerId());
+        gameState.setSavedAt(new Timestamp(System.currentTimeMillis()));
+        gameStateDao.add(gameState);
     }
 
-    public void saveMonsters(List<Actor> monsters) {
+    public void saveMonsters(List<ActorEnemy> monsters) {
         for (Actor monsterActor : monsters) {
             MonsterModel model = new MonsterModel(monsterActor);
             monsterDao.add(model, playerDao.getRecentPlayerId());
