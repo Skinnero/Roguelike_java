@@ -8,10 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDaoJdbc implements PlayerDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public PlayerDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -75,7 +76,24 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
+    @SneakyThrows
     public List<PlayerModel> getAll() {
-        return null;
+        String sql = "select * from player";
+        List<PlayerModel> playerModels = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             Statement statement = conn.createStatement();
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                String playerName = resultSet.getString("player_name");
+                int playerHealth = resultSet.getInt("hp");
+                int playerX = resultSet.getInt("x");
+                int playerY = resultSet.getInt("y");
+                PlayerModel playerModel = new PlayerModel(playerName, playerHealth, playerX, playerY);
+                playerModel.setId(resultSet.getInt("id"));
+                playerModels.add(playerModel);
+            }
+            return playerModels;
+        }
     }
 }

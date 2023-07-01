@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.model.ItemModel;
 import java.util.function.BiConsumer;
 
 public enum GameStateLoader {
-
     FOOD(ItemLoaderConsumer::food),
     SWORD(ItemLoaderConsumer::sword),
     TORCH(ItemLoaderConsumer::torch),
@@ -18,6 +17,10 @@ public enum GameStateLoader {
     BOAT(InteractiveObjectLoaderConsumer::boat),
     OGRE(MonsterLoaderConsumer::ogre),
     MAGE(MonsterLoaderConsumer::mage),
+    PALADIN(MonsterLoaderConsumer::paladin),
+    WARRIOR(MonsterLoaderConsumer::warrior),
+    ARCHER(MonsterLoaderConsumer::archer),
+    ARCHMAGE(MonsterLoaderConsumer::archMage),
     SKELETON(MonsterLoaderConsumer::skeleton);
 
     private final BiConsumer<BaseModel, Cell> strategy;

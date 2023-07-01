@@ -18,6 +18,7 @@ import java.awt.*;
 
 public class GameController {
     @Getter
+    @Setter
     private GameMap gameMap = MapLoader.loadMap("/tutorial.txt");
     @Setter
     @Getter

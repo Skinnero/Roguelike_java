@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.interactiveobjects.Interactiv
 import com.codecool.dungeoncrawl.logic.gameobjects.items.Item;
 import com.codecool.dungeoncrawl.model.*;
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class GameDatabaseManager {
+    @Getter
     private PlayerDaoJdbc playerDao;
     private GameStateDaoJdbc gameStateDao;
     private MonsterDaoJdbc monsterDao;

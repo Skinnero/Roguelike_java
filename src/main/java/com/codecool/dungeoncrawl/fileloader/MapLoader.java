@@ -1,11 +1,11 @@
 package com.codecool.dungeoncrawl.fileloader;
 
 import com.codecool.dungeoncrawl.fileloader.gamestateloader.GameStateLoader;
-import com.codecool.dungeoncrawl.fileloader.gamestateloader.MonsterLoaderConsumer;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.utils.Profession;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileType;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InteractiveObjectModel;
@@ -44,9 +44,11 @@ public class MapLoader {
         player.setPosition(Position.of(gameState.getPlayer().getPositionX(), gameState.getPlayer().getPositionY()));
         player.setHealth(gameState.getPlayer().getHealth());
         player.setName(gameState.getPlayer().getPlayerName());
+        Profession.MAGE.apply(player);
 
-        GameMap gameMap = MapLoader.loadMap(gameState.getCurrentMap());
+        GameMap gameMap = MapLoader.loadMap("/empty" + gameState.getCurrentMap().split("/")[1]);
         gameMap.setPlayer(player);
+        gameMap.getCell(player.getPosition()).setActor(player);
 
         for (MonsterModel monster : gameState.getMonsters()) {
             GameStateLoader.valueOf(monster.getName())
