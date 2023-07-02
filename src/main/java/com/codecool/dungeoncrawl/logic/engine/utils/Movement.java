@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.engine.utils;
 
 /**
  * Record that allow actors to "Move" from their current position to new position
+ *
  * @param currentPosition
  * @param newPosition
  */

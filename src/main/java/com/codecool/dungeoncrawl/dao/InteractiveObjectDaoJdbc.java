@@ -14,7 +14,6 @@ import java.util.List;
 
 @AllArgsConstructor
 public class InteractiveObjectDaoJdbc implements InteractiveObjectDao {
-
     private DataSource dataSource;
 
     @Override
@@ -30,13 +29,7 @@ public class InteractiveObjectDaoJdbc implements InteractiveObjectDao {
             statement.setBoolean(3, interactiveObjectModel.isInteracted());
             statement.setInt(4, player_id);
             statement.setString(5, interactiveObjectModel.getName());
-
             statement.executeUpdate();
-
-//            ResultSet rs = statement.getGeneratedKeys();
-//            if (rs.next()) {
-//                interactiveObjectModel.setId(rs.getInt("id"));
-//            }
         }
     }
 
@@ -47,11 +40,8 @@ public class InteractiveObjectDaoJdbc implements InteractiveObjectDao {
             String sql = "select * from interactive_object where player_id =?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, playerId);
-
             ResultSet rs = statement.executeQuery();
-
             List<InteractiveObjectModel> objects = new ArrayList<>();
-
             while (rs.next()) {
                 objects.add(new InteractiveObjectModel());
                 objects.get(objects.size() - 1).setPositionX(rs.getInt("position_x"));

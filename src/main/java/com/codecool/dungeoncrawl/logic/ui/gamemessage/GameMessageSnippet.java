@@ -8,6 +8,7 @@ public enum GameMessageSnippet {
     PICK_ITEM(() -> "You picked up "),
     USE_ITEM(() -> "You used "),
     OPEN_UP_INTERACTIVE_OBJECT(() -> "You open up a "),
+    GAME_SAVED(() -> "Game is saved"),
     CLOSE_DOOR(() -> "You close a "),
     CANT_OPEN_DOOR(() -> "It's locked!"),
     TRAVEL_WITH_BOAT(() -> "You have traveled to further location with a "),

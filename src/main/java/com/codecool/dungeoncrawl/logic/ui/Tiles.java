@@ -31,6 +31,7 @@ public class Tiles {
         context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
                 position.x() * TILE_SIZE, position.y() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
+
     public static void drawTile(GraphicsContext context, TileId tileId, Position position, int tileSize) {
         Tile tile = new Tile(tileId);
         context.drawImage(tileSet, tile.x, tile.y, tile.w, tile.h,
@@ -49,15 +50,4 @@ public class Tiles {
 
     }
 
-//    public static boolean isVisible(Cell cell, GameMap map) {
-//        Position playerPosition = map.getPlayer().getPosition();
-//        Position cellPosition = cell.getPosition();
-//
-//        int distance = Math.abs(playerPosition.x() - cellPosition.x()) + Math.abs(playerPosition.y() - cellPosition.y());
-//
-//        int fieldOfView = map.getPlayer().getFieldOfView(map);
-//        boolean inFieldOfView = distance <= fieldOfView;
-//
-//        return cell.isVisible(map) && inFieldOfView;
-//    }
 }

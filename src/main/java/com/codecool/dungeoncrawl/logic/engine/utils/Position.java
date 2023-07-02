@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.engine.utils;
 
 /**
  * Record that represents typical problem where we use int[] and then getting values by its index
+ *
  * @param x position on array
  * @param y position on array
  */

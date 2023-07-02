@@ -16,6 +16,7 @@ public class Armor implements Item {
     public Armor() {
 
     }
+
     public Armor(Position position) {
         this.position = position;
     }

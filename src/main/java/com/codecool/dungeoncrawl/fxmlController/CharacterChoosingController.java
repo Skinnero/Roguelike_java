@@ -31,6 +31,7 @@ public class CharacterChoosingController {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void selectProfession(MouseEvent mouseEvent) {
         Node node = (Node) mouseEvent.getSource();
@@ -50,6 +51,7 @@ public class CharacterChoosingController {
         Label label = (Label) scene.lookup("#name");
         label.setText(Player.getInstance().getName());
     }
+
     private void setStageToWindows(GameController gameController, Scene scene) {
         gameController.setGameWindow(new GameWindow(scene));
         gameController.setGuiWindow(new GUIWindow(scene));

@@ -41,13 +41,13 @@ public class GameDatabaseManager {
 
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
+        model.setId(playerDao.getRecentPlayerId());
         gameState.setPlayer(model);
         playerDao.add(model);
     }
 
     public void saveGameState(String mapFileName) {
         gameState.setCurrentMap(mapFileName);
-        gameState.getPlayer().setId(playerDao.getRecentPlayerId());
         gameState.setSavedAt(new Timestamp(System.currentTimeMillis()));
         gameStateDao.add(gameState);
     }

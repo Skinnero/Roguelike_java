@@ -28,7 +28,6 @@ public class Player extends ActorPlayer {
     @Setter
     private String name;
     private static Player single_instance;
-    private final GameMessage gameMessage = GameMessage.getInstance();
 
 
     public Player() {
@@ -67,15 +66,15 @@ public class Player extends ActorPlayer {
                 return;
             }
         }
-        gameMessage.addToLogStash(GameMessageSnippet.PLAYER_INTERACT_WITH_NOTHING.getMessage());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.PLAYER_INTERACT_WITH_NOTHING.getMessage());
     }
 
     public void pickUpItem(GameMap map) {
         if (isInventoryFull() || Objects.isNull(map.getPlayerCell().getItem())) {
-            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_PICK_NOTHING.getMessage());
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.PLAYER_PICK_NOTHING.getMessage());
             return;
         }
-        gameMessage.addToLogStash(GameMessageSnippet.PICK_ITEM.getMessage() + map.getPlayerCell().getItem().getClass().getSimpleName());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.PICK_ITEM.getMessage() + map.getPlayerCell().getItem().getClass().getSimpleName());
         addToInventory(map.getPlayerCell().getItem());
         map.removeItemFromGameObjectList(map.getPlayerCell().getItem());
         map.getPlayerCell().setItem(null);
@@ -92,12 +91,6 @@ public class Player extends ActorPlayer {
         Profession.assignProfession(professionTileId).apply(this);
     }
 
-    public int getFieldOfView(GameMap map) {
-//        int mapSizeBonus = Math.min(map.getWidth(), map.getHeight()) / 10;
-//        return getFieldOfViewDistance() + mapSizeBonus;
-        return getFieldOfViewDistance();
-    }
-
     public List<Item> getInventory() {
         return new ArrayList<>(inventory);
     }
@@ -110,11 +103,10 @@ public class Player extends ActorPlayer {
         return getAttack() - enemyDefense;
     }
 
-    @Override
     public <T extends Actor> void planAttack(T enemy) {
         enemy.setHealth(enemy.getHealth() - calculateDamage(enemy.getDefense()));
-        gameMessage.addToLogStash(GameMessageSnippet.PLAYER_DAMAGE_DONE.getMessage() + getAttack());
-        gameMessage.addToLogStash(GameMessageSnippet.MONSTER_DAMAGE_TAKEN.getMessage() + calculateDamage(enemy.getDefense()));
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.PLAYER_DAMAGE_DONE.getMessage() + getAttack());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.MONSTER_DAMAGE_TAKEN.getMessage() + calculateDamage(enemy.getDefense()));
     }
 
     public void gainExperience(int experienceFromEnemies) {
@@ -123,8 +115,8 @@ public class Player extends ActorPlayer {
             experience -= maxExperience;
             maxExperience += 10;
             maxHealth += 5;
-            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_LEVEL_UP.getMessage());
-            gameMessage.addToLogStash(GameMessageSnippet.PLAYER_HEALTH_UP.getMessage());
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.PLAYER_LEVEL_UP.getMessage());
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.PLAYER_HEALTH_UP.getMessage());
         }
     }
 }

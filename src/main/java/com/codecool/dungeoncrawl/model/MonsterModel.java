@@ -27,6 +27,7 @@ public class MonsterModel implements BaseModel {
         this.positionY = actor.getPosition().y();
         this.name = actor.getClass().getSimpleName().toUpperCase();
     }
+
     @Override
     public Position getPosition() {
         return Position.of(positionX, positionY);

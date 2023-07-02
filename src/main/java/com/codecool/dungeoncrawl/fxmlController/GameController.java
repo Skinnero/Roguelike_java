@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.engine.*;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.Direction;
 import com.codecool.dungeoncrawl.fileloader.MapLoader;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessage;
+import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -34,6 +36,8 @@ public class GameController {
         handlePlayerDeath();
         if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.S) {
             saveGame();
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.GAME_SAVED.getMessage());
+            guiWindow.refreshInterface();
             return;
         }
         handleNonBlockingEvents(keyEvent);
@@ -94,6 +98,7 @@ public class GameController {
 
     @SneakyThrows
     private void handlePlayerDeath(){
+        // UNCOMMENT TO MAKE PLAYER ABLE TO DIE
 //        if (gameMap.getPlayer().isDead()) {
 //            deathPane.setVisible(true);
 //            deathPane.getChildren().add(new Text("You Died!"));

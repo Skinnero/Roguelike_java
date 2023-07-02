@@ -45,7 +45,7 @@ public class WelcomingStageController {
         Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
-        setStageToWindow(fxmlLoader.getController(), scene);
+        setStageToWindow(scene);
 
         scene.getRoot().requestFocus();
         stage.setScene(scene);
@@ -58,7 +58,7 @@ public class WelcomingStageController {
         System.exit(0);
     }
 
-    private void setStageToWindow(LoaderController loaderController, Scene scene) {
+    private void setStageToWindow(Scene scene) {
         VBox vBox = (VBox) scene.lookup("#loadingVbox");
         GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
         gameDatabaseManager.setup();
@@ -72,7 +72,7 @@ public class WelcomingStageController {
                     "-fx-border-style: solid;" +
                     "-fx-background-color: black");
             text.setOnMouseClicked(mouseEvent -> {
-                GameState gameState = gameDatabaseManager.load(Integer.parseInt(((Text) mouseEvent.getSource()).getId()));
+                        GameState gameState = gameDatabaseManager.load(Integer.parseInt(((Text) mouseEvent.getSource()).getId()));
                         loadGameFromDB(mouseEvent, gameState);
                     }
 

@@ -8,8 +8,6 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylogi
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 
 public class Skeleton extends ActorEnemy {
-    //TODO: SKELETON ATTACKS AND REACTION TO A PLAYER ARE STILL NOT IMPLEMENTED
-
     public Skeleton(Position position) {
         super(ActorTileId.SKELETON.getTileId(), position);
         this.setHealth(6);
@@ -24,11 +22,6 @@ public class Skeleton extends ActorEnemy {
             return Movement.of(getPosition(), getPosition());
         }
         return Movement.of(getPosition(), newPosition);
-    }
-
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-
     }
 
 }

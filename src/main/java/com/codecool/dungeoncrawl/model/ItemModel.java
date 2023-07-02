@@ -12,13 +12,14 @@ public class ItemModel implements BaseModel {
 
     private int positionX;
     private int positionY;
-    String name;
+    private String name;
 
     public ItemModel(Item item) {
         this.positionX = item.getPosition().x();
         this.positionY = item.getPosition().y();
         this.name = item.getClass().getSimpleName().toUpperCase();
     }
+
     @Override
     public Position getPosition() {
         return Position.of(positionX, positionY);

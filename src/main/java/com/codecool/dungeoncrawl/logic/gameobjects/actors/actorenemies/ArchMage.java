@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.gameobjects.actors.Actor;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.enemylogic.Behavior;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.utils.ActorTileId;
 
-public class ArchMage extends ActorEnemy{
+public class ArchMage extends ActorEnemy {
 
     public ArchMage(Position position) {
         super(ActorTileId.ARCHMAGE.getTileId(), position);
@@ -28,7 +28,4 @@ public class ArchMage extends ActorEnemy{
         return Movement.of(getPosition(), newPosition);
     }
 
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-    }
 }

@@ -18,6 +18,7 @@ public enum GameStateLoader {
     BOAT(InteractiveObjectLoaderConsumer::boat),
     OGRE(MonsterLoaderConsumer::ogre),
     MAGE(MonsterLoaderConsumer::mage),
+    PLAYER(MonsterLoaderConsumer::player),
     PALADIN(MonsterLoaderConsumer::paladin),
     WARRIOR(MonsterLoaderConsumer::warrior),
     ARCHER(MonsterLoaderConsumer::archer),

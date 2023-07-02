@@ -27,8 +27,4 @@ public class Warrior extends ActorEnemy {
 
     }
 
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-
-    }
 }

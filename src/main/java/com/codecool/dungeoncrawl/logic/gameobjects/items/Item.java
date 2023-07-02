@@ -10,11 +10,13 @@ import com.codecool.dungeoncrawl.logic.ui.gamemessage.GameMessageSnippet;
 public interface Item extends Renderable {
     @Override
     TileId getTileId();
+
     Position getPosition();
+
     void onUse(Player player);
+
     default void addMessageToLog() {
-        GameMessage gameMessage = GameMessage.getInstance();
-        gameMessage.addToLogStash(GameMessageSnippet.USE_ITEM.getMessage() + this.getClass().getSimpleName());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.USE_ITEM.getMessage() + this.getClass().getSimpleName());
     }
 
 }

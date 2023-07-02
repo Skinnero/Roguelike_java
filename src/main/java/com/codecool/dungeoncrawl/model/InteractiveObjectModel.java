@@ -14,7 +14,7 @@ public class InteractiveObjectModel implements BaseModel {
     private int positionX;
     private int positionY;
     private boolean isInteracted;
-    String name;
+    private String name;
 
     public InteractiveObjectModel(InteractiveObject interactiveObject) {
         this.positionX = interactiveObject.getPosition().x();

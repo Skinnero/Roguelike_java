@@ -4,8 +4,11 @@ import com.codecool.dungeoncrawl.logic.engine.Cell;
 import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.logic.engine.utils.Position;
 import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorenemies.*;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
+import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.utils.Profession;
 import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.MonsterModel;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 
 public class MonsterLoaderConsumer {
     private MonsterLoaderConsumer() {
@@ -86,6 +89,17 @@ public class MonsterLoaderConsumer {
         archMage.setAttack(monsterModel.getAttack());
         cell.setActor(archMage);
         gameMap.addToGameObjectList(cell);
+    }
+    public static void player(BaseModel baseModel, GameMap gameMap) {
+        PlayerModel playerModel = (PlayerModel) baseModel;
+        Cell cell = gameMap.getCell(playerModel.getPosition());
+        Player player = Player.getInstance();
+        player.setPosition(playerModel.getPosition());
+        player.setHealth(playerModel.getHealth());
+        player.setName(playerModel.getPlayerName());
+        Profession.MAGE.apply(player);
+        cell.setActor(player);
+        gameMap.setPlayer(player);
     }
 
 }

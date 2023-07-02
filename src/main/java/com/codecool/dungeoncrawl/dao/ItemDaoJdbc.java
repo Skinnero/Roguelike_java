@@ -28,12 +28,7 @@ public class ItemDaoJdbc implements ItemDao {
             statement.setInt(2, item.getPositionY());
             statement.setInt(3, player_id);
             statement.setString(4, item.getName());
-
             statement.executeUpdate();
-//            ResultSet rs = statement.getGeneratedKeys();
-//            if (rs.next()) {
-//                item.setId(rs.getInt("id"));
-//            }
         }
     }
 

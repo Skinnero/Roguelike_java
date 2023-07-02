@@ -54,6 +54,7 @@ public class EnvironmentalObjectConsumer {
     public static void letterE(Cell cell) {
         cell.setTileType(TileType.LETTER_E);
     }
+
     public static void letterR(Cell cell) {
         cell.setTileType(TileType.LETTER_R);
     }

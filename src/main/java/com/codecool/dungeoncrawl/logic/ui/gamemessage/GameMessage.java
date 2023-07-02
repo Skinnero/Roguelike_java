@@ -28,5 +28,5 @@ public class GameMessage {
     public List<String> getLogStash() {
         return new ArrayList<>(logStash);
     }
-    
+
 }

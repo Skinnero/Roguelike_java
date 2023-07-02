@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.utils;
 
-import com.codecool.dungeoncrawl.logic.gameobjects.actors.actorplayer.Player;
 import com.codecool.dungeoncrawl.logic.ui.utils.TileId;
 import lombok.Getter;
 

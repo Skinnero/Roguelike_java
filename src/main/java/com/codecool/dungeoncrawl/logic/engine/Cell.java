@@ -68,7 +68,7 @@ public class Cell {
         int cellY = position.y();
 
         int distance = Math.abs(playerX - cellX) + Math.abs(playerY - cellY);
-        int fieldOfView = gameMap.getPlayer().getFieldOfView(gameMap);
+        int fieldOfView = gameMap.getPlayer().getFieldOfViewDistance();
         return distance <= fieldOfView;
     }
 

@@ -35,10 +35,6 @@ public class Ogre extends ActorEnemy {
         return Movement.of(getPosition(), newPosition);
     }
 
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-    }
-
     public void setPatrolPlaces() {
         setFirstPlace(Position.of(getPosition().x() - 3, getPosition().y()));
         setPatrolDestination(Position.of(getPosition().x() + 3, getPosition().y()));

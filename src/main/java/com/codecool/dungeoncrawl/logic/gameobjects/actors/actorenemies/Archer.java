@@ -15,6 +15,7 @@ public class Archer extends ActorEnemy {
         this.setHealth(4);
         this.setFieldOfViewDistance(4);
     }
+
     @Override
     public Movement planMovement(GameMap map) {
         Behavior behavior = new Behavior();
@@ -24,11 +25,6 @@ public class Archer extends ActorEnemy {
             return Movement.of(getPosition(), getPosition());
         }
         return Movement.of(getPosition(), newPosition);
-    }
-
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-
     }
 
 }

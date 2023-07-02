@@ -14,6 +14,7 @@ public class Sword implements Item {
 
     public Sword() {
     }
+
     public Sword(Position position) {
         this.position = position;
     }

@@ -13,8 +13,6 @@ import java.util.Random;
 
 public class Chest extends InteractiveObject {
 
-    private final GameMessage gameMessage = GameMessage.getInstance();
-
     public Chest(Position position) {
         super(InteractiveObjectTileId.CLOSED_CHEST.getTileId(), position);
     }
@@ -30,7 +28,7 @@ public class Chest extends InteractiveObject {
         }
         setTileId(InteractiveObjectTileId.OPEN_CHEST.getTileId());
         Player.getInstance().addToInventory((generateRandomItem()));
-        gameMessage.addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
     }
 
     @Override

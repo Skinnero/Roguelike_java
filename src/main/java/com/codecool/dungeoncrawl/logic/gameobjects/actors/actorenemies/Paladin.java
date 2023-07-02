@@ -26,7 +26,4 @@ public class Paladin extends ActorEnemy {
         return Movement.of(getPosition(), newPosition);
     }
 
-    @Override
-    public <T extends Actor> void planAttack(T enemy) {
-    }
 }

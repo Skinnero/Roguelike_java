@@ -47,11 +47,6 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void update(PlayerModel player) {
-
-    }
-
-    @Override
     @SneakyThrows
     public PlayerModel get(int playerId) {
         String sql = "select * from player where id = ?";

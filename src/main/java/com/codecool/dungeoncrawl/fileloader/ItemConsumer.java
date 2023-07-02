@@ -25,7 +25,7 @@ public class ItemConsumer {
         cell.setItem(new Armor(Position.of(cell.getPosition().x(), cell.getPosition().y())));
     }
 
-    public static void  key(Cell cell) {
+    public static void key(Cell cell) {
         cell.setItem(new Key(Position.of(cell.getPosition().x(), cell.getPosition().y())));
     }
 

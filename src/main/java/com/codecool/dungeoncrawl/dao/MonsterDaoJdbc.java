@@ -32,12 +32,7 @@ public class MonsterDaoJdbc implements MonsterDao {
             statement.setInt(6, monster.getPositionY());
             statement.setInt(7, playerId);
             statement.setString(8, monster.getName());
-
             statement.executeUpdate();
-//            ResultSet rs = statement.getGeneratedKeys();
-//            if (rs.next()) {
-//                monster.setId(rs.getInt(1));
-//            }
         }
     }
 

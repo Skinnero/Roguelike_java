@@ -40,15 +40,9 @@ public class MapLoader {
     }
 
     public static GameMap loadAndPutObjectsOnMap(GameState gameState) {
-        Player player = Player.getInstance();
-        player.setPosition(Position.of(gameState.getPlayer().getPositionX(), gameState.getPlayer().getPositionY()));
-        player.setHealth(gameState.getPlayer().getHealth());
-        player.setName(gameState.getPlayer().getPlayerName());
-        Profession.MAGE.apply(player);
-
         GameMap gameMap = MapLoader.loadMap("/empty" + gameState.getCurrentMap().split("/")[1]);
-        gameMap.setPlayer(player);
-        gameMap.getCell(player.getPosition()).setActor(player);
+
+        GameStateLoader.PLAYER.apply(gameState.getPlayer(), gameMap);
 
         for (MonsterModel monster : gameState.getMonsters()) {
             GameStateLoader.valueOf(monster.getName())

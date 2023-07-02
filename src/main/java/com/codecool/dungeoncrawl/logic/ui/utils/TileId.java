@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.ui.utils;
 
 /**
  * ID of a graphical representation of a certain tile
+ *
  * @param x Horizontal value
  * @param y Vertical value
  */

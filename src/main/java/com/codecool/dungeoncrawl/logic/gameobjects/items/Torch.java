@@ -8,7 +8,7 @@ import lombok.Getter;
 
 public class Torch implements Item {
 
-    public static int value = 1;
+    public final int value = 1;
     private final TileId tileId = ItemTileId.TORCH.getTileId();
     @Getter
     private Position position;

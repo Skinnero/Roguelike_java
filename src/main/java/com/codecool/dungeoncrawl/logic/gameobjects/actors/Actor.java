@@ -31,8 +31,6 @@ public abstract class Actor implements Renderable {
         this.position = position;
     }
 
-    public abstract <T extends Actor> void planAttack(T enemy);
-
     public boolean isDead() {
         return health <= 0;
     }

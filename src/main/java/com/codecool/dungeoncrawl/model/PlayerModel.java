@@ -35,6 +35,7 @@ public class PlayerModel implements BaseModel {
         this.positionY = player.getPosition().y();
         this.health = player.getHealth();
     }
+
     @Override
     public Position getPosition() {
         return Position.of(positionX, positionY);

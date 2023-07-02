@@ -14,7 +14,6 @@ public class Door extends InteractiveObject {
     private boolean isOpen = false;
     @Setter
     private boolean isLocked = true;
-    private final GameMessage gameMessage = GameMessage.getInstance();
 
 
     public Door(Position position) {
@@ -31,14 +30,15 @@ public class Door extends InteractiveObject {
         if (isOpen) {
             setOpen(false);
             setTileId(InteractiveObjectTileId.CLOSED_DOOR.getTileId());
-            gameMessage.addToLogStash(GameMessageSnippet.CLOSE_DOOR.getMessage() + this.getClass().getSimpleName());
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.CLOSE_DOOR.getMessage() + this.getClass().getSimpleName());
         } else {
             setOpen(true);
             setTileId(InteractiveObjectTileId.OPEN_DOOR.getTileId());
-            gameMessage.addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
+            GameMessage.getInstance().addToLogStash(GameMessageSnippet.OPEN_UP_INTERACTIVE_OBJECT.getMessage() + this.getClass().getSimpleName());
 
         }
     }
+
     public void searchPlayerInventoryForKey() {
         for (Item item : Player.getInstance().getInventory()) {
             if (item instanceof Key) {
@@ -47,7 +47,7 @@ public class Door extends InteractiveObject {
                 return;
             }
         }
-        gameMessage.addToLogStash(GameMessageSnippet.CANT_OPEN_DOOR.getMessage());
+        GameMessage.getInstance().addToLogStash(GameMessageSnippet.CANT_OPEN_DOOR.getMessage());
     }
 
     @Override
