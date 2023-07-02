@@ -33,7 +33,7 @@ public class GameMap {
     private Player player;
     @Getter
     @Setter
-    private int mapLevel = 0;
+    private static int mapLevel = 0;
     @Setter
     @Getter
     private String mapFileName;
