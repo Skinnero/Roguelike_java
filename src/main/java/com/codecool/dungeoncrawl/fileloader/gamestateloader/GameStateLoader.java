@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.fileloader.gamestateloader;
 
 import com.codecool.dungeoncrawl.logic.engine.Cell;
+import com.codecool.dungeoncrawl.logic.engine.GameMap;
 import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.ItemModel;
 
@@ -23,13 +24,13 @@ public enum GameStateLoader {
     ARCHMAGE(MonsterLoaderConsumer::archMage),
     SKELETON(MonsterLoaderConsumer::skeleton);
 
-    private final BiConsumer<BaseModel, Cell> strategy;
+    private final BiConsumer<BaseModel, GameMap> strategy;
 
-    GameStateLoader(BiConsumer<BaseModel, Cell> strategy) {
+    GameStateLoader(BiConsumer<BaseModel, GameMap> strategy) {
         this.strategy = strategy;
     }
 
-    public <T extends BaseModel> void apply(T baseModel, Cell cell) {
-        strategy.accept(baseModel, cell);
+    public <T extends BaseModel> void apply(T baseModel, GameMap gameMap) {
+        strategy.accept(baseModel, gameMap);
     }
 }

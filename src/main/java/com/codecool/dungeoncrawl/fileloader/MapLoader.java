@@ -52,15 +52,15 @@ public class MapLoader {
 
         for (MonsterModel monster : gameState.getMonsters()) {
             GameStateLoader.valueOf(monster.getName())
-                    .apply(monster, gameMap.getCell(Position.of(monster.getPositionX(), monster.getPositionY())));
+                    .apply(monster, gameMap);
         }
         for (ItemModel item : gameState.getItems()) {
             GameStateLoader.valueOf(item.getName())
-                    .apply(item, gameMap.getCell(Position.of(item.getPositionX(), item.getPositionY())));
+                    .apply(item, gameMap);
         }
         for (InteractiveObjectModel interactiveObject : gameState.getInteractiveObjects()) {
             GameStateLoader.valueOf(interactiveObject.getName())
-                    .apply(interactiveObject, gameMap.getCell(Position.of(interactiveObject.getPositionX(), interactiveObject.getPositionY())));
+                    .apply(interactiveObject, gameMap);
         }
         return gameMap;
     }
